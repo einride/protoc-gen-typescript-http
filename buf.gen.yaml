@@ -1,0 +1,9 @@
+version: v1beta1
+
+plugins:
+  - name: go
+    out: examples/proto/gen/go
+    opt: module=github.com/einride/protoc-gen-typescript-http/examples/proto/gen/go
+
+  - name: typescript-http
+    out: examples/proto/gen/typescript

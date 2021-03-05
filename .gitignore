@@ -1,0 +1,4 @@
+.idea
+tools/*/*/
+node_modules/
+bin
