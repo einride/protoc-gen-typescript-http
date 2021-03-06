@@ -14,7 +14,14 @@ func (m messageGenerator) Type() string {
 }
 
 func (m messageGenerator) Generate(f *codegen.File) {
+	m.generateType(f)
+}
+
+func (m messageGenerator) generateType(f *codegen.File) {
 	f.P("export type ", m.Type(), " = {")
-	f.P("}")
+	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
+		f.P(t(1), fieldName(field), "?: ", fieldType(field), fieldCardinality(field), ";")
+	})
+	f.P("};")
 	f.P()
 }
