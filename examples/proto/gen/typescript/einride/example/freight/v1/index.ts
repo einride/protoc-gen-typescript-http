@@ -5,12 +5,12 @@ export type Shipment = {
 	// The resource name of the shipment.
 	name?: string;
 	// The creation timestamp of the shipment.
-	createTime?: unknown;
+	createTime?: wellKnownTimestamp;
 	// The last update timestamp of the shipment.
 	// Updated when create/update/delete operation is shipment.
-	updateTime?: unknown;
+	updateTime?: wellKnownTimestamp;
 	// The deletion timestamp of the shipment.
-	deleteTime?: unknown;
+	deleteTime?: wellKnownTimestamp;
 	// The resource name of the origin site of the shipment.
 	// Format: shippers/{shipper}/sites/{site}
 	originSite?: string;
@@ -18,13 +18,13 @@ export type Shipment = {
 	// Format: shippers/{shipper}/sites/{site}
 	destinationSite?: string;
 	// The earliest pickup time of the shipment at the origin site.
-	pickupEarliestTime?: unknown;
+	pickupEarliestTime?: wellKnownTimestamp;
 	// The latest pickup time of the shipment at the origin site.
-	pickupLatestTime?: unknown;
+	pickupLatestTime?: wellKnownTimestamp;
 	// The earliest delivery time of the shipment at the destination site.
-	deliveryEarliestTime?: unknown;
+	deliveryEarliestTime?: wellKnownTimestamp;
 	// The latest delivery time of the shipment at the destination site.
-	deliveryLatestTime?: unknown;
+	deliveryLatestTime?: wellKnownTimestamp;
 	// The line items of the shipment.
 	lineItems?: unknown[];
 	// Annotations of the shipment.
@@ -48,12 +48,12 @@ export type Shipper = {
 	// The resource name of the shipper.
 	name?: string;
 	// The creation timestamp of the shipper.
-	createTime?: unknown;
+	createTime?: wellKnownTimestamp;
 	// The last update timestamp of the shipper.
 	// Updated when create/update/delete operation is performed.
-	updateTime?: unknown;
+	updateTime?: wellKnownTimestamp;
 	// The deletion timestamp of the shipper.
-	deleteTime?: unknown;
+	deleteTime?: wellKnownTimestamp;
 	// The display name of the shipper.
 	displayName?: string;
 };
@@ -64,12 +64,12 @@ export type Site = {
 	// The resource name of the site.
 	name?: string;
 	// The creation timestamp of the site.
-	createTime?: unknown;
+	createTime?: wellKnownTimestamp;
 	// The last update timestamp of the site.
 	// Updated when create/update/delete operation is performed.
-	updateTime?: unknown;
+	updateTime?: wellKnownTimestamp;
 	// The deletion timestamp of the site.
-	deleteTime?: unknown;
+	deleteTime?: wellKnownTimestamp;
 	// The display name of the site.
 	displayName?: string;
 	// The geographic location of the site.
@@ -119,7 +119,7 @@ export type UpdateShipperRequest = {
 	// Format: shippers/{shipper}
 	shipper?: unknown;
 	// The list of fields to be updated.
-	updateMask?: unknown;
+	updateMask?: wellKnownFieldMask;
 };
 
 // Request message for FreightService.DeleteShipper.
@@ -178,7 +178,7 @@ export type UpdateSiteRequest = {
 	// Format: shippers/{shipper}/sites/{site}
 	site?: unknown;
 	// The list of fields to be updated.
-	updateMask?: unknown;
+	updateMask?: wellKnownFieldMask;
 };
 
 // Request message for FreightService.DeleteSite.
@@ -237,7 +237,7 @@ export type UpdateShipmentRequest = {
 	// Format: shippers/{shipper}/shipments/{shipment}
 	shipment?: unknown;
 	// The list of fields to be updated.
-	updateMask?: unknown;
+	updateMask?: wellKnownFieldMask;
 };
 
 // Request message for FreightService.DeleteShipment.
@@ -246,4 +246,37 @@ export type DeleteShipmentRequest = {
 	// Format: shippers/{shipper}/shipments/{shipment}
 	name?: string;
 };
+
+// Encoded using RFC 3339, where generated output will always be Z-normalized
+// and uses 0, 3, 6 or 9 fractional digits.
+// Offsets other than "Z" are also accepted.
+type wellKnownTimestamp = string;
+
+// In JSON, a field mask is encoded as a single string where paths are
+// separated by a comma. Fields name in each path are converted
+// to/from lower-camel naming conventions.
+// As an example, consider the following message declarations:
+//
+//     message Profile {
+//       User user = 1;
+//       Photo photo = 2;
+//     }
+//     message User {
+//       string display_name = 1;
+//       string address = 2;
+//     }
+//
+// In proto a field mask for `Profile` may look as such:
+//
+//     mask {
+//       paths: "user.display_name"
+//       paths: "photo"
+//     }
+//
+// In JSON, the same mask is represented as below:
+//
+//     {
+//       mask: "user.displayName,photo"
+//     }
+type wellKnownFieldMask = string;
 

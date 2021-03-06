@@ -81,73 +81,73 @@ export type Message = {
 	// oneof_message2
 	oneofMessage2?: unknown;
 	// any
-	any?: unknown;
+	any?: wellKnownAny;
 	// repeated_any
-	repeatedAny?: unknown[];
+	repeatedAny?: wellKnownAny[];
 	// duration
-	duration?: unknown;
+	duration?: wellKnownDuration;
 	// repeated_duration
-	repeatedDuration?: unknown[];
+	repeatedDuration?: wellKnownDuration[];
 	// empty
-	empty?: unknown;
+	empty?: wellKnownEmpty;
 	// repeated_empty
-	repeatedEmpty?: unknown[];
+	repeatedEmpty?: wellKnownEmpty[];
 	// field_mask
-	fieldMask?: unknown;
+	fieldMask?: wellKnownFieldMask;
 	// repeated_field_mask
-	repeatedFieldMask?: unknown[];
+	repeatedFieldMask?: wellKnownFieldMask[];
 	// struct
-	struct?: unknown;
+	struct?: wellKnownStruct;
 	// repeated_struct
-	repeatedStruct?: unknown[];
+	repeatedStruct?: wellKnownStruct[];
 	// value
-	value?: unknown;
+	value?: wellKnownValue;
 	// repeated_value
-	repeatedValue?: unknown[];
+	repeatedValue?: wellKnownValue[];
 	// null_value
-	nullValue?: unknown;
+	nullValue?: wellKnownNullValue;
 	// repeated_null_value
-	repeatedNullValue?: unknown[];
+	repeatedNullValue?: wellKnownNullValue[];
 	// list_value
-	listValue?: unknown;
+	listValue?: wellKnownListValue;
 	// repeated_list_value
-	repeatedListValue?: unknown[];
+	repeatedListValue?: wellKnownListValue[];
 	// bool_value
-	boolValue?: unknown;
+	boolValue?: wellKnownBoolValue;
 	// repeated_bool_value
-	repeatedBoolValue?: unknown[];
+	repeatedBoolValue?: wellKnownBoolValue[];
 	// bytes_value
-	bytesValue?: unknown;
+	bytesValue?: wellKnownBytesValue;
 	// repeated_bytes_value
-	repeatedBytesValue?: unknown[];
+	repeatedBytesValue?: wellKnownBytesValue[];
 	// double_value
-	doubleValue?: unknown;
+	doubleValue?: wellKnownDoubleValue;
 	// repeated_double_value
-	repeatedDoubleValue?: unknown[];
+	repeatedDoubleValue?: wellKnownDoubleValue[];
 	// float_value
-	floatValue?: unknown;
+	floatValue?: wellKnownFloatValue;
 	// repeated_float_value
-	repeatedFloatValue?: unknown[];
+	repeatedFloatValue?: wellKnownFloatValue[];
 	// int32_value
-	int32Value?: unknown;
+	int32Value?: wellKnownInt32Value;
 	// repeated_int32_value
-	repeatedInt32Value?: unknown[];
+	repeatedInt32Value?: wellKnownInt32Value[];
 	// int64_value
-	int64Value?: unknown;
+	int64Value?: wellKnownInt64Value;
 	// repeated_int64_value
-	repeatedInt64Value?: unknown[];
+	repeatedInt64Value?: wellKnownInt64Value[];
 	// uint32_value
-	uint32Value?: unknown;
+	uint32Value?: wellKnownUInt32Value;
 	// repeated_uint32_value
-	repeatedUint32Value?: unknown[];
+	repeatedUint32Value?: wellKnownUInt32Value[];
 	// uint64_value
-	uint64Value?: unknown;
+	uint64Value?: wellKnownUInt64Value;
 	// repeated_uint64_value
-	repeatedUint64Value?: unknown[];
+	repeatedUint64Value?: wellKnownUInt64Value[];
 	// string_value
-	stringValue?: unknown;
+	stringValue?: wellKnownUInt64Value;
 	// repeated_string_value
-	repeatedStringValue?: unknown[];
+	repeatedStringValue?: wellKnownStringValue[];
 };
 
 // NestedMessage
@@ -169,4 +169,79 @@ export type Enum =
 	| "ENUM_ONE"
 	// ENUM_TWO
 	| "ENUM_TWO"
+
+// If the Any contains a value that has a special JSON mapping,
+// it will be converted as follows:
+// {"@type": xxx, "value": yyy}.
+// Otherwise, the value will be converted into a JSON object,
+// and the "@type" field will be inserted to indicate the actual data type.
+interface wellKnownAny {
+	"@type": string;
+	 [key: string]: unknown;
+}
+
+// Generated output always contains 0, 3, 6, or 9 fractional digits,
+// depending on required precision, followed by the suffix "s".
+// Accepted are any fractional digits (also none) as long as they fit
+// into nano-seconds precision and the suffix "s" is required.
+type wellKnownDuration = string;
+
+// An empty JSON object
+type wellKnownEmpty = Record<never, never>
+
+
+// In JSON, a field mask is encoded as a single string where paths are
+// separated by a comma. Fields name in each path are converted
+// to/from lower-camel naming conventions.
+// As an example, consider the following message declarations:
+//
+//     message Profile {
+//       User user = 1;
+//       Photo photo = 2;
+//     }
+//     message User {
+//       string display_name = 1;
+//       string address = 2;
+//     }
+//
+// In proto a field mask for `Profile` may look as such:
+//
+//     mask {
+//       paths: "user.display_name"
+//       paths: "photo"
+//     }
+//
+// In JSON, the same mask is represented as below:
+//
+//     {
+//       mask: "user.displayName,photo"
+//     }
+type wellKnownFieldMask = string;
+
+// Any JSON value.
+type wellKnownStruct = Record<string, unknown>;
+
+type wellKnownValue = unknown;
+
+type wellKnownNullValue = null;
+
+type wellKnownListValue = wellKnownValue[];
+
+type wellKnownBoolValue = boolean | null;
+
+type wellKnownBytesValue = string | null;
+
+type wellKnownDoubleValue = number | null;
+
+type wellKnownFloatValue = number | null;
+
+type wellKnownInt32Value = number | null;
+
+type wellKnownInt64Value = number | null;
+
+type wellKnownUInt32Value = number | null;
+
+type wellKnownUInt64Value = number | null;
+
+type wellKnownStringValue = string | null;
 

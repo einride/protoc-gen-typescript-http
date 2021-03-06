@@ -28,6 +28,21 @@ func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect
 	}
 }
 
+func rangeFileMessages(file protoreflect.FileDescriptor, f func(message protoreflect.MessageDescriptor)) {
+	for i := 0; i < file.Messages().Len(); i++ {
+		f(file.Messages().Get(i))
+		rangeNestedMessages(file.Messages().Get(i), f)
+	}
+}
+
+func rangeNestedMessages(msg protoreflect.MessageDescriptor, f func(message protoreflect.MessageDescriptor)) {
+	for i := 0; i < msg.Messages().Len(); i++ {
+		nested := msg.Messages().Get(i)
+		f(msg.Messages().Get(i))
+		rangeNestedMessages(nested, f)
+	}
+}
+
 func t(n int) string {
 	return strings.Repeat("\t", n)
 }
