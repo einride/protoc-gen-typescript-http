@@ -88,3 +88,11 @@ export type Message_NestedMessage = {
 	string?: string;
 };
 
+//  Enum
+export type Enum = 
+	//  ENUM_UNSPECIFIED
+	| "ENUM_UNSPECIFIED"
+	//  ENUM_ONE
+	| "ENUM_ONE"
+	//  ENUM_TWO
+	| "ENUM_TWO"
