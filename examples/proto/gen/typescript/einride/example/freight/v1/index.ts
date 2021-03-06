@@ -31,6 +31,11 @@ export type Shipment = {
 	annotations?: { [key: string]: string};
 };
 
+// Encoded using RFC 3339, where generated output will always be Z-normalized
+// and uses 0, 3, 6 or 9 fractional digits.
+// Offsets other than "Z" are also accepted.
+type wellKnownTimestamp = string;
+
 // A shipment line item.
 export type LineItem = {
 	// The title of the line item.
@@ -73,7 +78,19 @@ export type Site = {
 	// The display name of the site.
 	displayName?: string;
 	// The geographic location of the site.
-	latLng?: LatLng;
+	latLng?: googletype_LatLng;
+};
+
+// An object that represents a latitude/longitude pair. This is expressed as a
+// pair of doubles to represent degrees latitude and degrees longitude. Unless
+// specified otherwise, this must conform to the
+// <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
+// standard</a>. Values must be within normalized ranges.
+export type googletype_LatLng = {
+	// The latitude in degrees. It must be in the range [-90.0, +90.0].
+	latitude?: number;
+	// The longitude in degrees. It must be in the range [-180.0, +180.0].
+	longitude?: number;
 };
 
 // Request message for FreightService.GetShipper.
@@ -121,6 +138,34 @@ export type UpdateShipperRequest = {
 	// The list of fields to be updated.
 	updateMask?: wellKnownFieldMask;
 };
+
+// In JSON, a field mask is encoded as a single string where paths are
+// separated by a comma. Fields name in each path are converted
+// to/from lower-camel naming conventions.
+// As an example, consider the following message declarations:
+//
+//     message Profile {
+//       User user = 1;
+//       Photo photo = 2;
+//     }
+//     message User {
+//       string display_name = 1;
+//       string address = 2;
+//     }
+//
+// In proto a field mask for `Profile` may look as such:
+//
+//     mask {
+//       paths: "user.display_name"
+//       paths: "photo"
+//     }
+//
+// In JSON, the same mask is represented as below:
+//
+//     {
+//       mask: "user.displayName,photo"
+//     }
+type wellKnownFieldMask = string;
 
 // Request message for FreightService.DeleteShipper.
 export type DeleteShipperRequest = {
@@ -246,37 +291,4 @@ export type DeleteShipmentRequest = {
 	// Format: shippers/{shipper}/shipments/{shipment}
 	name?: string;
 };
-
-// Encoded using RFC 3339, where generated output will always be Z-normalized
-// and uses 0, 3, 6 or 9 fractional digits.
-// Offsets other than "Z" are also accepted.
-type wellKnownTimestamp = string;
-
-// In JSON, a field mask is encoded as a single string where paths are
-// separated by a comma. Fields name in each path are converted
-// to/from lower-camel naming conventions.
-// As an example, consider the following message declarations:
-//
-//     message Profile {
-//       User user = 1;
-//       Photo photo = 2;
-//     }
-//     message User {
-//       string display_name = 1;
-//       string address = 2;
-//     }
-//
-// In proto a field mask for `Profile` may look as such:
-//
-//     mask {
-//       paths: "user.display_name"
-//       paths: "photo"
-//     }
-//
-// In JSON, the same mask is represented as below:
-//
-//     {
-//       mask: "user.displayName,photo"
-//     }
-type wellKnownFieldMask = string;
 

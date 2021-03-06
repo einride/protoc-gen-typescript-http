@@ -8,12 +8,13 @@ import (
 )
 
 type enumGenerator struct {
+	pkg  protoreflect.FullName
 	enum protoreflect.EnumDescriptor
 }
 
 func (e enumGenerator) Generate(f *codegen.File) {
 	commentGenerator{descriptor: e.enum}.generateLeading(f, 0)
-	f.P("export type ", descriptorTypeName(e.enum), " = ")
+	f.P("export type ", scopedDescriptorTypeName(e.pkg, e.enum), " = ")
 	rangeEnumValues(e.enum, func(value protoreflect.EnumValueDescriptor) {
 		commentGenerator{descriptor: value}.generateLeading(f, 1)
 		f.P(t(1), "| ", strconv.Quote(string(value.Name())))
