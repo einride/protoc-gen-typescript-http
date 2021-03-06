@@ -39,6 +39,7 @@ buf-lint: $(buf) examples/proto/api-common-protos
 
 protoc_gen_typescript_http := ./bin/protoc-gen-typescript-http
 export PATH := $(dir $(abspath $(protoc_gen_typescript_http))):$(PATH)
+.PHONY: $(protoc_gen_typescript_http)
 $(protoc_gen_typescript_http):
 	go build -o $@ .
 
