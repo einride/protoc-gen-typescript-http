@@ -57,6 +57,8 @@ func namedTypeFromField(field protoreflect.FieldDescriptor) Type {
 		protoreflect.Fixed64Kind,
 		protoreflect.Sfixed32Kind,
 		protoreflect.Sfixed64Kind,
+		protoreflect.Sint32Kind,
+		protoreflect.Sint64Kind,
 		protoreflect.FloatKind:
 		return Type{IsNamed: true, Name: "number"}
 	case protoreflect.MessageKind:

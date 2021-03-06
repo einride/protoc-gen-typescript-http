@@ -13,9 +13,9 @@ export type Message = {
 	// uint64
 	uint64?: number;
 	// sint32
-	sint32?: unknown;
+	sint32?: number;
 	// sint64
-	sint64?: unknown;
+	sint64?: number;
 	// fixed32
 	fixed32?: number;
 	// fixed64
@@ -47,9 +47,9 @@ export type Message = {
 	// repeated_uint64
 	repeatedUint64?: number[];
 	// repeated_sint32
-	repeatedSint32?: unknown[];
+	repeatedSint32?: number[];
 	// repeated_sint64
-	repeatedSint64?: unknown[];
+	repeatedSint64?: number[];
 	// repeated_fixed32
 	repeatedFixed32?: number[];
 	// repeated_fixed64
