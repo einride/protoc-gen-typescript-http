@@ -7,6 +7,15 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
+func descriptorTypeName(desc protoreflect.Descriptor) string {
+	name := string(desc.Name())
+	var prefix string
+	if desc.Parent() != desc.ParentFile() {
+		prefix = descriptorTypeName(desc.Parent()) + "_"
+	}
+	return prefix + name
+}
+
 func rangeFields(message protoreflect.MessageDescriptor, f func(field protoreflect.FieldDescriptor)) {
 	for i := 0; i < message.Fields().Len(); i++ {
 		f(message.Fields().Get(i))

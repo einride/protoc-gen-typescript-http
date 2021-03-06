@@ -9,15 +9,6 @@ type messageGenerator struct {
 	message protoreflect.MessageDescriptor
 }
 
-func (m messageGenerator) Type() string {
-	name := string(m.message.Name())
-	// top level message
-	if m.message.Parent() == m.message.ParentFile() {
-		return name
-	}
-	return messageGenerator{message: m.message.Parent().(protoreflect.MessageDescriptor)}.Type() + "_" + name
-}
-
 func (m messageGenerator) Generate(f *codegen.File) {
 	m.generateType(f)
 	m.message.IsMapEntry()
@@ -36,7 +27,7 @@ func (m messageGenerator) Generate(f *codegen.File) {
 
 func (m messageGenerator) generateType(f *codegen.File) {
 	commentGenerator{descriptor: m.message}.generateLeading(f, 0)
-	f.P("export type ", m.Type(), " = {")
+	f.P("export type ", descriptorTypeName(m.message), " = {")
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
 		fieldType := typeFromField(field)
