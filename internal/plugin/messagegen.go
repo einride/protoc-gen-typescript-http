@@ -18,8 +18,10 @@ func (m messageGenerator) Generate(f *codegen.File) {
 }
 
 func (m messageGenerator) generateType(f *codegen.File) {
+	commentGenerator{descriptor: m.message}.generateLeading(f, 0)
 	f.P("export type ", m.Type(), " = {")
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
+		commentGenerator{descriptor: field}.generateLeading(f, 1)
 		f.P(t(1), fieldName(field), "?: ", fieldType(field), fieldCardinality(field), ";")
 	})
 	f.P("};")
