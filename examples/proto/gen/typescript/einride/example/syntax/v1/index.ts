@@ -80,6 +80,74 @@ export type Message = {
 	oneofMessage1?: unknown;
 	// oneof_message2
 	oneofMessage2?: unknown;
+	// any
+	any?: unknown;
+	// repeated_any
+	repeatedAny?: unknown[];
+	// duration
+	duration?: unknown;
+	// repeated_duration
+	repeatedDuration?: unknown[];
+	// empty
+	empty?: unknown;
+	// repeated_empty
+	repeatedEmpty?: unknown[];
+	// field_mask
+	fieldMask?: unknown;
+	// repeated_field_mask
+	repeatedFieldMask?: unknown[];
+	// struct
+	struct?: unknown;
+	// repeated_struct
+	repeatedStruct?: unknown[];
+	// value
+	value?: unknown;
+	// repeated_value
+	repeatedValue?: unknown[];
+	// null_value
+	nullValue?: unknown;
+	// repeated_null_value
+	repeatedNullValue?: unknown[];
+	// list_value
+	listValue?: unknown;
+	// repeated_list_value
+	repeatedListValue?: unknown[];
+	// bool_value
+	boolValue?: unknown;
+	// repeated_bool_value
+	repeatedBoolValue?: unknown[];
+	// bytes_value
+	bytesValue?: unknown;
+	// repeated_bytes_value
+	repeatedBytesValue?: unknown[];
+	// double_value
+	doubleValue?: unknown;
+	// repeated_double_value
+	repeatedDoubleValue?: unknown[];
+	// float_value
+	floatValue?: unknown;
+	// repeated_float_value
+	repeatedFloatValue?: unknown[];
+	// int32_value
+	int32Value?: unknown;
+	// repeated_int32_value
+	repeatedInt32Value?: unknown[];
+	// int64_value
+	int64Value?: unknown;
+	// repeated_int64_value
+	repeatedInt64Value?: unknown[];
+	// uint32_value
+	uint32Value?: unknown;
+	// repeated_uint32_value
+	repeatedUint32Value?: unknown[];
+	// uint64_value
+	uint64Value?: unknown;
+	// repeated_uint64_value
+	repeatedUint64Value?: unknown[];
+	// string_value
+	stringValue?: unknown;
+	// repeated_string_value
+	repeatedStringValue?: unknown[];
 };
 
 // NestedMessage
