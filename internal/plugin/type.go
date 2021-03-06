@@ -65,12 +65,12 @@ func namedTypeFromField(field protoreflect.FieldDescriptor) Type {
 		if wkt, ok := WellKnownType(field.Message()); ok {
 			return Type{IsNamed: true, Name: wkt.Name()}
 		}
-		return Type{IsNamed: true, Name: "unknown"}
+		return Type{IsNamed: true, Name: descriptorTypeName(field.Message())}
 	case protoreflect.EnumKind:
 		if wkt, ok := WellKnownType(field.Enum()); ok {
 			return Type{IsNamed: true, Name: wkt.Name()}
 		}
-		return Type{IsNamed: true, Name: "unknown"}
+		return Type{IsNamed: true, Name: descriptorTypeName(field.Enum())}
 	default:
 		return Type{IsNamed: true, Name: "unknown"}
 	}
