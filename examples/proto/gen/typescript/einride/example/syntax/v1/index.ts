@@ -41,3 +41,7 @@ export type Message = {
 	oneofMessage2?: unknown;
 };
 
+export type Message_NestedMessage = {
+	string?: string;
+};
+
