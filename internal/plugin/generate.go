@@ -37,26 +37,11 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 	for pkg, files := range packaged {
 		var index codegen.File
 		indexPathElems := append(strings.Split(pkg, "."), "index.ts")
-		generatePackage(&index, files)
+		typeGenerator{files: files}.Generate(&index)
 		res.File = append(res.File, &pluginpb.CodeGeneratorResponse_File{
 			Name:    proto.String(path.Join(indexPathElems...)),
 			Content: proto.String(string(index.Content())),
 		})
 	}
 	return &res, nil
-}
-
-func generatePackage(f *codegen.File, files []protoreflect.FileDescriptor) {
-	for _, file := range files {
-		messages := file.Messages()
-		for i := 0; i < messages.Len(); i++ {
-			message := messages.Get(i)
-			messageGenerator{message: message}.Generate(f)
-		}
-		enums := file.Enums()
-		for i := 0; i < enums.Len(); i++ {
-			enum := enums.Get(i)
-			enumGenerator{enum: enum}.Generate(f)
-		}
-	}
 }
