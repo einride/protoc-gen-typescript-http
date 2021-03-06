@@ -22,26 +22,26 @@ func (t Type) Reference() string {
 	}
 }
 
-func typeFromField(field protoreflect.FieldDescriptor) Type {
+func typeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescriptor) Type {
 	switch {
 	case field.IsMap():
-		underlying := namedTypeFromField(field.MapValue())
+		underlying := namedTypeFromField(pkg, field.MapValue())
 		return Type{
 			IsMap:      true,
 			Underlying: &underlying,
 		}
 	case field.IsList():
-		underlying := namedTypeFromField(field)
+		underlying := namedTypeFromField(pkg, field)
 		return Type{
 			IsList:     true,
 			Underlying: &underlying,
 		}
 	default:
-		return namedTypeFromField(field)
+		return namedTypeFromField(pkg, field)
 	}
 }
 
-func namedTypeFromField(field protoreflect.FieldDescriptor) Type {
+func namedTypeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescriptor) Type {
 	switch field.Kind() {
 	case protoreflect.StringKind, protoreflect.BytesKind:
 		return Type{IsNamed: true, Name: "string"}
@@ -62,15 +62,17 @@ func namedTypeFromField(field protoreflect.FieldDescriptor) Type {
 		protoreflect.FloatKind:
 		return Type{IsNamed: true, Name: "number"}
 	case protoreflect.MessageKind:
-		if wkt, ok := WellKnownType(field.Message()); ok {
+		desc := field.Message()
+		if wkt, ok := WellKnownType(desc); ok {
 			return Type{IsNamed: true, Name: wkt.Name()}
 		}
-		return Type{IsNamed: true, Name: descriptorTypeName(field.Message())}
+		return Type{IsNamed: true, Name: scopedDescriptorTypeName(pkg, desc)}
 	case protoreflect.EnumKind:
+		desc := field.Enum()
 		if wkt, ok := WellKnownType(field.Enum()); ok {
 			return Type{IsNamed: true, Name: wkt.Name()}
 		}
-		return Type{IsNamed: true, Name: descriptorTypeName(field.Enum())}
+		return Type{IsNamed: true, Name: scopedDescriptorTypeName(pkg, desc)}
 	default:
 		return Type{IsNamed: true, Name: "unknown"}
 	}

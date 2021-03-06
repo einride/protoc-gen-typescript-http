@@ -24,20 +24,20 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 	for _, f := range request.FileToGenerate {
 		generate[f] = struct{}{}
 	}
-	packaged := make(map[string][]protoreflect.FileDescriptor)
+	packaged := make(map[protoreflect.FullName][]protoreflect.FileDescriptor)
 	for _, f := range request.FileToGenerate {
 		file, err := registry.FindFileByPath(f)
 		if err != nil {
 			return nil, fmt.Errorf("find file %s: %w", f, err)
 		}
-		packaged[string(file.Package())] = append(packaged[string(file.Package())], file)
+		packaged[file.Package()] = append(packaged[file.Package()], file)
 	}
 
 	var res pluginpb.CodeGeneratorResponse
 	for pkg, files := range packaged {
 		var index codegen.File
-		indexPathElems := append(strings.Split(pkg, "."), "index.ts")
-		typeGenerator{files: files}.Generate(&index)
+		indexPathElems := append(strings.Split(string(pkg), "."), "index.ts")
+		typeGenerator{pkg: pkg, files: files}.Generate(&index)
 		res.File = append(res.File, &pluginpb.CodeGeneratorResponse_File{
 			Name:    proto.String(path.Join(indexPathElems...)),
 			Content: proto.String(string(index.Content())),

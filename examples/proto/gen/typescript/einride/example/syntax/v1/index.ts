@@ -1,3 +1,12 @@
+// Enum
+export type Enum = 
+	// ENUM_UNSPECIFIED
+	| "ENUM_UNSPECIFIED"
+	// ENUM_ONE
+	| "ENUM_ONE"
+	// ENUM_TWO
+	| "ENUM_TWO"
+
 // Message
 export type Message = {
 	// double
@@ -150,26 +159,6 @@ export type Message = {
 	repeatedStringValue?: wellKnownStringValue[];
 };
 
-// NestedMessage
-export type Message_NestedMessage = {
-	// nested_message.string
-	string?: string;
-};
-
-// NestedEnum
-export type Message_NestedEnum = 
-	// NESTEDENUM_UNSPECIFIED
-	| "NESTEDENUM_UNSPECIFIED"
-
-// Enum
-export type Enum = 
-	// ENUM_UNSPECIFIED
-	| "ENUM_UNSPECIFIED"
-	// ENUM_ONE
-	| "ENUM_ONE"
-	// ENUM_TWO
-	| "ENUM_TWO"
-
 // If the Any contains a value that has a special JSON mapping,
 // it will be converted as follows:
 // {"@type": xxx, "value": yyy}.
@@ -244,4 +233,15 @@ type wellKnownUInt32Value = number | null;
 type wellKnownUInt64Value = number | null;
 
 type wellKnownStringValue = string | null;
+
+// NestedMessage
+export type Message_NestedMessage = {
+	// nested_message.string
+	string?: string;
+};
+
+// NestedEnum
+export type Message_NestedEnum = 
+	// NESTEDENUM_UNSPECIFIED
+	| "NESTEDENUM_UNSPECIFIED"
 
