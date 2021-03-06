@@ -10,11 +10,25 @@ type messageGenerator struct {
 }
 
 func (m messageGenerator) Type() string {
-	return string(m.message.Name())
+	name := string(m.message.Name())
+	// top level message
+	if m.message.Parent() == m.message.ParentFile() {
+		return name
+	}
+	return messageGenerator{message: m.message.Parent().(protoreflect.MessageDescriptor)}.Type() + "_" + name
 }
 
 func (m messageGenerator) Generate(f *codegen.File) {
 	m.generateType(f)
+	m.message.IsMapEntry()
+	for i := 0; i < m.message.Messages().Len(); i++ {
+		msg := m.message.Messages().Get(i)
+		// maps are handled on field level
+		if msg.IsMapEntry() {
+			continue
+		}
+		messageGenerator{message: m.message.Messages().Get(i)}.Generate(f)
+	}
 }
 
 func (m messageGenerator) generateType(f *codegen.File) {
