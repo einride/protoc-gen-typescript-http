@@ -53,5 +53,10 @@ func generatePackage(f *codegen.File, files []protoreflect.FileDescriptor) {
 			message := messages.Get(i)
 			messageGenerator{message: message}.Generate(f)
 		}
+		enums := file.Enums()
+		for i := 0; i < enums.Len(); i++ {
+			enum := enums.Get(i)
+			enumGenerator{enum: enum}.Generate(f)
+		}
 	}
 }

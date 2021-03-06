@@ -13,6 +13,12 @@ func rangeFields(message protoreflect.MessageDescriptor, f func(field protorefle
 	}
 }
 
+func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect.EnumValueDescriptor)) {
+	for i := 0; i < enum.Values().Len(); i++ {
+		f(enum.Values().Get(i))
+	}
+}
+
 func t(n int) string {
 	return strings.Repeat("\t", n)
 }
@@ -30,6 +36,12 @@ const (
 	messageSourcePathField   messageSourcePath = 2
 	messageSourcePathMessage                   = 3
 	messageSourcePathEnum                      = 4
+)
+
+type enumSourcePath = int32
+
+const (
+	enumSourcePathValue enumSourcePath = 2
 )
 
 func descriptorSourcePath(desc protoreflect.Descriptor) protoreflect.SourcePath {
@@ -53,6 +65,11 @@ func descriptorSourcePath(desc protoreflect.Descriptor) protoreflect.SourcePath 
 			path = protoreflect.SourcePath{messageSourcePathMessage, int32(v.Index())}
 		case protoreflect.EnumDescriptor:
 			path = protoreflect.SourcePath{messageSourcePathEnum, int32(v.Index())}
+		}
+	case protoreflect.EnumDescriptor:
+		switch v := desc.(type) {
+		case protoreflect.EnumValueDescriptor:
+			path = protoreflect.SourcePath{enumSourcePathValue, int32(v.Index())}
 		}
 	}
 	return append(descriptorSourcePath(desc.Parent()), path...)
