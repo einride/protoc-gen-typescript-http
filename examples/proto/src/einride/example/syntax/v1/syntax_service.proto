@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package einride.example.syntax.v1;
+
+option go_package = "github.com/einride/protoc-gen-typescript-http/examples/proto/gen/go/einride/example/syntax/v1;syntaxv1";
+option java_multiple_files = true;
+option java_outer_classname = "SyntaxServiceProto";
+option java_package = "tech.einride.example.syntax.v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "einride/example/syntax/v1/syntax.proto";
+
+service SyntaxService {
+  rpc QueryOnly(Request) returns (Message) {
+    option (google.api.http) = {
+      get: "/v1"
+    };
+  }
+
+  rpc EmptyVerb(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1:emptyVerb"
+    };
+  }
+
+  rpc StarBody(Request) returns (Message) {
+    option (google.api.http) = {
+      post: "/v1:starBody"
+      body: "*"
+    };
+  }
+
+  rpc Body(Request) returns (Message) {
+    option (google.api.http) = {
+      post: "/v1:body"
+      body: "nested"
+    };
+  }
+
+  rpc Path(Request) returns (Message) {
+    option (google.api.http) = {
+      post: "/v1/{string}:path"
+    };
+  }
+
+  rpc PathBody(Request) returns (Message) {
+    option (google.api.http) = {
+      post: "/v1/{string}:pathBody"
+      body: "nested"
+    };
+  }
+}
+
+message Request {
+  string string = 1;
+  repeated string repeated_string = 2;
+  message Nested {
+    string string = 1;
+  }
+  Nested nested = 3;
+}
+

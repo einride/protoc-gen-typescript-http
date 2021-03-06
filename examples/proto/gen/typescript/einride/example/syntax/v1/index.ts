@@ -245,3 +245,13 @@ export type Message_NestedEnum =
 	// NESTEDENUM_UNSPECIFIED
 	| "NESTEDENUM_UNSPECIFIED"
 
+export type Request = {
+	string?: string;
+	repeatedString?: string[];
+	nested?: Request_Nested;
+};
+
+export type Request_Nested = {
+	string?: string;
+};
+
