@@ -29,6 +29,9 @@ func (m messageGenerator) Generate(f *codegen.File) {
 		}
 		messageGenerator{message: m.message.Messages().Get(i)}.Generate(f)
 	}
+	for i := 0; i < m.message.Enums().Len(); i++ {
+		enumGenerator{enum: m.message.Enums().Get(i)}.Generate(f)
+	}
 }
 
 func (m messageGenerator) generateType(f *codegen.File) {

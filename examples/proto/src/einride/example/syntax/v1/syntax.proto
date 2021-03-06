@@ -19,6 +19,11 @@ message Message {
     // nested_message.string
     string string = 1;
   }
+  // NestedEnum
+  enum NestedEnum {
+    // NESTEDENUM_UNSPECIFIED
+    NESTEDENUM_UNSPECIFIED = 0;
+  }
   // double
   double double = 1;
   // float
