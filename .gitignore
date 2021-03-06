@@ -2,3 +2,4 @@
 tools/*/*/
 node_modules/
 bin
+examples/proto/gen/go
