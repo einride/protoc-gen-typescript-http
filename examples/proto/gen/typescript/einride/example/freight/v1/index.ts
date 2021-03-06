@@ -26,7 +26,7 @@ export type Shipment = {
 	// The latest delivery time of the shipment at the destination site.
 	deliveryLatestTime?: wellKnownTimestamp;
 	// The line items of the shipment.
-	lineItems?: unknown[];
+	lineItems?: LineItem[];
 	// Annotations of the shipment.
 	annotations?: { [key: string]: string};
 };
@@ -73,7 +73,7 @@ export type Site = {
 	// The display name of the site.
 	displayName?: string;
 	// The geographic location of the site.
-	latLng?: unknown;
+	latLng?: LatLng;
 };
 
 // Request message for FreightService.GetShipper.
@@ -98,7 +98,7 @@ export type ListShippersRequest = {
 // Response message for FreightService.ListShippers.
 export type ListShippersResponse = {
 	// The list of shippers.
-	shippers?: unknown[];
+	shippers?: Shipper[];
 	// A token to retrieve next page of results.  Pass this value in the
 	// [ListShippersRequest.page_token][einride.example.freight.v1.ListShippersRequest.page_token]
 	// field in the subsequent call to `ListShippers` method to retrieve the next
@@ -109,7 +109,7 @@ export type ListShippersResponse = {
 // Request message for FreightService.CreateShipper.
 export type CreateShipperRequest = {
 	// The shipper to create.
-	shipper?: unknown;
+	shipper?: Shipper;
 };
 
 // Request message for FreightService.UpdateShipper.
@@ -117,7 +117,7 @@ export type UpdateShipperRequest = {
 	// The shipper to update with. The name must match or be empty.
 	// The shipper's `name` field is used to identify the shipper to be updated.
 	// Format: shippers/{shipper}
-	shipper?: unknown;
+	shipper?: Shipper;
 	// The list of fields to be updated.
 	updateMask?: wellKnownFieldMask;
 };
@@ -154,7 +154,7 @@ export type ListSitesRequest = {
 // Response message for FreightService.ListSites.
 export type ListSitesResponse = {
 	// The list of sites.
-	sites?: unknown[];
+	sites?: Site[];
 	// A token to retrieve next page of results.  Pass this value in the
 	// [ListSitesRequest.page_token][einride.example.freight.v1.ListSitesRequest.page_token]
 	// field in the subsequent call to `ListSites` method to retrieve the next
@@ -168,7 +168,7 @@ export type CreateSiteRequest = {
 	// Format: shippers/{shipper}
 	parent?: string;
 	// The site to create.
-	site?: unknown;
+	site?: Site;
 };
 
 // Request message for FreightService.UpdateSite.
@@ -176,7 +176,7 @@ export type UpdateSiteRequest = {
 	// The site to update with. The name must match or be empty.
 	// The site's `name` field is used to identify the site to be updated.
 	// Format: shippers/{shipper}/sites/{site}
-	site?: unknown;
+	site?: Site;
 	// The list of fields to be updated.
 	updateMask?: wellKnownFieldMask;
 };
@@ -213,7 +213,7 @@ export type ListShipmentsRequest = {
 // Response message for FreightService.ListShipments.
 export type ListShipmentsResponse = {
 	// The list of shipments.
-	shipments?: unknown[];
+	shipments?: Shipment[];
 	// A token to retrieve next page of results.  Pass this value in the
 	// [ListShipmentsRequest.page_token][einride.example.freight.v1.ListShipmentsRequest.page_token]
 	// field in the subsequent call to `ListShipments` method to retrieve the next
@@ -227,7 +227,7 @@ export type CreateShipmentRequest = {
 	// Format: shippers/{shipper}
 	parent?: string;
 	// The shipment to create.
-	shipment?: unknown;
+	shipment?: Shipment;
 };
 
 // Request message for FreightService.UpdateShipment.
@@ -235,7 +235,7 @@ export type UpdateShipmentRequest = {
 	// The shipment to update with. The name must match or be empty.
 	// The shipment's `name` field is used to identify the shipment to be updated.
 	// Format: shippers/{shipper}/shipments/{shipment}
-	shipment?: unknown;
+	shipment?: Shipment;
 	// The list of fields to be updated.
 	updateMask?: wellKnownFieldMask;
 };

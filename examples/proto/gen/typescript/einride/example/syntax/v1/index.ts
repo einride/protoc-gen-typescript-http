@@ -31,9 +31,9 @@ export type Message = {
 	// bytes
 	bytes?: string;
 	// enum
-	enum?: unknown;
+	enum?: Enum;
 	// message
-	message?: unknown;
+	message?: Message;
 	// repeated_double
 	repeatedDouble?: number[];
 	// repeated_float
@@ -65,21 +65,21 @@ export type Message = {
 	// repeated_bytes
 	repeatedBytes?: string[];
 	// repeated_enum
-	repeatedEnum?: unknown[];
+	repeatedEnum?: Enum[];
 	// repeated_message
-	repeatedMessage?: unknown[];
+	repeatedMessage?: Message[];
 	// map_string_string
 	mapStringString?: { [key: string]: string};
 	// map_string_message
-	mapStringMessage?: { [key: string]: unknown};
+	mapStringMessage?: { [key: string]: Message};
 	// oneof_string
 	oneofString?: string;
 	// oneof_enum
-	oneofEnum?: unknown;
+	oneofEnum?: Enum;
 	// oneof_message1
-	oneofMessage1?: unknown;
+	oneofMessage1?: Message;
 	// oneof_message2
-	oneofMessage2?: unknown;
+	oneofMessage2?: Message;
 	// any
 	any?: wellKnownAny;
 	// repeated_any
