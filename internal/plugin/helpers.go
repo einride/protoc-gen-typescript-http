@@ -17,16 +17,43 @@ func t(n int) string {
 	return strings.Repeat("\t", n)
 }
 
+type fileSourcePath = int32
+
+const (
+	fileSourcePathMessage fileSourcePath = 4
+	fileSourcePathEnum                   = 5
+)
+
+type messageSourcePath = int32
+
+const (
+	messageSourcePathField   messageSourcePath = 2
+	messageSourcePathMessage                   = 3
+	messageSourcePathEnum                      = 4
+)
+
 func descriptorSourcePath(desc protoreflect.Descriptor) protoreflect.SourcePath {
 	if _, ok := desc.(protoreflect.FileDescriptor); ok {
 		return nil
 	}
 	var path protoreflect.SourcePath
-	switch v := desc.(type) {
-	case protoreflect.FieldDescriptor:
-		path = protoreflect.SourcePath{2, int32(v.Index())}
+	switch desc.Parent().(type) {
+	case protoreflect.FileDescriptor:
+		switch v := desc.(type) {
+		case protoreflect.MessageDescriptor:
+			path = protoreflect.SourcePath{fileSourcePathMessage, int32(v.Index())}
+		case protoreflect.EnumDescriptor:
+			path = protoreflect.SourcePath{fileSourcePathEnum, int32(v.Index())}
+		}
 	case protoreflect.MessageDescriptor:
-		path = protoreflect.SourcePath{4, int32(v.Index())}
+		switch v := desc.(type) {
+		case protoreflect.FieldDescriptor:
+			path = protoreflect.SourcePath{messageSourcePathField, int32(v.Index())}
+		case protoreflect.MessageDescriptor:
+			path = protoreflect.SourcePath{messageSourcePathMessage, int32(v.Index())}
+		case protoreflect.EnumDescriptor:
+			path = protoreflect.SourcePath{messageSourcePathEnum, int32(v.Index())}
+		}
 	}
 	return append(descriptorSourcePath(desc.Parent()), path...)
 }

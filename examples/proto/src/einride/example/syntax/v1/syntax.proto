@@ -12,59 +12,107 @@ import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/timestamp.proto";
 
+// Message
 message Message {
+  // NestedMessage
   message NestedMessage {
+    // nested_message.string
     string string = 1;
   }
+  // double
   double double = 1;
+  // float
   float float = 2;
+  // int32
   int32 int32 = 3;
+  // int64
   int64 int64 = 4;
+  // uint32
   uint32 uint32 = 5;
+  // uint64
   uint64 uint64 = 6;
+  // sint32
   sint32 sint32 = 7;
+  // sint64
   sint64 sint64 = 8;
+  // fixed32
   fixed32 fixed32 = 9;
+  // fixed64
   fixed64 fixed64 = 10;
+  // sfixed32
   sfixed32 sfixed32 = 11;
+  // sfixed64
   sfixed64 sfixed64 = 12;
+  // bool
   bool bool = 13;
+  // string
   string string = 14;
+  // bytes
   bytes bytes = 15;
+  // enum
   Enum enum = 16;
+  // message
   Message message = 17;
 
+  // repeated_double
   repeated double repeated_double = 18;
+  // repeated_float
   repeated float repeated_float = 19;
+  // repeated_int32
   repeated int32 repeated_int32 = 20;
+  // repeated_int64
   repeated int64 repeated_int64 = 21;
+  // repeated_uint32
   repeated uint32 repeated_uint32 = 22;
+  // repeated_uint64
   repeated uint64 repeated_uint64 = 23;
+  // repeated_sint32
   repeated sint32 repeated_sint32 = 24;
+  // repeated_sint64
   repeated sint64 repeated_sint64 = 25;
+  // repeated_fixed32
   repeated fixed32 repeated_fixed32 = 26;
+  // repeated_fixed64
   repeated fixed64 repeated_fixed64 = 27;
+  // repeated_sfixed32
   repeated sfixed32 repeated_sfixed32 = 28;
+  // repeated_sfixed64
   repeated sfixed64 repeated_sfixed64 = 29;
+  // repeated_bool
   repeated bool repeated_bool = 30;
+  // repeated_string
   repeated string repeated_string = 31;
+  // repeated_bytes
   repeated bytes repeated_bytes = 32;
+  // repeated_enum
   repeated Enum repeated_enum = 33;
+  // repeated_message
   repeated Message repeated_message = 34;
 
+  // map_string_string
   map<string, string> map_string_string = 35;
+  // map_string_message
   map<string, Message> map_string_message = 36;
 
+  // oneof
   oneof oneof {
+    // oneof_string
     string oneof_string = 37;
+    // oneof_enum
     Enum oneof_enum = 38;
+    // oneof_message1
     Message oneof_message1 = 39;
+    // oneof_message2
     Message oneof_message2 = 40;
   }
 }
 
+// Enum
 enum Enum {
+  // ENUM_UNSPECIFIED
   ENUM_UNSPECIFIED = 0;
+  // ENUM_ONE
   ENUM_ONE = 1;
+  // ENUM_TWO
   ENUM_TWO = 2;
 }
