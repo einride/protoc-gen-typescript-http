@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package einride.example.syntax.v2;
+
+option go_package = "github.com/einride/protoc-gen-typescript-http/examples/proto/gen/go/einride/example/syntax/v2;syntaxv2";
+option java_multiple_files = true;
+option java_outer_classname = "SyntaxProto";
+option java_package = "tech.einride.example.syntax.v2";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "einride/example/syntax/v1/syntax.proto";
+
+// Message
+message Message {
+  einride.example.syntax.v1.Message forwarded_message = 1;
+  einride.example.syntax.v1.Enum forwarded_enum = 2;
+}
