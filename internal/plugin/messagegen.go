@@ -39,7 +39,8 @@ func (m messageGenerator) generateType(f *codegen.File) {
 	f.P("export type ", m.Type(), " = {")
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
-		f.P(t(1), fieldName(field), "?: ", fieldType(field), fieldCardinality(field), ";")
+		fieldType := typeFromField(field)
+		f.P(t(1), field.JSONName(), "?: ", fieldType.Reference(), ";")
 	})
 	f.P("};")
 	f.P()

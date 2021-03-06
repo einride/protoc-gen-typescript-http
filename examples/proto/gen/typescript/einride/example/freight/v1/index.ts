@@ -28,7 +28,7 @@ export type Shipment = {
 	// The line items of the shipment.
 	lineItems?: unknown[];
 	// Annotations of the shipment.
-	annotations?: unknown[];
+	annotations?: { [key: string]: string};
 };
 
 // A shipment line item.

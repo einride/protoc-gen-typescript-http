@@ -69,9 +69,9 @@ export type Message = {
 	// repeated_message
 	repeatedMessage?: unknown[];
 	// map_string_string
-	mapStringString?: unknown[];
+	mapStringString?: { [key: string]: string};
 	// map_string_message
-	mapStringMessage?: unknown[];
+	mapStringMessage?: { [key: string]: unknown};
 	// oneof_string
 	oneofString?: string;
 	// oneof_enum
