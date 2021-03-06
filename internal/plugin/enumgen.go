@@ -12,7 +12,12 @@ type enumGenerator struct {
 }
 
 func (e enumGenerator) Type() string {
-	return string(e.enum.Name())
+	name := string(e.enum.Name())
+	// top level message
+	if e.enum.Parent() == e.enum.ParentFile() {
+		return name
+	}
+	return messageGenerator{message: e.enum.Parent().(protoreflect.MessageDescriptor)}.Type() + "_" + name
 }
 
 func (e enumGenerator) Generate(f *codegen.File) {
@@ -22,4 +27,5 @@ func (e enumGenerator) Generate(f *codegen.File) {
 		commentGenerator{descriptor: value}.generateLeading(f, 1)
 		f.P(t(1), "| ", strconv.Quote(string(value.Name())))
 	})
+	f.P()
 }

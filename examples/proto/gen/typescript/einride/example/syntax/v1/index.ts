@@ -88,6 +88,11 @@ export type Message_NestedMessage = {
 	string?: string;
 };
 
+// NestedEnum
+export type Message_NestedEnum = 
+	// NESTEDENUM_UNSPECIFIED
+	| "NESTEDENUM_UNSPECIFIED"
+
 // Enum
 export type Enum = 
 	// ENUM_UNSPECIFIED
@@ -96,3 +101,4 @@ export type Enum =
 	| "ENUM_ONE"
 	// ENUM_TWO
 	| "ENUM_TWO"
+
