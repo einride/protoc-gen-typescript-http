@@ -37,7 +37,7 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 	for pkg, files := range packaged {
 		var index codegen.File
 		indexPathElems := append(strings.Split(string(pkg), "."), "index.ts")
-		typeGenerator{pkg: pkg, files: files}.Generate(&index)
+		packageGenerator{pkg: pkg, files: files}.Generate(&index)
 		res.File = append(res.File, &pluginpb.CodeGeneratorResponse_File{
 			Name:    proto.String(path.Join(indexPathElems...)),
 			Content: proto.String(string(index.Content())),

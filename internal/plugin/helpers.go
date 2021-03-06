@@ -37,6 +37,12 @@ func rangeFields(message protoreflect.MessageDescriptor, f func(field protorefle
 	}
 }
 
+func rangeMethods(methods protoreflect.MethodDescriptors, f func(method protoreflect.MethodDescriptor)) {
+	for i := 0; i < methods.Len(); i++ {
+		f(methods.Get(i))
+	}
+}
+
 func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect.EnumValueDescriptor)) {
 	for i := 0; i < enum.Values().Len(); i++ {
 		f(enum.Values().Get(i))
