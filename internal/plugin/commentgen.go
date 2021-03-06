@@ -22,6 +22,6 @@ func (c commentGenerator) generateLeading(f *codegen.File, indent int) {
 		if line == "" {
 			continue
 		}
-		f.P(t(indent), "// ", line)
+		f.P(t(indent), "// ", strings.TrimSpace(line))
 	}
 }
