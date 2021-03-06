@@ -62,11 +62,7 @@ func namedTypeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescr
 		protoreflect.FloatKind:
 		return Type{IsNamed: true, Name: "number"}
 	case protoreflect.MessageKind:
-		desc := field.Message()
-		if wkt, ok := WellKnownType(desc); ok {
-			return Type{IsNamed: true, Name: wkt.Name()}
-		}
-		return Type{IsNamed: true, Name: scopedDescriptorTypeName(pkg, desc)}
+		return typeFromMessage(pkg, field.Message())
 	case protoreflect.EnumKind:
 		desc := field.Enum()
 		if wkt, ok := WellKnownType(field.Enum()); ok {
@@ -76,4 +72,11 @@ func namedTypeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescr
 	default:
 		return Type{IsNamed: true, Name: "unknown"}
 	}
+}
+
+func typeFromMessage(pkg protoreflect.FullName, message protoreflect.MessageDescriptor) Type {
+	if wkt, ok := WellKnownType(message); ok {
+		return Type{IsNamed: true, Name: wkt.Name()}
+	}
+	return Type{IsNamed: true, Name: scopedDescriptorTypeName(pkg, message)}
 }

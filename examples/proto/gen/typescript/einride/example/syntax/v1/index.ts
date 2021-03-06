@@ -255,3 +255,12 @@ export type Request_Nested = {
 	string?: string;
 };
 
+export interface SyntaxService {
+	QueryOnly(Request): Promise<Message>
+	EmptyVerb(wellKnownEmpty): Promise<wellKnownEmpty>
+	StarBody(Request): Promise<Message>
+	Body(Request): Promise<Message>
+	Path(Request): Promise<Message>
+	PathBody(Request): Promise<Message>
+}
+

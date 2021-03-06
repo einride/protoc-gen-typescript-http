@@ -39,6 +39,7 @@ func (w *walker) walkFile(file protoreflect.FileDescriptor, f WalkFunc) {
 		}
 		w.walkEnums(file.Enums(), f)
 		w.walkMessages(file.Messages(), f)
+		w.walkServices(file.Services(), f)
 	}
 }
 
@@ -92,5 +93,36 @@ func (w *walker) walkField(field protoreflect.FieldDescriptor, f WalkFunc) {
 		if field.Enum() != nil {
 			w.walkEnum(field.Enum(), f)
 		}
+	}
+}
+
+func (w *walker) walkServices(services protoreflect.ServiceDescriptors, f WalkFunc) {
+	for i := 0; i < services.Len(); i++ {
+		w.walkService(services.Get(i), f)
+	}
+}
+
+func (w *walker) walkService(service protoreflect.ServiceDescriptor, f WalkFunc) {
+	if w.enter(string(service.FullName())) {
+		if !f(service) {
+			return
+		}
+		w.walkMethods(service.Methods(), f)
+	}
+}
+
+func (w *walker) walkMethods(methods protoreflect.MethodDescriptors, f WalkFunc) {
+	for i := 0; i < methods.Len(); i++ {
+		w.walkMethod(methods.Get(i), f)
+	}
+}
+
+func (w *walker) walkMethod(method protoreflect.MethodDescriptor, f WalkFunc) {
+	if w.enter(string(method.FullName())) {
+		if !f(method) {
+			return
+		}
+		w.walkMessage(method.Input(), f)
+		w.walkMessage(method.Output(), f)
 	}
 }

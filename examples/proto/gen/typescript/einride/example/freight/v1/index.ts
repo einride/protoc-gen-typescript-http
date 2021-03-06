@@ -292,3 +292,21 @@ export type DeleteShipmentRequest = {
 	name?: string;
 };
 
+export interface FreightService {
+	GetShipper(GetShipperRequest): Promise<Shipper>
+	ListShippers(ListShippersRequest): Promise<ListShippersResponse>
+	CreateShipper(CreateShipperRequest): Promise<Shipper>
+	UpdateShipper(UpdateShipperRequest): Promise<Shipper>
+	DeleteShipper(DeleteShipperRequest): Promise<Shipper>
+	GetSite(GetSiteRequest): Promise<Site>
+	ListSites(ListSitesRequest): Promise<ListSitesResponse>
+	CreateSite(CreateSiteRequest): Promise<Site>
+	UpdateSite(UpdateSiteRequest): Promise<Site>
+	DeleteSite(DeleteSiteRequest): Promise<Site>
+	GetShipment(GetShipmentRequest): Promise<Shipment>
+	ListShipments(ListShipmentsRequest): Promise<ListShipmentsResponse>
+	CreateShipment(CreateShipmentRequest): Promise<Shipment>
+	UpdateShipment(UpdateShipmentRequest): Promise<Shipment>
+	DeleteShipment(DeleteShipmentRequest): Promise<Shipment>
+}
+
