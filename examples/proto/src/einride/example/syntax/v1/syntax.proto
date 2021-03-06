@@ -7,10 +7,13 @@ option java_multiple_files = true;
 option java_outer_classname = "SyntaxProto";
 option java_package = "tech.einride.example.syntax.v1";
 
-import "google/api/annotations.proto";
-import "google/api/field_behavior.proto";
-import "google/api/resource.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
 
 // Message
 message Message {
@@ -110,6 +113,91 @@ message Message {
     // oneof_message2
     Message oneof_message2 = 40;
   }
+
+  // any
+  google.protobuf.Any any = 41;
+  // repeated_any
+  repeated google.protobuf.Any repeated_any = 42;
+
+  // duration
+  google.protobuf.Duration duration = 43;
+  // repeated_duration
+  repeated google.protobuf.Duration repeated_duration = 44;
+
+  // empty
+  google.protobuf.Empty empty = 45;
+  // repeated_empty
+  repeated google.protobuf.Empty repeated_empty = 46;
+
+  // field_mask
+  google.protobuf.FieldMask field_mask = 47;
+  // repeated_field_mask
+  repeated google.protobuf.FieldMask repeated_field_mask = 48;
+
+  // struct
+  google.protobuf.Struct struct = 49;
+  // repeated_struct
+  repeated google.protobuf.Struct repeated_struct = 50;
+
+  // value
+  google.protobuf.Value value = 51;
+  // repeated_value
+  repeated google.protobuf.Value repeated_value = 52;
+
+  // null_value
+  google.protobuf.NullValue null_value = 53;
+  // repeated_null_value
+  repeated google.protobuf.NullValue repeated_null_value = 54;
+
+  // list_value
+  google.protobuf.ListValue list_value = 55;
+  // repeated_list_value
+  repeated google.protobuf.ListValue repeated_list_value = 56;
+
+  // bool_value
+  google.protobuf.BoolValue bool_value = 57;
+  // repeated_bool_value
+  repeated google.protobuf.BoolValue repeated_bool_value = 58;
+
+  // bytes_value
+  google.protobuf.BytesValue bytes_value = 59;
+  // repeated_bytes_value
+  repeated google.protobuf.BytesValue repeated_bytes_value = 60;
+
+  // double_value
+  google.protobuf.DoubleValue double_value = 61;
+  // repeated_double_value
+  repeated google.protobuf.DoubleValue repeated_double_value = 62;
+  
+  // float_value
+  google.protobuf.FloatValue float_value = 63;
+  // repeated_float_value
+  repeated google.protobuf.FloatValue repeated_float_value = 64;
+
+  // int32_value
+  google.protobuf.Int32Value int32_value = 65;
+  // repeated_int32_value
+  repeated google.protobuf.Int32Value repeated_int32_value = 66;
+  
+  // int64_value
+  google.protobuf.Int64Value int64_value = 67;
+  // repeated_int64_value
+  repeated google.protobuf.Int64Value repeated_int64_value = 68;
+  
+  // uint32_value
+  google.protobuf.UInt32Value uint32_value = 69;
+  // repeated_uint32_value
+  repeated google.protobuf.UInt32Value repeated_uint32_value = 70;
+  
+  // uint64_value
+  google.protobuf.UInt64Value uint64_value = 71;
+  // repeated_uint64_value
+  repeated google.protobuf.UInt64Value repeated_uint64_value = 72;
+
+  // string_value
+  google.protobuf.UInt64Value string_value = 73;
+  // repeated_string_value
+  repeated google.protobuf.StringValue repeated_string_value = 74;
 }
 
 // Enum
