@@ -256,11 +256,35 @@ export type Request_Nested = {
 };
 
 export interface SyntaxService {
-	QueryOnly(Request): Promise<Message>
-	EmptyVerb(wellKnownEmpty): Promise<wellKnownEmpty>
-	StarBody(Request): Promise<Message>
-	Body(Request): Promise<Message>
-	Path(Request): Promise<Message>
-	PathBody(Request): Promise<Message>
+	QueryOnly(request: Request): Promise<Message>
+	EmptyVerb(request: wellKnownEmpty): Promise<wellKnownEmpty>
+	StarBody(request: Request): Promise<Message>
+	Body(request: Request): Promise<Message>
+	Path(request: Request): Promise<Message>
+	PathBody(request: Request): Promise<Message>
 }
 
+type requestHandler = (path: string, method: string, body: string | null) => Promise<unknown>
+
+export function createSyntaxServiceClient(handler: requestHandler): SyntaxService {
+	return {
+		QueryOnly(request) {
+			return handler("", "", null) as Promise<Message>
+		},
+		EmptyVerb(request) {
+			return handler("", "", null) as Promise<wellKnownEmpty>
+		},
+		StarBody(request) {
+			return handler("", "", null) as Promise<Message>
+		},
+		Body(request) {
+			return handler("", "", null) as Promise<Message>
+		},
+		Path(request) {
+			return handler("", "", null) as Promise<Message>
+		},
+		PathBody(request) {
+			return handler("", "", null) as Promise<Message>
+		},
+	}
+}
