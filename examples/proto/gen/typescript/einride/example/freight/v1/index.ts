@@ -320,17 +320,47 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Shipper>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipper>
 		},
 		ListShippers(request) {
 			const path = `v1/shippers`
 			const body = null;
-			return handler(path, "", body) as Promise<ListShippersResponse>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.pageSize) {
+				hasQuery = true;
+				query.set("pageSize", request.pageSize.toString());
+			}
+			if (request.pageToken) {
+				hasQuery = true;
+				query.set("pageToken", request.pageToken.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<ListShippersResponse>
 		},
 		CreateShipper(request) {
 			const path = `v1/shippers`
 			const body = JSON.stringify(request?.shipper ?? {})
-			return handler(path, "", body) as Promise<Shipper>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipper>
 		},
 		UpdateShipper(request) {
 			if (!request.shipper?.name) {
@@ -338,7 +368,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.shipper.name}`
 			const body = JSON.stringify(request?.shipper ?? {})
-			return handler(path, "", body) as Promise<Shipper>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.updateMask) {
+				hasQuery = true;
+				query.set("updateMask", request.updateMask.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipper>
 		},
 		DeleteShipper(request) {
 			if (!request.name) {
@@ -346,7 +386,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Shipper>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipper>
 		},
 		GetSite(request) {
 			if (!request.name) {
@@ -354,7 +404,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Site>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Site>
 		},
 		ListSites(request) {
 			if (!request.parent) {
@@ -362,7 +422,25 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.parent}/sites`
 			const body = null;
-			return handler(path, "", body) as Promise<ListSitesResponse>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.parent) {
+				hasQuery = true;
+				query.set("parent", request.parent.toString());
+			}
+			if (request.pageSize) {
+				hasQuery = true;
+				query.set("pageSize", request.pageSize.toString());
+			}
+			if (request.pageToken) {
+				hasQuery = true;
+				query.set("pageToken", request.pageToken.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<ListSitesResponse>
 		},
 		CreateSite(request) {
 			if (!request.parent) {
@@ -370,7 +448,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.parent}/sites`
 			const body = JSON.stringify(request?.site ?? {})
-			return handler(path, "", body) as Promise<Site>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.parent) {
+				hasQuery = true;
+				query.set("parent", request.parent.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Site>
 		},
 		UpdateSite(request) {
 			if (!request.site?.name) {
@@ -378,7 +466,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.site.name}`
 			const body = JSON.stringify(request?.site ?? {})
-			return handler(path, "", body) as Promise<Site>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.updateMask) {
+				hasQuery = true;
+				query.set("updateMask", request.updateMask.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Site>
 		},
 		DeleteSite(request) {
 			if (!request.name) {
@@ -386,7 +484,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Site>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Site>
 		},
 		GetShipment(request) {
 			if (!request.name) {
@@ -394,7 +502,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Shipment>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipment>
 		},
 		ListShipments(request) {
 			if (!request.parent) {
@@ -402,7 +520,25 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.parent}/shipments`
 			const body = null;
-			return handler(path, "", body) as Promise<ListShipmentsResponse>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.parent) {
+				hasQuery = true;
+				query.set("parent", request.parent.toString());
+			}
+			if (request.pageSize) {
+				hasQuery = true;
+				query.set("pageSize", request.pageSize.toString());
+			}
+			if (request.pageToken) {
+				hasQuery = true;
+				query.set("pageToken", request.pageToken.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<ListShipmentsResponse>
 		},
 		CreateShipment(request) {
 			if (!request.parent) {
@@ -410,7 +546,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.parent}/shipments`
 			const body = JSON.stringify(request?.shipment ?? {})
-			return handler(path, "", body) as Promise<Shipment>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.parent) {
+				hasQuery = true;
+				query.set("parent", request.parent.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipment>
 		},
 		UpdateShipment(request) {
 			if (!request.shipment?.name) {
@@ -418,7 +564,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.shipment.name}`
 			const body = JSON.stringify(request?.shipment ?? {})
-			return handler(path, "", body) as Promise<Shipment>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.updateMask) {
+				hasQuery = true;
+				query.set("updateMask", request.updateMask.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipment>
 		},
 		DeleteShipment(request) {
 			if (!request.name) {
@@ -426,7 +582,17 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			}
 			const path = `v1/${request.name}`
 			const body = null;
-			return handler(path, "", body) as Promise<Shipment>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.name) {
+				hasQuery = true;
+				query.set("name", request.name.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Shipment>
 		},
 	}
 }

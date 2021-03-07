@@ -271,22 +271,70 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 		QueryOnly(request) {
 			const path = `v1`
 			const body = null;
-			return handler(path, "", body) as Promise<Message>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.string) {
+				hasQuery = true;
+				query.set("string", request.string.toString());
+			}
+			if (request.repeatedString) {
+				hasQuery = true;
+				for (const x of request.repeatedString) {
+					query.append("repeatedString", x.toString());
+				}
+			}
+			if (request.nested?.string) {
+				hasQuery = true;
+				query.set("nested.string", request.nested.string.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Message>
 		},
 		EmptyVerb(request) {
 			const path = `v1:emptyVerb`
 			const body = null;
-			return handler(path, "", body) as Promise<wellKnownEmpty>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<wellKnownEmpty>
 		},
 		StarBody(request) {
 			const path = `v1:starBody`
 			const body = JSON.stringify(request);
-			return handler(path, "", body) as Promise<Message>
+			const query = new URLSearchParams();
+			const hasQuery = false;
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Message>
 		},
 		Body(request) {
 			const path = `v1:body`
 			const body = JSON.stringify(request?.nested ?? {})
-			return handler(path, "", body) as Promise<Message>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.string) {
+				hasQuery = true;
+				query.set("string", request.string.toString());
+			}
+			if (request.repeatedString) {
+				hasQuery = true;
+				for (const x of request.repeatedString) {
+					query.append("repeatedString", x.toString());
+				}
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Message>
 		},
 		Path(request) {
 			if (!request.string) {
@@ -294,7 +342,27 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			}
 			const path = `v1/${request.string}:path`
 			const body = null;
-			return handler(path, "", body) as Promise<Message>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.string) {
+				hasQuery = true;
+				query.set("string", request.string.toString());
+			}
+			if (request.repeatedString) {
+				hasQuery = true;
+				for (const x of request.repeatedString) {
+					query.append("repeatedString", x.toString());
+				}
+			}
+			if (request.nested?.string) {
+				hasQuery = true;
+				query.set("nested.string", request.nested.string.toString());
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Message>
 		},
 		PathBody(request) {
 			if (!request.string) {
@@ -302,7 +370,23 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			}
 			const path = `v1/${request.string}:pathBody`
 			const body = JSON.stringify(request?.nested ?? {})
-			return handler(path, "", body) as Promise<Message>
+			const query = new URLSearchParams();
+			let hasQuery = false;
+			if (request.string) {
+				hasQuery = true;
+				query.set("string", request.string.toString());
+			}
+			if (request.repeatedString) {
+				hasQuery = true;
+				for (const x of request.repeatedString) {
+					query.append("repeatedString", x.toString());
+				}
+			}
+			let uri = path
+			if (hasQuery) {
+				uri += "?" + query.toString()
+			}
+			return handler(uri, "", body) as Promise<Message>
 		},
 	}
 }
