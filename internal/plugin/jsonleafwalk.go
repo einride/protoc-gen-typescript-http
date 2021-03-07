@@ -7,7 +7,7 @@ import (
 
 type jsonLeafWalkFunc func(path httprule.FieldPath, field protoreflect.FieldDescriptor)
 
-func walkJsonLeafFields(message protoreflect.MessageDescriptor, f jsonLeafWalkFunc) {
+func walkJSONLeafFields(message protoreflect.MessageDescriptor, f jsonLeafWalkFunc) {
 	var w jsonWalker
 	w.walkMessage(nil, message, f)
 }

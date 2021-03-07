@@ -253,7 +253,7 @@ func (p *parser) parseIdent() (string, error) {
 func (p *parser) next() {
 	if p.pos < len(p.content) {
 		p.tok = rune(p.content[p.pos])
-		p.pos += 1
+		p.pos++
 	} else {
 		p.tok = -1
 		p.pos = len(p.content)

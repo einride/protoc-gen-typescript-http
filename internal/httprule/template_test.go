@@ -7,6 +7,7 @@ import (
 )
 
 func Test_ParseTemplate(t *testing.T) {
+	t.Parallel()
 	for _, tt := range []struct {
 		input string
 		path  *Template
@@ -188,6 +189,7 @@ func Test_ParseTemplate(t *testing.T) {
 	} {
 		tt := tt
 		t.Run(tt.input, func(t *testing.T) {
+			t.Parallel()
 			got, err := ParseTemplate(tt.input)
 			assert.NilError(t, err)
 			assert.DeepEqual(t, tt.path, got)
@@ -196,6 +198,7 @@ func Test_ParseTemplate(t *testing.T) {
 }
 
 func Test_ParseTemplate_Invalid(t *testing.T) {
+	t.Parallel()
 	for _, tt := range []string{
 		"",
 		"//",
@@ -208,6 +211,7 @@ func Test_ParseTemplate_Invalid(t *testing.T) {
 	} {
 		tt := tt
 		t.Run(tt, func(t *testing.T) {
+			t.Parallel()
 			_, err := ParseTemplate(tt)
 			assert.Check(t, err != nil)
 		})
