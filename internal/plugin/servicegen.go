@@ -83,7 +83,8 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	f.P(t(2), method.Name(), "(request) {")
 	s.generateMethodPathValidation(f, method.Input(), rule)
 	s.generateMethodPath(f, method.Input(), rule)
-	f.P(t(3), "return handler(path, \"\", null) as Promise<", outputType.Reference(), ">")
+	s.generateMethodBody(f, method.Input(), rule)
+	f.P(t(3), "return handler(path, \"\", body) as Promise<", outputType.Reference(), ">")
 	f.P(t(2), "},")
 	return nil
 }
@@ -131,6 +132,22 @@ func (s serviceGenerator) generateMethodPath(
 		path += ":" + rule.Template.Verb
 	}
 	f.P(t(3), "const path = `", path, "`")
+}
+
+func (s serviceGenerator) generateMethodBody(
+	f *codegen.File,
+	input protoreflect.MessageDescriptor,
+	rule *httprule.Rule,
+) {
+	switch {
+	case rule.Body == "":
+		f.P(t(3), "const body = null;")
+	case rule.Body == "*":
+		f.P(t(3), "const body = JSON.stringify(request);")
+	default:
+		nullPath := nullPropagationPath(httprule.FieldPath{rule.Body}, input)
+		f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {})")
+	}
 }
 
 func supportedMethod(method protoreflect.MethodDescriptor) bool {
