@@ -31,15 +31,15 @@ type fileSourcePath = int32
 
 const (
 	fileSourcePathMessage fileSourcePath = 4
-	fileSourcePathEnum                   = 5
+	fileSourcePathEnum    fileSourcePath = 5
 )
 
 type messageSourcePath = int32
 
 const (
 	messageSourcePathField   messageSourcePath = 2
-	messageSourcePathMessage                   = 3
-	messageSourcePathEnum                      = 4
+	messageSourcePathMessage messageSourcePath = 3
+	messageSourcePathEnum    messageSourcePath = 4
 )
 
 type enumSourcePath = int32
@@ -71,15 +71,17 @@ func descriptorSourcePath(desc protoreflect.Descriptor) protoreflect.SourcePath 
 			path = protoreflect.SourcePath{messageSourcePathEnum, int32(v.Index())}
 		}
 	case protoreflect.EnumDescriptor:
-		switch v := desc.(type) {
-		case protoreflect.EnumValueDescriptor:
+		if v, ok := desc.(protoreflect.EnumValueDescriptor); ok {
 			path = protoreflect.SourcePath{enumSourcePathValue, int32(v.Index())}
 		}
 	}
 	return append(descriptorSourcePath(desc.Parent()), path...)
 }
 
-func descriptorSourceLocation(desc protoreflect.Descriptor, path protoreflect.SourcePath) (protoreflect.SourceLocation, bool) {
+func descriptorSourceLocation(
+	desc protoreflect.Descriptor,
+	path protoreflect.SourcePath,
+) (protoreflect.SourceLocation, bool) {
 	locs := desc.ParentFile().SourceLocations()
 	key := newPathKey(path)
 	for i := 0; i < locs.Len(); i++ {

@@ -24,3 +24,7 @@ linters:
     - wrapcheck # don't enforce wrapping
     - gochecknoglobals # allow globals in this project
     - thelper # false positives
+    - maligned # not important in this project
+    - revive # not important in this project
+    - godot # false positive when using examples in comments.
+    - paralleltest # false positives
