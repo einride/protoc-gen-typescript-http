@@ -89,7 +89,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	f.P(t(3), "if (hasQuery) {")
 	f.P(t(4), "uri += \"?\" + query.toString()")
 	f.P(t(3), "}")
-	f.P(t(3), "return handler(uri, \"\", body) as Promise<", outputType.Reference(), ">")
+	f.P(t(3), "return handler(uri, ", strconv.Quote(rule.Method), ", body) as Promise<", outputType.Reference(), ">")
 	f.P(t(2), "},")
 	return nil
 }

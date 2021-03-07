@@ -291,7 +291,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<Message>
+			return handler(uri, "GET", body) as Promise<Message>
 		},
 		EmptyVerb(request) {
 			const path = `v1:emptyVerb`
@@ -302,7 +302,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<wellKnownEmpty>
+			return handler(uri, "GET", body) as Promise<wellKnownEmpty>
 		},
 		StarBody(request) {
 			const path = `v1:starBody`
@@ -313,7 +313,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<Message>
+			return handler(uri, "POST", body) as Promise<Message>
 		},
 		Body(request) {
 			const path = `v1:body`
@@ -334,7 +334,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<Message>
+			return handler(uri, "POST", body) as Promise<Message>
 		},
 		Path(request) {
 			if (!request.string) {
@@ -362,7 +362,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<Message>
+			return handler(uri, "POST", body) as Promise<Message>
 		},
 		PathBody(request) {
 			if (!request.string) {
@@ -386,7 +386,7 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "", body) as Promise<Message>
+			return handler(uri, "POST", body) as Promise<Message>
 		},
 	}
 }
