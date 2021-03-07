@@ -293,20 +293,71 @@ export type DeleteShipmentRequest = {
 };
 
 export interface FreightService {
-	GetShipper(GetShipperRequest): Promise<Shipper>
-	ListShippers(ListShippersRequest): Promise<ListShippersResponse>
-	CreateShipper(CreateShipperRequest): Promise<Shipper>
-	UpdateShipper(UpdateShipperRequest): Promise<Shipper>
-	DeleteShipper(DeleteShipperRequest): Promise<Shipper>
-	GetSite(GetSiteRequest): Promise<Site>
-	ListSites(ListSitesRequest): Promise<ListSitesResponse>
-	CreateSite(CreateSiteRequest): Promise<Site>
-	UpdateSite(UpdateSiteRequest): Promise<Site>
-	DeleteSite(DeleteSiteRequest): Promise<Site>
-	GetShipment(GetShipmentRequest): Promise<Shipment>
-	ListShipments(ListShipmentsRequest): Promise<ListShipmentsResponse>
-	CreateShipment(CreateShipmentRequest): Promise<Shipment>
-	UpdateShipment(UpdateShipmentRequest): Promise<Shipment>
-	DeleteShipment(DeleteShipmentRequest): Promise<Shipment>
+	GetShipper(request: GetShipperRequest): Promise<Shipper>
+	ListShippers(request: ListShippersRequest): Promise<ListShippersResponse>
+	CreateShipper(request: CreateShipperRequest): Promise<Shipper>
+	UpdateShipper(request: UpdateShipperRequest): Promise<Shipper>
+	DeleteShipper(request: DeleteShipperRequest): Promise<Shipper>
+	GetSite(request: GetSiteRequest): Promise<Site>
+	ListSites(request: ListSitesRequest): Promise<ListSitesResponse>
+	CreateSite(request: CreateSiteRequest): Promise<Site>
+	UpdateSite(request: UpdateSiteRequest): Promise<Site>
+	DeleteSite(request: DeleteSiteRequest): Promise<Site>
+	GetShipment(request: GetShipmentRequest): Promise<Shipment>
+	ListShipments(request: ListShipmentsRequest): Promise<ListShipmentsResponse>
+	CreateShipment(request: CreateShipmentRequest): Promise<Shipment>
+	UpdateShipment(request: UpdateShipmentRequest): Promise<Shipment>
+	DeleteShipment(request: DeleteShipmentRequest): Promise<Shipment>
 }
 
+type requestHandler = (path: string, method: string, body: string | null) => Promise<unknown>
+
+export function createFreightServiceClient(handler: requestHandler): FreightService {
+	return {
+		GetShipper(request) {
+			return handler("", "", null) as Promise<Shipper>
+		},
+		ListShippers(request) {
+			return handler("", "", null) as Promise<ListShippersResponse>
+		},
+		CreateShipper(request) {
+			return handler("", "", null) as Promise<Shipper>
+		},
+		UpdateShipper(request) {
+			return handler("", "", null) as Promise<Shipper>
+		},
+		DeleteShipper(request) {
+			return handler("", "", null) as Promise<Shipper>
+		},
+		GetSite(request) {
+			return handler("", "", null) as Promise<Site>
+		},
+		ListSites(request) {
+			return handler("", "", null) as Promise<ListSitesResponse>
+		},
+		CreateSite(request) {
+			return handler("", "", null) as Promise<Site>
+		},
+		UpdateSite(request) {
+			return handler("", "", null) as Promise<Site>
+		},
+		DeleteSite(request) {
+			return handler("", "", null) as Promise<Site>
+		},
+		GetShipment(request) {
+			return handler("", "", null) as Promise<Shipment>
+		},
+		ListShipments(request) {
+			return handler("", "", null) as Promise<ListShipmentsResponse>
+		},
+		CreateShipment(request) {
+			return handler("", "", null) as Promise<Shipment>
+		},
+		UpdateShipment(request) {
+			return handler("", "", null) as Promise<Shipment>
+		},
+		DeleteShipment(request) {
+			return handler("", "", null) as Promise<Shipment>
+		},
+	}
+}

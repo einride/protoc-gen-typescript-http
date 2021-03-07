@@ -12,6 +12,7 @@ type packageGenerator struct {
 }
 
 func (p packageGenerator) Generate(f *codegen.File) {
+	var seenService bool
 	protowalk.WalkFiles(p.files, func(desc protoreflect.Descriptor) bool {
 		if wkt, ok := WellKnownType(desc); ok {
 			f.P(wkt.TypeDeclaration())
@@ -26,7 +27,8 @@ func (p packageGenerator) Generate(f *codegen.File) {
 		case protoreflect.EnumDescriptor:
 			enumGenerator{pkg: p.pkg, enum: v}.Generate(f)
 		case protoreflect.ServiceDescriptor:
-			serviceGenerator{pkg: p.pkg, service: v}.Generate(f)
+			serviceGenerator{pkg: p.pkg, service: v, genHandler: !seenService}.Generate(f)
+			seenService = true
 		}
 		return true
 	})
