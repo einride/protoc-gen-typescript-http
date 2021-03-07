@@ -10,8 +10,9 @@ lint:
     - DEFAULT
   service_suffix: Service
   except:
-    # Allow AIP methods to return resources.
+    - RPC_REQUEST_STANDARD_NAME
     - RPC_RESPONSE_STANDARD_NAME
     - RPC_REQUEST_RESPONSE_UNIQUE
+    - ENUM_VALUE_PREFIX
   ignore:
     - google
