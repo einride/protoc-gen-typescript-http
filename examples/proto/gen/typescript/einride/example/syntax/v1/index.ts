@@ -270,33 +270,39 @@ export function createSyntaxServiceClient(handler: requestHandler): SyntaxServic
 	return {
 		QueryOnly(request) {
 			const path = `v1`
-			return handler(path, "", null) as Promise<Message>
+			const body = null;
+			return handler(path, "", body) as Promise<Message>
 		},
 		EmptyVerb(request) {
 			const path = `v1:emptyVerb`
-			return handler(path, "", null) as Promise<wellKnownEmpty>
+			const body = null;
+			return handler(path, "", body) as Promise<wellKnownEmpty>
 		},
 		StarBody(request) {
 			const path = `v1:starBody`
-			return handler(path, "", null) as Promise<Message>
+			const body = JSON.stringify(request);
+			return handler(path, "", body) as Promise<Message>
 		},
 		Body(request) {
 			const path = `v1:body`
-			return handler(path, "", null) as Promise<Message>
+			const body = JSON.stringify(request?.nested ?? {})
+			return handler(path, "", body) as Promise<Message>
 		},
 		Path(request) {
 			if (!request.string) {
 				throw new Error("missing required field request.string")
 			}
 			const path = `v1/${request.string}:path`
-			return handler(path, "", null) as Promise<Message>
+			const body = null;
+			return handler(path, "", body) as Promise<Message>
 		},
 		PathBody(request) {
 			if (!request.string) {
 				throw new Error("missing required field request.string")
 			}
 			const path = `v1/${request.string}:pathBody`
-			return handler(path, "", null) as Promise<Message>
+			const body = JSON.stringify(request?.nested ?? {})
+			return handler(path, "", body) as Promise<Message>
 		},
 	}
 }
