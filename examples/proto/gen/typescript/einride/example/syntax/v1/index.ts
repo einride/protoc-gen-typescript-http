@@ -269,22 +269,34 @@ type requestHandler = (path: string, method: string, body: string | null) => Pro
 export function createSyntaxServiceClient(handler: requestHandler): SyntaxService {
 	return {
 		QueryOnly(request) {
-			return handler("", "", null) as Promise<Message>
+			const path = `v1`
+			return handler(path, "", null) as Promise<Message>
 		},
 		EmptyVerb(request) {
-			return handler("", "", null) as Promise<wellKnownEmpty>
+			const path = `v1:emptyVerb`
+			return handler(path, "", null) as Promise<wellKnownEmpty>
 		},
 		StarBody(request) {
-			return handler("", "", null) as Promise<Message>
+			const path = `v1:starBody`
+			return handler(path, "", null) as Promise<Message>
 		},
 		Body(request) {
-			return handler("", "", null) as Promise<Message>
+			const path = `v1:body`
+			return handler(path, "", null) as Promise<Message>
 		},
 		Path(request) {
-			return handler("", "", null) as Promise<Message>
+			if (!request.string) {
+				throw new Error("missing required field request.string")
+			}
+			const path = `v1/${request.string}:path`
+			return handler(path, "", null) as Promise<Message>
 		},
 		PathBody(request) {
-			return handler("", "", null) as Promise<Message>
+			if (!request.string) {
+				throw new Error("missing required field request.string")
+			}
+			const path = `v1/${request.string}:pathBody`
+			return handler(path, "", null) as Promise<Message>
 		},
 	}
 }
