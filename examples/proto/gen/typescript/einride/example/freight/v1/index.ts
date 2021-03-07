@@ -315,49 +315,103 @@ type requestHandler = (path: string, method: string, body: string | null) => Pro
 export function createFreightServiceClient(handler: requestHandler): FreightService {
 	return {
 		GetShipper(request) {
-			return handler("", "", null) as Promise<Shipper>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Shipper>
 		},
 		ListShippers(request) {
-			return handler("", "", null) as Promise<ListShippersResponse>
+			const path = `v1/shippers`
+			return handler(path, "", null) as Promise<ListShippersResponse>
 		},
 		CreateShipper(request) {
-			return handler("", "", null) as Promise<Shipper>
+			const path = `v1/shippers`
+			return handler(path, "", null) as Promise<Shipper>
 		},
 		UpdateShipper(request) {
-			return handler("", "", null) as Promise<Shipper>
+			if (!request.shipper?.name) {
+				throw new Error("missing required field request.shipper.name")
+			}
+			const path = `v1/${request.shipper.name}`
+			return handler(path, "", null) as Promise<Shipper>
 		},
 		DeleteShipper(request) {
-			return handler("", "", null) as Promise<Shipper>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Shipper>
 		},
 		GetSite(request) {
-			return handler("", "", null) as Promise<Site>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Site>
 		},
 		ListSites(request) {
-			return handler("", "", null) as Promise<ListSitesResponse>
+			if (!request.parent) {
+				throw new Error("missing required field request.parent")
+			}
+			const path = `v1/${request.parent}/sites`
+			return handler(path, "", null) as Promise<ListSitesResponse>
 		},
 		CreateSite(request) {
-			return handler("", "", null) as Promise<Site>
+			if (!request.parent) {
+				throw new Error("missing required field request.parent")
+			}
+			const path = `v1/${request.parent}/sites`
+			return handler(path, "", null) as Promise<Site>
 		},
 		UpdateSite(request) {
-			return handler("", "", null) as Promise<Site>
+			if (!request.site?.name) {
+				throw new Error("missing required field request.site.name")
+			}
+			const path = `v1/${request.site.name}`
+			return handler(path, "", null) as Promise<Site>
 		},
 		DeleteSite(request) {
-			return handler("", "", null) as Promise<Site>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Site>
 		},
 		GetShipment(request) {
-			return handler("", "", null) as Promise<Shipment>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Shipment>
 		},
 		ListShipments(request) {
-			return handler("", "", null) as Promise<ListShipmentsResponse>
+			if (!request.parent) {
+				throw new Error("missing required field request.parent")
+			}
+			const path = `v1/${request.parent}/shipments`
+			return handler(path, "", null) as Promise<ListShipmentsResponse>
 		},
 		CreateShipment(request) {
-			return handler("", "", null) as Promise<Shipment>
+			if (!request.parent) {
+				throw new Error("missing required field request.parent")
+			}
+			const path = `v1/${request.parent}/shipments`
+			return handler(path, "", null) as Promise<Shipment>
 		},
 		UpdateShipment(request) {
-			return handler("", "", null) as Promise<Shipment>
+			if (!request.shipment?.name) {
+				throw new Error("missing required field request.shipment.name")
+			}
+			const path = `v1/${request.shipment.name}`
+			return handler(path, "", null) as Promise<Shipment>
 		},
 		DeleteShipment(request) {
-			return handler("", "", null) as Promise<Shipment>
+			if (!request.name) {
+				throw new Error("missing required field request.name")
+			}
+			const path = `v1/${request.name}`
+			return handler(path, "", null) as Promise<Shipment>
 		},
 	}
 }
