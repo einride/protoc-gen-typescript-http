@@ -84,7 +84,12 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	s.generateMethodPathValidation(f, method.Input(), rule)
 	s.generateMethodPath(f, method.Input(), rule)
 	s.generateMethodBody(f, method.Input(), rule)
-	f.P(t(3), "return handler(path, \"\", body) as Promise<", outputType.Reference(), ">")
+	s.generateMethodQuery(f, method.Input(), rule)
+	f.P(t(3), "let uri = path")
+	f.P(t(3), "if (hasQuery) {")
+	f.P(t(4), "uri += \"?\" + query.toString()")
+	f.P(t(3), "}")
+	f.P(t(3), "return handler(uri, \"\", body) as Promise<", outputType.Reference(), ">")
 	f.P(t(2), "},")
 	return nil
 }
@@ -148,6 +153,43 @@ func (s serviceGenerator) generateMethodBody(
 		nullPath := nullPropagationPath(httprule.FieldPath{rule.Body}, input)
 		f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {})")
 	}
+}
+
+func (s serviceGenerator) generateMethodQuery(
+	f *codegen.File,
+	input protoreflect.MessageDescriptor,
+	rule *httprule.Rule,
+) {
+	f.P(t(3), "const query = new URLSearchParams();")
+	// nothing in query
+	if rule.Body == "*" {
+		f.P(t(3), "const hasQuery = false;")
+		return
+	}
+	// fields covered by path
+	pathCovered := make(map[string]struct{})
+	f.P(t(3), "let hasQuery = false;")
+	walkJsonLeafFields(input, func(path httprule.FieldPath, field protoreflect.FieldDescriptor) {
+		if _, ok := pathCovered[path.String()]; ok {
+			return
+		}
+		if rule.Body != "" && path[0] == rule.Body {
+			return
+		}
+		nullPath := nullPropagationPath(path, input)
+		jp := jsonPath(path, input)
+		f.P(t(3), "if (request.", nullPath, ") {")
+		f.P(t(4), "hasQuery = true;")
+		switch {
+		case field.IsList():
+			f.P(t(4), "for (const x of request.", jp, ") {")
+			f.P(t(5), "query.append(", strconv.Quote(jp), ", x.toString());")
+			f.P(t(4), "}")
+		default:
+			f.P(t(4), "query.set(", strconv.Quote(jp), ", request.", jp, ".toString());")
+		}
+		f.P(t(3), "}")
+	})
 }
 
 func supportedMethod(method protoreflect.MethodDescriptor) bool {
