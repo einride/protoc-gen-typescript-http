@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -59,7 +60,7 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	var methodErr error
 	rangeMethods(s.service.Methods(), func(method protoreflect.MethodDescriptor) {
 		if err := s.generateMethod(f, method); err != nil {
-			methodErr = err
+			methodErr = fmt.Errorf("generate method %s: %w", method.Name(), err)
 		}
 	})
 	if methodErr != nil {
@@ -78,7 +79,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	}
 	rule, err := httprule.ParseRule(r)
 	if err != nil {
-		return err
+		return fmt.Errorf("parse http rule: %w", err)
 	}
 	f.P(t(2), method.Name(), "(request) {")
 	s.generateMethodPathValidation(f, method.Input(), rule)
