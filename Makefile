@@ -15,8 +15,6 @@ include tools/commitlint/rules.mk
 include tools/git-verify-nodiff/rules.mk
 include tools/golangci-lint/rules.mk
 include tools/goreview/rules.mk
-include tools/protoc-gen-go/rules.mk
-include tools/protoc/rules.mk
 include tools/semantic-release/rules.mk
 
 .PHONY: examples/proto/api-common-protos
@@ -40,16 +38,15 @@ buf-lint: $(buf) examples/proto/api-common-protos
 
 protoc_gen_typescript_http := ./bin/protoc-gen-typescript-http
 export PATH := $(dir $(abspath $(protoc_gen_typescript_http))):$(PATH)
+
 .PHONY: $(protoc_gen_typescript_http)
 $(protoc_gen_typescript_http):
-	go build -o $@ .
+	$(info [$@] building protoc-gen-typescript-http...)
+	@go build -o $@ .
 
-protoc_plugins := \
-	$(protoc_gen_go) \
-	$(protoc_gen_typescript_http)
 
 .PHONY: buf-generate
-buf-generate: $(buf) $(protoc) $(protoc_plugins) examples/proto/api-common-protos
+buf-generate: $(buf) $(protoc_gen_typescript_http) examples/proto/api-common-protos
 	$(info [$@] generating protobuf stubs...)
 	@rm -rf examples/proto/gen
 	@$(buf) generate --path examples/proto/src/einride
