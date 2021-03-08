@@ -228,7 +228,11 @@ func (p *parser) parseLiteral() (string, error) {
 		break
 	}
 	if len(literal) == 0 {
-		return "", fmt.Errorf("expected literal at %d, found %q", startPos-1, p.tok)
+		tok := fmt.Sprintf("%q", p.tok)
+		if p.tok == -1 {
+			tok = "EOF"
+		}
+		return "", fmt.Errorf("expected literal at position %d, found %s", startPos-1, tok)
 	}
 	return string(literal), nil
 }
@@ -245,7 +249,11 @@ func (p *parser) parseIdent() (string, error) {
 		break
 	}
 	if len(ident) == 0 {
-		return "", fmt.Errorf("expected identifier at %d, found %q", startPos-1, p.tok)
+		tok := fmt.Sprintf("%q", p.tok)
+		if p.tok == -1 {
+			tok = "EOF"
+		}
+		return "", fmt.Errorf("expected identifier at position %d, found %s", startPos-1, tok)
 	}
 	return string(ident), nil
 }
@@ -274,7 +282,11 @@ func (p *parser) peekN(n int) rune {
 
 func (p *parser) expect(r rune) error {
 	if p.tok != r {
-		return fmt.Errorf("expected token %q, got %q at position %d", r, p.tok, p.pos-1)
+		tok := fmt.Sprintf("%q", p.tok)
+		if p.tok == -1 {
+			tok = "EOF"
+		}
+		return fmt.Errorf("expected token %q at position %d, found %s", r, p.pos, tok)
 	}
 	p.next()
 	return nil
@@ -342,12 +354,12 @@ func validate(t Template) error {
 			continue
 		}
 		if s.Kind == SegmentKindMatchMultiple {
-			return fmt.Errorf("'**' only allowed as the last part of the template")
+			return fmt.Errorf("'**' only allowed as last part of template")
 		}
 		if s.Kind == SegmentKindVariable {
 			for _, s2 := range s.Variable.Segments {
 				if s2.Kind == SegmentKindMatchMultiple {
-					return fmt.Errorf("'**' only allowed as the last part of the template")
+					return fmt.Errorf("'**' only allowed as last part of template")
 				}
 			}
 		}
@@ -364,6 +376,26 @@ func validate(t Template) error {
 			if s2.Kind == SegmentKindMatchMultiple {
 				return fmt.Errorf("'**' only allowed as the last part of the template")
 			}
+		}
+	}
+	// check for top level expansions
+	for _, s := range t.Segments {
+		if s.Kind == SegmentKindMatchSingle {
+			return fmt.Errorf("'*' must only be used in variables")
+		}
+		if s.Kind == SegmentKindMatchMultiple {
+			return fmt.Errorf("'**' must only be used in variables")
+		}
+	}
+	// check for duplicate variable bindings
+	seen := make(map[string]struct{})
+	for _, s := range t.Segments {
+		if s.Kind == SegmentKindVariable {
+			field := s.Variable.FieldPath.String()
+			if _, ok := seen[s.Variable.FieldPath.String()]; ok {
+				return fmt.Errorf("variable '%s' bound multiple times", field)
+			}
+			seen[field] = struct{}{}
 		}
 	}
 	return nil
