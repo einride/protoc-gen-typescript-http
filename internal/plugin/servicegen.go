@@ -97,7 +97,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 func (s serviceGenerator) generateMethodPathValidation(
 	f *codegen.File,
 	input protoreflect.MessageDescriptor,
-	rule *httprule.Rule,
+	rule httprule.Rule,
 ) {
 	for _, seg := range rule.Template.Segments {
 		if seg.Kind != httprule.SegmentKindVariable {
@@ -116,7 +116,7 @@ func (s serviceGenerator) generateMethodPathValidation(
 func (s serviceGenerator) generateMethodPath(
 	f *codegen.File,
 	input protoreflect.MessageDescriptor,
-	rule *httprule.Rule,
+	rule httprule.Rule,
 ) {
 	pathParts := make([]string, 0, len(rule.Template.Segments))
 	for _, seg := range rule.Template.Segments {
@@ -142,7 +142,7 @@ func (s serviceGenerator) generateMethodPath(
 func (s serviceGenerator) generateMethodBody(
 	f *codegen.File,
 	input protoreflect.MessageDescriptor,
-	rule *httprule.Rule,
+	rule httprule.Rule,
 ) {
 	switch {
 	case rule.Body == "":
@@ -158,7 +158,7 @@ func (s serviceGenerator) generateMethodBody(
 func (s serviceGenerator) generateMethodQuery(
 	f *codegen.File,
 	input protoreflect.MessageDescriptor,
-	rule *httprule.Rule,
+	rule httprule.Rule,
 ) {
 	f.P(t(3), "const query = new URLSearchParams();")
 	// nothing in query

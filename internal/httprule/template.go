@@ -32,16 +32,16 @@ type VariableSegment struct {
 	Segments  []Segment
 }
 
-func ParseTemplate(s string) (*Template, error) {
+func ParseTemplate(s string) (Template, error) {
 	p := &parser{
 		content: s,
 	}
 	template, err := p.parse()
 	if err != nil {
-		return nil, err
+		return Template{}, err
 	}
 	if err := validate(template); err != nil {
-		return nil, err
+		return Template{}, err
 	}
 	return template, nil
 }
@@ -63,27 +63,27 @@ type parser struct {
 // Variable = "{" FieldPath [ "=" Segments ] "}" ;
 // FieldPath = IDENT { "." IDENT } ;
 // Verb     = ":" LITERAL ;
-func (p *parser) parse() (*Template, error) {
+func (p *parser) parse() (Template, error) {
 	p.next()
 	if err := p.expect('/'); err != nil {
-		return nil, err
+		return Template{}, err
 	}
 	segments, err := p.parseSegments()
 	if err != nil {
-		return nil, err
+		return Template{}, err
 	}
 	var verb string
 	if p.tok == ':' {
 		v, err := p.parseVerb()
 		if err != nil {
-			return nil, err
+			return Template{}, err
 		}
 		verb = v
 	}
 	if p.tok != -1 {
-		return nil, fmt.Errorf("expected EOF, got %q", p.tok)
+		return Template{}, fmt.Errorf("expected EOF, got %q", p.tok)
 	}
-	return &Template{
+	return Template{
 		Segments: segments,
 		Verb:     verb,
 	}, nil
@@ -324,7 +324,7 @@ func isHexDigit(r rune) bool {
 //
 // - nested variable segments
 // - '**' for segments other than the last
-func validate(t *Template) error {
+func validate(t Template) error {
 	// check for nested variable segments
 	for _, s1 := range t.Segments {
 		if s1.Kind != SegmentKindVariable {
