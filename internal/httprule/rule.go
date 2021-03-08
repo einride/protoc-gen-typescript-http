@@ -22,33 +22,33 @@ type Rule struct {
 	// The HTTP method to use.
 	Method string
 	// The template describing the URL to use.
-	Template        *Template
+	Template        Template
 	Body            string
-	AdditionalRules []*Rule
+	AdditionalRules []Rule
 }
 
-func ParseRule(httpRule *annotations.HttpRule) (*Rule, error) {
+func ParseRule(httpRule *annotations.HttpRule) (Rule, error) {
 	method, err := httpRuleMethod(httpRule)
 	if err != nil {
-		return nil, err
+		return Rule{}, err
 	}
 	url, err := httpRuleURL(httpRule)
 	if err != nil {
-		return nil, err
+		return Rule{}, err
 	}
 	template, err := ParseTemplate(url)
 	if err != nil {
-		return nil, err
+		return Rule{}, err
 	}
-	additional := make([]*Rule, len(httpRule.AdditionalBindings))
+	additional := make([]Rule, len(httpRule.AdditionalBindings))
 	for i, r := range httpRule.AdditionalBindings {
 		a, err := ParseRule(r)
 		if err != nil {
-			return nil, fmt.Errorf("parse additional binding %d: %w", i, err)
+			return Rule{}, fmt.Errorf("parse additional binding %d: %w", i, err)
 		}
 		additional[i] = a
 	}
-	return &Rule{
+	return Rule{
 		Method:          method,
 		Template:        template,
 		Body:            httpRule.Body,
