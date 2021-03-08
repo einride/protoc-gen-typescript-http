@@ -5,6 +5,7 @@ all: \
 	buf-generate \
 	go-lint \
 	go-review \
+	buf-generate \
 	go-test \
 	go-mod-tidy \
 	git-verify-nodiff
