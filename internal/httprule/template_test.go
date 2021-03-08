@@ -10,45 +10,11 @@ func Test_ParseTemplate(t *testing.T) {
 	t.Parallel()
 	for _, tt := range []struct {
 		input string
-		path  *Template
+		path  Template
 	}{
 		{
-			input: "/*",
-			path: &Template{
-				Segments: []Segment{
-					{Kind: SegmentKindMatchSingle},
-				},
-			},
-		},
-		{
-			input: "/**",
-			path: &Template{
-				Segments: []Segment{
-					{Kind: SegmentKindMatchMultiple},
-				},
-			},
-		},
-		{
-			input: "/*/*",
-			path: &Template{
-				Segments: []Segment{
-					{Kind: SegmentKindMatchSingle},
-					{Kind: SegmentKindMatchSingle},
-				},
-			},
-		},
-		{
-			input: "/**:peek",
-			path: &Template{
-				Segments: []Segment{
-					{Kind: SegmentKindMatchMultiple},
-				},
-				Verb: "peek",
-			},
-		},
-		{
 			input: "/v1/messages",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{Kind: SegmentKindLiteral, Literal: "v1"},
 					{Kind: SegmentKindLiteral, Literal: "messages"},
@@ -56,27 +22,18 @@ func Test_ParseTemplate(t *testing.T) {
 			},
 		},
 		{
-			input: "/v1/**",
-			path: &Template{
+			input: "/v1/messages:peek",
+			path: Template{
 				Segments: []Segment{
 					{Kind: SegmentKindLiteral, Literal: "v1"},
-					{Kind: SegmentKindMatchMultiple},
-				},
-			},
-		},
-		{
-			input: "/v1/**:peek",
-			path: &Template{
-				Segments: []Segment{
-					{Kind: SegmentKindLiteral, Literal: "v1"},
-					{Kind: SegmentKindMatchMultiple},
+					{Kind: SegmentKindLiteral, Literal: "messages"},
 				},
 				Verb: "peek",
 			},
 		},
 		{
 			input: "/{id}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{
 						Kind: SegmentKindVariable,
@@ -92,7 +49,7 @@ func Test_ParseTemplate(t *testing.T) {
 		},
 		{
 			input: "/{message.id}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{
 						Kind: SegmentKindVariable,
@@ -108,7 +65,7 @@ func Test_ParseTemplate(t *testing.T) {
 		},
 		{
 			input: "/{id=messages/*}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{
 						Kind: SegmentKindVariable,
@@ -125,7 +82,7 @@ func Test_ParseTemplate(t *testing.T) {
 		},
 		{
 			input: "/{id=messages/*/threads/*}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{
 						Kind: SegmentKindVariable,
@@ -144,7 +101,7 @@ func Test_ParseTemplate(t *testing.T) {
 		},
 		{
 			input: "/{id=**}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{
 						Kind: SegmentKindVariable,
@@ -160,7 +117,7 @@ func Test_ParseTemplate(t *testing.T) {
 		},
 		{
 			input: "/v1/messages/{message}/threads/{thread}",
-			path: &Template{
+			path: Template{
 				Segments: []Segment{
 					{Kind: SegmentKindLiteral, Literal: "v1"},
 					{Kind: SegmentKindLiteral, Literal: "messages"},

@@ -3,9 +3,8 @@ package plugin
 import (
 	"strings"
 
-	"github.com/einride/protoc-gen-typescript-http/internal/protosource"
-
 	"github.com/einride/protoc-gen-typescript-http/internal/codegen"
+	"github.com/einride/protoc-gen-typescript-http/internal/protosource"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

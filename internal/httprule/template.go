@@ -228,11 +228,7 @@ func (p *parser) parseLiteral() (string, error) {
 		break
 	}
 	if len(literal) == 0 {
-		tok := fmt.Sprintf("%q", p.tok)
-		if p.tok == -1 {
-			tok = "EOF"
-		}
-		return "", fmt.Errorf("expected literal at position %d, found %s", startPos-1, tok)
+		return "", fmt.Errorf("expected literal at position %d, found %s", startPos-1, p.tokenString())
 	}
 	return string(literal), nil
 }
@@ -249,11 +245,7 @@ func (p *parser) parseIdent() (string, error) {
 		break
 	}
 	if len(ident) == 0 {
-		tok := fmt.Sprintf("%q", p.tok)
-		if p.tok == -1 {
-			tok = "EOF"
-		}
-		return "", fmt.Errorf("expected identifier at position %d, found %s", startPos-1, tok)
+		return "", fmt.Errorf("expected identifier at position %d, found %s", startPos-1, p.tokenString())
 	}
 	return string(ident), nil
 }
@@ -266,6 +258,13 @@ func (p *parser) next() {
 		p.tok = -1
 		p.pos = len(p.content)
 	}
+}
+
+func (p parser) tokenString() string {
+	if p.tok == -1 {
+		return "EOF"
+	}
+	return fmt.Sprintf("%q", p.tok)
 }
 
 func (p *parser) peek() rune {
@@ -282,11 +281,7 @@ func (p *parser) peekN(n int) rune {
 
 func (p *parser) expect(r rune) error {
 	if p.tok != r {
-		tok := fmt.Sprintf("%q", p.tok)
-		if p.tok == -1 {
-			tok = "EOF"
-		}
-		return fmt.Errorf("expected token %q at position %d, found %s", r, p.pos, tok)
+		return fmt.Errorf("expected token %q at position %d, found %s", r, p.pos, p.tokenString())
 	}
 	p.next()
 	return nil
