@@ -44,7 +44,13 @@ func (s serviceGenerator) generateInterface(f *codegen.File) {
 }
 
 func (s serviceGenerator) generateHandler(f *codegen.File) {
-	f.P("type requestHandler = (path: string, method: string, body: string | null) => Promise<unknown>")
+	f.P("type Request = {")
+	f.P(t(1), "path: string;")
+	f.P(t(1), "method: string;")
+	f.P(t(1), "body: string | null;")
+	f.P("}")
+	f.P()
+	f.P("type RequestHandler = (request: Request) => Promise<unknown>")
 	f.P()
 }
 
@@ -52,7 +58,7 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	f.P(
 		"export function create",
 		descriptorTypeName(s.service),
-		"Client(handler: requestHandler): ",
+		"Client(handler: RequestHandler): ",
 		descriptorTypeName(s.service),
 		" {",
 	)
@@ -90,7 +96,11 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	f.P(t(3), "if (hasQuery) {")
 	f.P(t(4), "uri += \"?\" + query.toString()")
 	f.P(t(3), "}")
-	f.P(t(3), "return handler(uri, ", strconv.Quote(rule.Method), ", body) as Promise<", outputType.Reference(), ">")
+	f.P(t(3), "return handler({")
+	f.P(t(4), "path: uri,")
+	f.P(t(4), "method: ", strconv.Quote(rule.Method), ",")
+	f.P(t(4), "body,")
+	f.P(t(3), "}) as Promise<", outputType.Reference(), ">")
 	f.P(t(2), "},")
 	return nil
 }

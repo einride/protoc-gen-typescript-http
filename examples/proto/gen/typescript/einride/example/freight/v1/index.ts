@@ -312,9 +312,15 @@ export interface FreightService {
 	DeleteShipment(request: DeleteShipmentRequest): Promise<Shipment>
 }
 
-type requestHandler = (path: string, method: string, body: string | null) => Promise<unknown>
+type Request = {
+	path: string;
+	method: string;
+	body: string | null;
+}
 
-export function createFreightServiceClient(handler: requestHandler): FreightService {
+type RequestHandler = (request: Request) => Promise<unknown>
+
+export function createFreightServiceClient(handler: RequestHandler): FreightService {
 	return {
 		GetShipper(request) {
 			if (!request.name) {
@@ -332,7 +338,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<Shipper>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<Shipper>
 		},
 		ListShippers(request) {
 			const path = `v1/shippers`
@@ -351,7 +361,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<ListShippersResponse>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<ListShippersResponse>
 		},
 		CreateShipper(request) {
 			const path = `v1/shippers`
@@ -362,7 +376,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "POST", body) as Promise<Shipper>
+			return handler({
+				path: uri,
+				method: "POST",
+				body,
+			}) as Promise<Shipper>
 		},
 		UpdateShipper(request) {
 			if (!request.shipper?.name) {
@@ -380,7 +398,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "PATCH", body) as Promise<Shipper>
+			return handler({
+				path: uri,
+				method: "PATCH",
+				body,
+			}) as Promise<Shipper>
 		},
 		DeleteShipper(request) {
 			if (!request.name) {
@@ -398,7 +420,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "DELETE", body) as Promise<Shipper>
+			return handler({
+				path: uri,
+				method: "DELETE",
+				body,
+			}) as Promise<Shipper>
 		},
 		GetSite(request) {
 			if (!request.name) {
@@ -416,7 +442,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<Site>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<Site>
 		},
 		ListSites(request) {
 			if (!request.parent) {
@@ -442,7 +472,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<ListSitesResponse>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<ListSitesResponse>
 		},
 		CreateSite(request) {
 			if (!request.parent) {
@@ -460,7 +494,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "POST", body) as Promise<Site>
+			return handler({
+				path: uri,
+				method: "POST",
+				body,
+			}) as Promise<Site>
 		},
 		UpdateSite(request) {
 			if (!request.site?.name) {
@@ -478,7 +516,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "PATCH", body) as Promise<Site>
+			return handler({
+				path: uri,
+				method: "PATCH",
+				body,
+			}) as Promise<Site>
 		},
 		DeleteSite(request) {
 			if (!request.name) {
@@ -496,7 +538,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "DELETE", body) as Promise<Site>
+			return handler({
+				path: uri,
+				method: "DELETE",
+				body,
+			}) as Promise<Site>
 		},
 		GetShipment(request) {
 			if (!request.name) {
@@ -514,7 +560,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<Shipment>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<Shipment>
 		},
 		ListShipments(request) {
 			if (!request.parent) {
@@ -540,7 +590,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "GET", body) as Promise<ListShipmentsResponse>
+			return handler({
+				path: uri,
+				method: "GET",
+				body,
+			}) as Promise<ListShipmentsResponse>
 		},
 		CreateShipment(request) {
 			if (!request.parent) {
@@ -558,7 +612,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "POST", body) as Promise<Shipment>
+			return handler({
+				path: uri,
+				method: "POST",
+				body,
+			}) as Promise<Shipment>
 		},
 		UpdateShipment(request) {
 			if (!request.shipment?.name) {
@@ -576,7 +634,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "PATCH", body) as Promise<Shipment>
+			return handler({
+				path: uri,
+				method: "PATCH",
+				body,
+			}) as Promise<Shipment>
 		},
 		DeleteShipment(request) {
 			if (!request.name) {
@@ -594,7 +656,11 @@ export function createFreightServiceClient(handler: requestHandler): FreightServ
 			if (hasQuery) {
 				uri += "?" + query.toString()
 			}
-			return handler(uri, "DELETE", body) as Promise<Shipment>
+			return handler({
+				path: uri,
+				method: "DELETE",
+				body,
+			}) as Promise<Shipment>
 		},
 	}
 }
