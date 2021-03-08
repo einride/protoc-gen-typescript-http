@@ -38,7 +38,7 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 		var index codegen.File
 		indexPathElems := append(strings.Split(string(pkg), "."), "index.ts")
 		if err := (packageGenerator{pkg: pkg, files: files}).Generate(&index); err != nil {
-			return nil, err
+			return nil, fmt.Errorf("generate package '%s': %w", pkg, err)
 		}
 		res.File = append(res.File, &pluginpb.CodeGeneratorResponse_File{
 			Name:    proto.String(path.Join(indexPathElems...)),
