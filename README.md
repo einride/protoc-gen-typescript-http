@@ -29,7 +29,7 @@ Or download a prebuilt binary from [releases][releases].
 
 ```bash
 protoc 
-  --typescript-http-out [OUTPUT DIR] \
+  --typescript-http_out [OUTPUT DIR] \
   [.proto files ...]
 ```
 
