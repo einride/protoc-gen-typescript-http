@@ -37,7 +37,7 @@ func (s serviceGenerator) generateInterface(f *codegen.File) {
 		commentGenerator{descriptor: method}.generateLeading(f, 1)
 		input := typeFromMessage(s.pkg, method.Input())
 		output := typeFromMessage(s.pkg, method.Output())
-		f.P(t(1), method.Name(), "(request: ", input.Reference(), "): Promise<", output.Reference(), ">")
+		f.P(t(1), method.Name(), "(request: ", input.Reference(), "): Promise<", output.Reference(), ">;")
 	})
 	f.P("}")
 	f.P()
@@ -48,9 +48,9 @@ func (s serviceGenerator) generateHandler(f *codegen.File) {
 	f.P(t(1), "path: string;")
 	f.P(t(1), "method: string;")
 	f.P(t(1), "body: string | null;")
-	f.P("}")
+	f.P("};")
 	f.P()
-	f.P("type RequestHandler = (request: Request) => Promise<unknown>")
+	f.P("type RequestHandler = (request: Request) => Promise<unknown>;")
 	f.P()
 }
 
@@ -58,7 +58,12 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	f.P(
 		"export function create",
 		descriptorTypeName(s.service),
-		"Client(handler: RequestHandler): ",
+		"Client(",
+		"\n",
+		t(1),
+		"handler: RequestHandler",
+		"\n",
+		"): ",
 		descriptorTypeName(s.service),
 		" {",
 	)
@@ -72,7 +77,7 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	if methodErr != nil {
 		return methodErr
 	}
-	f.P(t(1), "}")
+	f.P(t(1), "};")
 	f.P("}")
 	return nil
 }
@@ -92,15 +97,15 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	s.generateMethodPath(f, method.Input(), rule)
 	s.generateMethodBody(f, method.Input(), rule)
 	s.generateMethodQuery(f, method.Input(), rule)
-	f.P(t(3), "let uri = path")
+	f.P(t(3), "let uri = path;")
 	f.P(t(3), "if (hasQuery) {")
-	f.P(t(4), "uri += \"?\" + query.toString()")
+	f.P(t(4), "uri += \"?\" + query.toString();")
 	f.P(t(3), "}")
 	f.P(t(3), "return handler({")
 	f.P(t(4), "path: uri,")
 	f.P(t(4), "method: ", strconv.Quote(rule.Method), ",")
 	f.P(t(4), "body,")
-	f.P(t(3), "}) as Promise<", outputType.Reference(), ">")
+	f.P(t(3), "}) as Promise<", outputType.Reference(), ">;")
 	f.P(t(2), "},")
 	return nil
 }
@@ -119,7 +124,7 @@ func (s serviceGenerator) generateMethodPathValidation(
 		protoPath := strings.Join(fp, ".")
 		errMsg := "missing required field request." + protoPath
 		f.P(t(3), "if (!request.", nullPath, ") {")
-		f.P(t(4), "throw new Error(", strconv.Quote(errMsg), ")")
+		f.P(t(4), "throw new Error(", strconv.Quote(errMsg), ");")
 		f.P(t(3), "}")
 	}
 }
@@ -147,7 +152,7 @@ func (s serviceGenerator) generateMethodPath(
 	if rule.Template.Verb != "" {
 		path += ":" + rule.Template.Verb
 	}
-	f.P(t(3), "const path = `", path, "`")
+	f.P(t(3), "const path = `", path, "`; // eslint-disable-line quotes")
 }
 
 func (s serviceGenerator) generateMethodBody(
@@ -162,7 +167,7 @@ func (s serviceGenerator) generateMethodBody(
 		f.P(t(3), "const body = JSON.stringify(request);")
 	default:
 		nullPath := nullPropagationPath(httprule.FieldPath{rule.Body}, input)
-		f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {})")
+		f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
 	}
 }
 
@@ -179,7 +184,7 @@ func (s serviceGenerator) generateMethodQuery(
 	}
 	// fields covered by path
 	pathCovered := make(map[string]struct{})
-	f.P(t(3), "let hasQuery = false;")
+	f.P(t(3), "let hasQuery = false; // eslint-disable-line prefer-const")
 	walkJSONLeafFields(input, func(path httprule.FieldPath, field protoreflect.FieldDescriptor) {
 		if _, ok := pathCovered[path.String()]; ok {
 			return

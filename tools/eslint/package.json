@@ -1,0 +1,10 @@
+{
+  "name": "eslint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@einride/eslint-plugin": "1.1.0",
+    "eslint": "^7.17.0",
+    "typescript": "^4.2.3"
+  }
+}

@@ -43,12 +43,16 @@ func rangeMethods(methods protoreflect.MethodDescriptors, f func(method protoref
 	}
 }
 
-func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect.EnumValueDescriptor)) {
+func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect.EnumValueDescriptor, last bool)) {
 	for i := 0; i < enum.Values().Len(); i++ {
-		f(enum.Values().Get(i))
+		if i == enum.Values().Len()-1 {
+			f(enum.Values().Get(i), true)
+		} else {
+			f(enum.Values().Get(i), false)
+		}
 	}
 }
 
 func t(n int) string {
-	return strings.Repeat("\t", n)
+	return strings.Repeat("  ", n)
 }
