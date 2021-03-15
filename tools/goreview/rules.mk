@@ -2,7 +2,14 @@ goreview_cwd := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 goreview_version := 0.16.0
 goreview := $(goreview_cwd)/$(goreview_version)/goreview
 
-goreview_archive_url := https://github.com/einride/goreview/releases/download/v$(goreview_version)/goreview_$(goreview_version)_$(shell uname)_$(shell uname -m).tar.gz
+arch := $(shell uname -s)_$(shell uname -m)
+
+# enforce x86 arch if mac m1 until tool has official support
+ifeq ($(arch),Darwin_arm64)
+arch = Darwin_x86_64
+endif
+
+goreview_archive_url := https://github.com/einride/goreview/releases/download/v$(goreview_version)/goreview_$(goreview_version)_$(arch).tar.gz
 
 $(goreview): $(goreview_cwd)/rules.mk
 	$(info [go-review] fetching $(goreview_version) binary...)
