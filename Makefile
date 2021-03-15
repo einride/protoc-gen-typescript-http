@@ -6,6 +6,7 @@ all: \
 	go-lint \
 	go-review \
 	buf-generate \
+	eslint \
 	go-test \
 	go-mod-tidy \
 	git-verify-nodiff
@@ -16,6 +17,7 @@ include tools/git-verify-nodiff/rules.mk
 include tools/golangci-lint/rules.mk
 include tools/goreview/rules.mk
 include tools/semantic-release/rules.mk
+include tools/eslint/rules.mk
 
 .PHONY: examples/proto/api-common-protos
 examples/proto/api-common-protos:
@@ -44,6 +46,10 @@ $(protoc_gen_typescript_http):
 	$(info [$@] building protoc-gen-typescript-http...)
 	@go build -o $@ .
 
+.PHONY: $(eslint)
+eslint: $(eslint)
+	$(info [$@] linting typescript files...)
+	$(eslint) --config $(eslint_cwd)/.eslintrc.js --quiet "examples/proto/gen/typescript/**/*.ts"
 
 .PHONY: buf-generate
 buf-generate: $(buf) $(protoc_gen_typescript_http) examples/proto/api-common-protos

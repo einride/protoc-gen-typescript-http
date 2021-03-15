@@ -68,8 +68,8 @@ func (wkt WellKnown) TypeDeclaration() string {
 		w.P("// Otherwise, the value will be converted into a JSON object,")
 		w.P("// and the \"@type\" field will be inserted to indicate the actual data type.")
 		w.P("interface ", wkt.Name(), " {")
-		w.P("\t", "\"@type\": string;")
-		w.P("\t [key: string]: unknown;")
+		w.P("  ", "\"@type\": string;")
+		w.P("  [key: string]: unknown;")
 		w.P("}")
 	case WellKnownDuration:
 		w.P("// Generated output always contains 0, 3, 6, or 9 fractional digits,")
@@ -79,8 +79,7 @@ func (wkt WellKnown) TypeDeclaration() string {
 		w.P("type ", wkt.Name(), " = string;")
 	case WellKnownEmpty:
 		w.P("// An empty JSON object")
-		w.P("type ", wkt.Name(), " = Record<never, never>")
-		w.P()
+		w.P("type ", wkt.Name(), " = Record<never, never>;")
 	case WellKnownTimestamp:
 		w.P("// Encoded using RFC 3339, where generated output will always be Z-normalized")
 		w.P("// and uses 0, 3, 6 or 9 fractional digits.")

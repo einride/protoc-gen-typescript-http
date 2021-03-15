@@ -14,7 +14,7 @@ type Type struct {
 func (t Type) Reference() string {
 	switch {
 	case t.IsMap:
-		return "{ [key: string]: " + t.Underlying.Reference() + "}"
+		return "{ [key: string]: " + t.Underlying.Reference() + " }"
 	case t.IsList:
 		return t.Underlying.Reference() + "[]"
 	default:
