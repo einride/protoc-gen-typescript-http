@@ -295,21 +295,62 @@ export type DeleteShipmentRequest = {
   name?: string;
 };
 
+// This API represents a simple freight service.
+// It defines the following resource model:
+// - The API has a collection of [Shipper][einride.example.freight.v1.Shipper]
+// resources, named `shippers/*`
+// - Each Shipper has a collection of [Site][einride.example.freight.v1.Site]
+// resources, named `shippers/*/sites/*`
+// - Each Shipper has a collection of [Shipment][einride.example.freight.v1.Shipment]
+// resources, named `shippers/*/shipments/*`
 export interface FreightService {
+  // Get a shipper.
+  // See: https://google.aip.dev/131 (Standard methods: Get).
   GetShipper(request: GetShipperRequest): Promise<Shipper>;
+  // List shippers.
+  // See: https://google.aip.dev/132 (Standard methods: List).
   ListShippers(request: ListShippersRequest): Promise<ListShippersResponse>;
+  // Create a shipper.
+  // See: https://google.aip.dev/133 (Standard methods: Create).
   CreateShipper(request: CreateShipperRequest): Promise<Shipper>;
+  // Update a shipper.
+  // See: https://google.aip.dev/134 (Standard methods: Update).
   UpdateShipper(request: UpdateShipperRequest): Promise<Shipper>;
+  // Delete a shipper.
+  // See: https://google.aip.dev/135 (Standard methods: Delete).
+  // See: https://google.aip.dev/164 (Soft delete).
   DeleteShipper(request: DeleteShipperRequest): Promise<Shipper>;
+  // Get a site.
+  // See: https://google.aip.dev/131 (Standard methods: Get).
   GetSite(request: GetSiteRequest): Promise<Site>;
+  // List sites for a shipper.
+  // See: https://google.aip.dev/132 (Standard methods: List).
   ListSites(request: ListSitesRequest): Promise<ListSitesResponse>;
+  // Create a site.
+  // See: https://google.aip.dev/133 (Standard methods: Create).
   CreateSite(request: CreateSiteRequest): Promise<Site>;
+  // Update a site.
+  // See: https://google.aip.dev/134 (Standard methods: Update).
   UpdateSite(request: UpdateSiteRequest): Promise<Site>;
+  // Delete a site.
+  // See: https://google.aip.dev/135 (Standard methods: Delete).
+  // See: https://google.aip.dev/164 (Soft delete).
   DeleteSite(request: DeleteSiteRequest): Promise<Site>;
+  // Get a shipment.
+  // See: https://google.aip.dev/131 (Standard methods: Get).
   GetShipment(request: GetShipmentRequest): Promise<Shipment>;
+  // List shipments for a shipper.
+  // See: https://google.aip.dev/132 (Standard methods: List).
   ListShipments(request: ListShipmentsRequest): Promise<ListShipmentsResponse>;
+  // Create a shipment.
+  // See: https://google.aip.dev/133 (Standard methods: Create).
   CreateShipment(request: CreateShipmentRequest): Promise<Shipment>;
+  // Update a shipment.
+  // See: https://google.aip.dev/134 (Standard methods: Update).
   UpdateShipment(request: UpdateShipmentRequest): Promise<Shipment>;
+  // Delete a shipment.
+  // See: https://google.aip.dev/135 (Standard methods: Delete).
+  // See: https://google.aip.dev/164 (Soft delete).
   DeleteShipment(request: DeleteShipmentRequest): Promise<Shipment>;
 }
 
