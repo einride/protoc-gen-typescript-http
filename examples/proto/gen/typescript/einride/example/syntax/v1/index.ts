@@ -279,25 +279,21 @@ export function createSyntaxServiceClient(
     QueryOnly(request) {
       const path = `v1`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.string) {
-        hasQuery = true;
-        query.set("string", request.string.toString());
+        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
       }
       if (request.repeatedString) {
-        hasQuery = true;
         for (const x of request.repeatedString) {
-          query.append("repeatedString", x.toString());
+          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
         }
       }
       if (request.nested?.string) {
-        hasQuery = true;
-        query.set("nested.string", request.nested.string.toString());
+        queryParams.push("nested.string=" + encodeURIComponent(request.nested.string.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -308,11 +304,10 @@ export function createSyntaxServiceClient(
     EmptyVerb(request) {
       const path = `v1:emptyVerb`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -323,11 +318,10 @@ export function createSyntaxServiceClient(
     StarBody(request) {
       const path = `v1:starBody`; // eslint-disable-line quotes
       const body = JSON.stringify(request);
-      const query = new URLSearchParams();
-      const hasQuery = false;
+      const queryParams: string[] = [];
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -338,21 +332,18 @@ export function createSyntaxServiceClient(
     Body(request) {
       const path = `v1:body`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.nested ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.string) {
-        hasQuery = true;
-        query.set("string", request.string.toString());
+        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
       }
       if (request.repeatedString) {
-        hasQuery = true;
         for (const x of request.repeatedString) {
-          query.append("repeatedString", x.toString());
+          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
         }
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -366,25 +357,21 @@ export function createSyntaxServiceClient(
       }
       const path = `v1/${request.string}:path`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.string) {
-        hasQuery = true;
-        query.set("string", request.string.toString());
+        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
       }
       if (request.repeatedString) {
-        hasQuery = true;
         for (const x of request.repeatedString) {
-          query.append("repeatedString", x.toString());
+          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
         }
       }
       if (request.nested?.string) {
-        hasQuery = true;
-        query.set("nested.string", request.nested.string.toString());
+        queryParams.push("nested.string=" + encodeURIComponent(request.nested.string.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -398,21 +385,18 @@ export function createSyntaxServiceClient(
       }
       const path = `v1/${request.string}:pathBody`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.nested ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.string) {
-        hasQuery = true;
-        query.set("string", request.string.toString());
+        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
       }
       if (request.repeatedString) {
-        hasQuery = true;
         for (const x of request.repeatedString) {
-          query.append("repeatedString", x.toString());
+          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
         }
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
