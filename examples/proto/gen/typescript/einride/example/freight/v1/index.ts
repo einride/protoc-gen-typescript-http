@@ -372,15 +372,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -391,19 +389,16 @@ export function createFreightServiceClient(
     ListShippers(request) {
       const path = `v1/shippers`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.pageSize) {
-        hasQuery = true;
-        query.set("pageSize", request.pageSize.toString());
+        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
       }
       if (request.pageToken) {
-        hasQuery = true;
-        query.set("pageToken", request.pageToken.toString());
+        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -414,11 +409,10 @@ export function createFreightServiceClient(
     CreateShipper(request) {
       const path = `v1/shippers`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipper ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -432,15 +426,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.shipper.name}`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipper ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.updateMask) {
-        hasQuery = true;
-        query.set("updateMask", request.updateMask.toString());
+        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -454,15 +446,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -476,15 +466,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -498,23 +486,19 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.parent}/sites`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.parent) {
-        hasQuery = true;
-        query.set("parent", request.parent.toString());
+        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
       }
       if (request.pageSize) {
-        hasQuery = true;
-        query.set("pageSize", request.pageSize.toString());
+        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
       }
       if (request.pageToken) {
-        hasQuery = true;
-        query.set("pageToken", request.pageToken.toString());
+        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -528,15 +512,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.parent}/sites`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.site ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.parent) {
-        hasQuery = true;
-        query.set("parent", request.parent.toString());
+        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -550,15 +532,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.site.name}`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.site ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.updateMask) {
-        hasQuery = true;
-        query.set("updateMask", request.updateMask.toString());
+        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -572,15 +552,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -594,15 +572,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -616,23 +592,19 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.parent}/shipments`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.parent) {
-        hasQuery = true;
-        query.set("parent", request.parent.toString());
+        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
       }
       if (request.pageSize) {
-        hasQuery = true;
-        query.set("pageSize", request.pageSize.toString());
+        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
       }
       if (request.pageToken) {
-        hasQuery = true;
-        query.set("pageToken", request.pageToken.toString());
+        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -646,15 +618,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.parent}/shipments`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipment ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.parent) {
-        hasQuery = true;
-        query.set("parent", request.parent.toString());
+        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -668,15 +638,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.shipment.name}`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipment ?? {});
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.updateMask) {
-        hasQuery = true;
-        query.set("updateMask", request.updateMask.toString());
+        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
@@ -690,15 +658,13 @@ export function createFreightServiceClient(
       }
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
-      const query = new URLSearchParams();
-      let hasQuery = false; // eslint-disable-line prefer-const
+      const queryParams: string[] = [];
       if (request.name) {
-        hasQuery = true;
-        query.set("name", request.name.toString());
+        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
       }
       let uri = path;
-      if (hasQuery) {
-        uri += "?" + query.toString();
+      if (queryParams.length > 0) {
+        uri += "?" + queryParams.join("&");
       }
       return handler({
         path: uri,
