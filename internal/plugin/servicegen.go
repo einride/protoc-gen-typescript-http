@@ -183,6 +183,12 @@ func (s serviceGenerator) generateMethodQuery(
 	}
 	// fields covered by path
 	pathCovered := make(map[string]struct{})
+	for _, segment := range rule.Template.Segments {
+		if segment.Kind != httprule.SegmentKindVariable {
+			continue
+		}
+		pathCovered[segment.Variable.FieldPath.String()] = struct{}{}
+	}
 	walkJSONLeafFields(input, func(path httprule.FieldPath, field protoreflect.FieldDescriptor) {
 		if _, ok := pathCovered[path.String()]; ok {
 			return
