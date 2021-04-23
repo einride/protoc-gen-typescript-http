@@ -373,9 +373,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -447,9 +444,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -467,9 +461,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -487,9 +478,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.parent}/sites`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.parent) {
-        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
-      }
       if (request.pageSize) {
         queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
       }
@@ -513,9 +501,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.parent}/sites`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.site ?? {});
       const queryParams: string[] = [];
-      if (request.parent) {
-        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -553,9 +538,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -573,9 +555,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -593,9 +572,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.parent}/shipments`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.parent) {
-        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
-      }
       if (request.pageSize) {
         queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
       }
@@ -619,9 +595,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.parent}/shipments`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipment ?? {});
       const queryParams: string[] = [];
-      if (request.parent) {
-        queryParams.push("parent=" + encodeURIComponent(request.parent.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");
@@ -659,9 +632,6 @@ export function createFreightServiceClient(
       const path = `v1/${request.name}`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.name) {
-        queryParams.push("name=" + encodeURIComponent(request.name.toString()));
-      }
       let uri = path;
       if (queryParams.length > 0) {
         uri += "?" + queryParams.join("&");

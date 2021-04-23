@@ -358,9 +358,6 @@ export function createSyntaxServiceClient(
       const path = `v1/${request.string}:path`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
-      if (request.string) {
-        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
-      }
       if (request.repeatedString) {
         for (const x of request.repeatedString) {
           queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
@@ -386,9 +383,6 @@ export function createSyntaxServiceClient(
       const path = `v1/${request.string}:pathBody`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.nested ?? {});
       const queryParams: string[] = [];
-      if (request.string) {
-        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
-      }
       if (request.repeatedString) {
         for (const x of request.repeatedString) {
           queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
