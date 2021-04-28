@@ -251,3 +251,5 @@ export type einrideexamplesyntaxv1_Message_NestedMessage = {
 export type einrideexamplesyntaxv1_Message_NestedEnum =
   // NESTEDENUM_UNSPECIFIED
   "NESTEDENUM_UNSPECIFIED";
+
+// @@protoc_insertion_point(typescript-http-eof)

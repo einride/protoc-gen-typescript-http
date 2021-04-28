@@ -400,3 +400,5 @@ export function createSyntaxServiceClient(
     },
   };
 }
+
+// @@protoc_insertion_point(typescript-http-eof)
