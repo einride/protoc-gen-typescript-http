@@ -644,3 +644,5 @@ export function createFreightServiceClient(
     },
   };
 }
+
+// @@protoc_insertion_point(typescript-http-eof)

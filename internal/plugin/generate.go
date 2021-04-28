@@ -40,6 +40,8 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 		if err := (packageGenerator{pkg: pkg, files: files}).Generate(&index); err != nil {
 			return nil, fmt.Errorf("generate package '%s': %w", pkg, err)
 		}
+		index.P()
+		index.P("// @@protoc_insertion_point(typescript-http-eof)")
 		res.File = append(res.File, &pluginpb.CodeGeneratorResponse_File{
 			Name:    proto.String(path.Join(indexPathElems...)),
 			Content: proto.String(string(index.Content())),
