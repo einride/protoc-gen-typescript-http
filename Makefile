@@ -19,10 +19,6 @@ include tools/goreview/rules.mk
 include tools/semantic-release/rules.mk
 include tools/eslint/rules.mk
 
-.PHONY: examples/proto/api-common-protos
-examples/proto/api-common-protos:
-	@git submodule update --init --recursive $@
-
 .PHONY: go-test
 go-test:
 	$(info [$@] running Go tests...)
@@ -34,7 +30,7 @@ go-mod-tidy:
 	@go mod tidy -v
 
 .PHONY: buf-lint
-buf-lint: $(buf) examples/proto/api-common-protos
+buf-lint: $(buf)
 	$(info [$@] linting protobuf schemas...)
 	@$(buf) lint
 
@@ -52,7 +48,7 @@ eslint: $(eslint)
 	$(eslint) --config $(eslint_cwd)/.eslintrc.js --quiet "examples/proto/gen/typescript/**/*.ts"
 
 .PHONY: buf-generate
-buf-generate: $(buf) $(protoc_gen_typescript_http) examples/proto/api-common-protos
+buf-generate: $(buf) $(protoc_gen_typescript_http)
 	$(info [$@] generating protobuf stubs...)
 	@rm -rf examples/proto/gen
 	@$(buf) generate --path examples/proto/src/einride

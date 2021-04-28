@@ -1,9 +1,13 @@
 version: v1beta1
 
+name: buf.build/einride/protoc-gen-typescript-http
+
+deps:
+  - buf.build/beta/googleapis
+
 build:
   roots:
     - examples/proto/src
-    - examples/proto/api-common-protos
 
 lint:
   use:
@@ -14,5 +18,3 @@ lint:
     - RPC_RESPONSE_STANDARD_NAME
     - RPC_REQUEST_RESPONSE_UNIQUE
     - ENUM_VALUE_PREFIX
-  ignore:
-    - google
