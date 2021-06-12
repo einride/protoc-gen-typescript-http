@@ -3,84 +3,84 @@
 
 // Message
 export type Message = {
-  forwardedMessage?: einrideexamplesyntaxv1_Message;
-  forwardedEnum?: einrideexamplesyntaxv1_Enum;
+  forwardedMessage: einrideexamplesyntaxv1_Message | undefined;
+  forwardedEnum: einrideexamplesyntaxv1_Enum | undefined;
 };
 
 // Message
 export type einrideexamplesyntaxv1_Message = {
   // double
-  double?: number;
+  double: number | undefined;
   // float
-  float?: number;
+  float: number | undefined;
   // int32
-  int32?: number;
+  int32: number | undefined;
   // int64
-  int64?: number;
+  int64: number | undefined;
   // uint32
-  uint32?: number;
+  uint32: number | undefined;
   // uint64
-  uint64?: number;
+  uint64: number | undefined;
   // sint32
-  sint32?: number;
+  sint32: number | undefined;
   // sint64
-  sint64?: number;
+  sint64: number | undefined;
   // fixed32
-  fixed32?: number;
+  fixed32: number | undefined;
   // fixed64
-  fixed64?: number;
+  fixed64: number | undefined;
   // sfixed32
-  sfixed32?: number;
+  sfixed32: number | undefined;
   // sfixed64
-  sfixed64?: number;
+  sfixed64: number | undefined;
   // bool
-  bool?: boolean;
+  bool: boolean | undefined;
   // string
-  string?: string;
+  string: string | undefined;
   // bytes
-  bytes?: string;
+  bytes: string | undefined;
   // enum
-  enum?: einrideexamplesyntaxv1_Enum;
+  enum: einrideexamplesyntaxv1_Enum | undefined;
   // message
-  message?: einrideexamplesyntaxv1_Message;
+  message: einrideexamplesyntaxv1_Message | undefined;
   // repeated_double
-  repeatedDouble?: number[];
+  repeatedDouble: number[] | undefined;
   // repeated_float
-  repeatedFloat?: number[];
+  repeatedFloat: number[] | undefined;
   // repeated_int32
-  repeatedInt32?: number[];
+  repeatedInt32: number[] | undefined;
   // repeated_int64
-  repeatedInt64?: number[];
+  repeatedInt64: number[] | undefined;
   // repeated_uint32
-  repeatedUint32?: number[];
+  repeatedUint32: number[] | undefined;
   // repeated_uint64
-  repeatedUint64?: number[];
+  repeatedUint64: number[] | undefined;
   // repeated_sint32
-  repeatedSint32?: number[];
+  repeatedSint32: number[] | undefined;
   // repeated_sint64
-  repeatedSint64?: number[];
+  repeatedSint64: number[] | undefined;
   // repeated_fixed32
-  repeatedFixed32?: number[];
+  repeatedFixed32: number[] | undefined;
   // repeated_fixed64
-  repeatedFixed64?: number[];
+  repeatedFixed64: number[] | undefined;
   // repeated_sfixed32
-  repeatedSfixed32?: number[];
+  repeatedSfixed32: number[] | undefined;
   // repeated_sfixed64
-  repeatedSfixed64?: number[];
+  repeatedSfixed64: number[] | undefined;
   // repeated_bool
-  repeatedBool?: boolean[];
+  repeatedBool: boolean[] | undefined;
   // repeated_string
-  repeatedString?: string[];
+  repeatedString: string[] | undefined;
   // repeated_bytes
-  repeatedBytes?: string[];
+  repeatedBytes: string[] | undefined;
   // repeated_enum
-  repeatedEnum?: einrideexamplesyntaxv1_Enum[];
+  repeatedEnum: einrideexamplesyntaxv1_Enum[] | undefined;
   // repeated_message
-  repeatedMessage?: einrideexamplesyntaxv1_Message[];
+  repeatedMessage: einrideexamplesyntaxv1_Message[] | undefined;
   // map_string_string
-  mapStringString?: { [key: string]: string };
+  mapStringString: { [key: string]: string } | undefined;
   // map_string_message
-  mapStringMessage?: { [key: string]: einrideexamplesyntaxv1_Message };
+  mapStringMessage: { [key: string]: einrideexamplesyntaxv1_Message } | undefined;
   // oneof_string
   oneofString?: string;
   // oneof_enum
@@ -90,73 +90,73 @@ export type einrideexamplesyntaxv1_Message = {
   // oneof_message2
   oneofMessage2?: einrideexamplesyntaxv1_Message;
   // any
-  any?: wellKnownAny;
+  any: wellKnownAny | undefined;
   // repeated_any
-  repeatedAny?: wellKnownAny[];
+  repeatedAny: wellKnownAny[] | undefined;
   // duration
-  duration?: wellKnownDuration;
+  duration: wellKnownDuration | undefined;
   // repeated_duration
-  repeatedDuration?: wellKnownDuration[];
+  repeatedDuration: wellKnownDuration[] | undefined;
   // empty
-  empty?: wellKnownEmpty;
+  empty: wellKnownEmpty | undefined;
   // repeated_empty
-  repeatedEmpty?: wellKnownEmpty[];
+  repeatedEmpty: wellKnownEmpty[] | undefined;
   // field_mask
-  fieldMask?: wellKnownFieldMask;
+  fieldMask: wellKnownFieldMask | undefined;
   // repeated_field_mask
-  repeatedFieldMask?: wellKnownFieldMask[];
+  repeatedFieldMask: wellKnownFieldMask[] | undefined;
   // struct
-  struct?: wellKnownStruct;
+  struct: wellKnownStruct | undefined;
   // repeated_struct
-  repeatedStruct?: wellKnownStruct[];
+  repeatedStruct: wellKnownStruct[] | undefined;
   // value
-  value?: wellKnownValue;
+  value: wellKnownValue | undefined;
   // repeated_value
-  repeatedValue?: wellKnownValue[];
+  repeatedValue: wellKnownValue[] | undefined;
   // null_value
-  nullValue?: wellKnownNullValue;
+  nullValue: wellKnownNullValue | undefined;
   // repeated_null_value
-  repeatedNullValue?: wellKnownNullValue[];
+  repeatedNullValue: wellKnownNullValue[] | undefined;
   // list_value
-  listValue?: wellKnownListValue;
+  listValue: wellKnownListValue | undefined;
   // repeated_list_value
-  repeatedListValue?: wellKnownListValue[];
+  repeatedListValue: wellKnownListValue[] | undefined;
   // bool_value
-  boolValue?: wellKnownBoolValue;
+  boolValue: wellKnownBoolValue | undefined;
   // repeated_bool_value
-  repeatedBoolValue?: wellKnownBoolValue[];
+  repeatedBoolValue: wellKnownBoolValue[] | undefined;
   // bytes_value
-  bytesValue?: wellKnownBytesValue;
+  bytesValue: wellKnownBytesValue | undefined;
   // repeated_bytes_value
-  repeatedBytesValue?: wellKnownBytesValue[];
+  repeatedBytesValue: wellKnownBytesValue[] | undefined;
   // double_value
-  doubleValue?: wellKnownDoubleValue;
+  doubleValue: wellKnownDoubleValue | undefined;
   // repeated_double_value
-  repeatedDoubleValue?: wellKnownDoubleValue[];
+  repeatedDoubleValue: wellKnownDoubleValue[] | undefined;
   // float_value
-  floatValue?: wellKnownFloatValue;
+  floatValue: wellKnownFloatValue | undefined;
   // repeated_float_value
-  repeatedFloatValue?: wellKnownFloatValue[];
+  repeatedFloatValue: wellKnownFloatValue[] | undefined;
   // int32_value
-  int32Value?: wellKnownInt32Value;
+  int32Value: wellKnownInt32Value | undefined;
   // repeated_int32_value
-  repeatedInt32Value?: wellKnownInt32Value[];
+  repeatedInt32Value: wellKnownInt32Value[] | undefined;
   // int64_value
-  int64Value?: wellKnownInt64Value;
+  int64Value: wellKnownInt64Value | undefined;
   // repeated_int64_value
-  repeatedInt64Value?: wellKnownInt64Value[];
+  repeatedInt64Value: wellKnownInt64Value[] | undefined;
   // uint32_value
-  uint32Value?: wellKnownUInt32Value;
+  uint32Value: wellKnownUInt32Value | undefined;
   // repeated_uint32_value
-  repeatedUint32Value?: wellKnownUInt32Value[];
+  repeatedUint32Value: wellKnownUInt32Value[] | undefined;
   // uint64_value
-  uint64Value?: wellKnownUInt64Value;
+  uint64Value: wellKnownUInt64Value | undefined;
   // repeated_uint64_value
-  repeatedUint64Value?: wellKnownUInt64Value[];
+  repeatedUint64Value: wellKnownUInt64Value[] | undefined;
   // string_value
-  stringValue?: wellKnownUInt64Value;
+  stringValue: wellKnownUInt64Value | undefined;
   // repeated_string_value
-  repeatedStringValue?: wellKnownStringValue[];
+  repeatedStringValue: wellKnownStringValue[] | undefined;
 };
 
 // Enum
@@ -244,7 +244,7 @@ type wellKnownStringValue = string | null;
 // NestedMessage
 export type einrideexamplesyntaxv1_Message_NestedMessage = {
   // nested_message.string
-  string?: string;
+  string: string | undefined;
 };
 
 // NestedEnum
