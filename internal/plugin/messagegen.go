@@ -16,8 +16,13 @@ func (m messageGenerator) Generate(f *codegen.File) {
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
 		fieldType := typeFromField(m.pkg, field)
-		f.P(t(1), field.JSONName(), "?: ", fieldType.Reference(), ";")
+		if field.ContainingOneof() == nil {
+			f.P(t(1), field.JSONName(), ": ", fieldType.Reference(), " | undefined;")
+		} else {
+			f.P(t(1), field.JSONName(), "?: ", fieldType.Reference(), ";")
+		}
 	})
+
 	f.P("};")
 	f.P()
 }

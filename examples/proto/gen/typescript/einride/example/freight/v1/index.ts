@@ -6,32 +6,32 @@
 // [site][einride.example.freight.v1.Site].
 export type Shipment = {
   // The resource name of the shipment.
-  name?: string;
+  name: string | undefined;
   // The creation timestamp of the shipment.
-  createTime?: wellKnownTimestamp;
+  createTime: wellKnownTimestamp | undefined;
   // The last update timestamp of the shipment.
   // Updated when create/update/delete operation is shipment.
-  updateTime?: wellKnownTimestamp;
+  updateTime: wellKnownTimestamp | undefined;
   // The deletion timestamp of the shipment.
-  deleteTime?: wellKnownTimestamp;
+  deleteTime: wellKnownTimestamp | undefined;
   // The resource name of the origin site of the shipment.
   // Format: shippers/{shipper}/sites/{site}
-  originSite?: string;
+  originSite: string | undefined;
   // The resource name of the destination site of the shipment.
   // Format: shippers/{shipper}/sites/{site}
-  destinationSite?: string;
+  destinationSite: string | undefined;
   // The earliest pickup time of the shipment at the origin site.
-  pickupEarliestTime?: wellKnownTimestamp;
+  pickupEarliestTime: wellKnownTimestamp | undefined;
   // The latest pickup time of the shipment at the origin site.
-  pickupLatestTime?: wellKnownTimestamp;
+  pickupLatestTime: wellKnownTimestamp | undefined;
   // The earliest delivery time of the shipment at the destination site.
-  deliveryEarliestTime?: wellKnownTimestamp;
+  deliveryEarliestTime: wellKnownTimestamp | undefined;
   // The latest delivery time of the shipment at the destination site.
-  deliveryLatestTime?: wellKnownTimestamp;
+  deliveryLatestTime: wellKnownTimestamp | undefined;
   // The line items of the shipment.
-  lineItems?: LineItem[];
+  lineItems: LineItem[] | undefined;
   // Annotations of the shipment.
-  annotations?: { [key: string]: string };
+  annotations: { [key: string]: string } | undefined;
 };
 
 // Encoded using RFC 3339, where generated output will always be Z-normalized
@@ -42,46 +42,46 @@ type wellKnownTimestamp = string;
 // A shipment line item.
 export type LineItem = {
   // The title of the line item.
-  title?: string;
+  title: string | undefined;
   // The quantity of the line item.
-  quantity?: number;
+  quantity: number | undefined;
   // The weight of the line item in kilograms.
-  weightKg?: number;
+  weightKg: number | undefined;
   // The volume of the line item in cubic meters.
-  volumeM3?: number;
+  volumeM3: number | undefined;
 };
 
 // A shipper is a supplier or owner of goods to be transported.
 export type Shipper = {
   // The resource name of the shipper.
-  name?: string;
+  name: string | undefined;
   // The creation timestamp of the shipper.
-  createTime?: wellKnownTimestamp;
+  createTime: wellKnownTimestamp | undefined;
   // The last update timestamp of the shipper.
   // Updated when create/update/delete operation is performed.
-  updateTime?: wellKnownTimestamp;
+  updateTime: wellKnownTimestamp | undefined;
   // The deletion timestamp of the shipper.
-  deleteTime?: wellKnownTimestamp;
+  deleteTime: wellKnownTimestamp | undefined;
   // The display name of the shipper.
-  displayName?: string;
+  displayName: string | undefined;
 };
 
 // A site is a node in a [shipper][einride.example.freight.v1.Shipper]'s
 // transport network.
 export type Site = {
   // The resource name of the site.
-  name?: string;
+  name: string | undefined;
   // The creation timestamp of the site.
-  createTime?: wellKnownTimestamp;
+  createTime: wellKnownTimestamp | undefined;
   // The last update timestamp of the site.
   // Updated when create/update/delete operation is performed.
-  updateTime?: wellKnownTimestamp;
+  updateTime: wellKnownTimestamp | undefined;
   // The deletion timestamp of the site.
-  deleteTime?: wellKnownTimestamp;
+  deleteTime: wellKnownTimestamp | undefined;
   // The display name of the site.
-  displayName?: string;
+  displayName: string | undefined;
   // The geographic location of the site.
-  latLng?: googletype_LatLng;
+  latLng: googletype_LatLng | undefined;
 };
 
 // An object that represents a latitude/longitude pair. This is expressed as a
@@ -91,45 +91,45 @@ export type Site = {
 // standard</a>. Values must be within normalized ranges.
 export type googletype_LatLng = {
   // The latitude in degrees. It must be in the range [-90.0, +90.0].
-  latitude?: number;
+  latitude: number | undefined;
   // The longitude in degrees. It must be in the range [-180.0, +180.0].
-  longitude?: number;
+  longitude: number | undefined;
 };
 
 // Request message for FreightService.GetShipper.
 export type GetShipperRequest = {
   // The resource name of the shipper to retrieve.
   // Format: shippers/{shipper}
-  name?: string;
+  name: string | undefined;
 };
 
 // Request message for FreightService.ListShippers.
 export type ListShippersRequest = {
   // Requested page size. Server may return fewer shippers than requested.
   // If unspecified, server will pick an appropriate default.
-  pageSize?: number;
+  pageSize: number | undefined;
   // A token identifying a page of results the server should return.
   // Typically, this is the value of
   // [ListShippersResponse.next_page_token][einride.example.freight.v1.ListShippersResponse.next_page_token]
   // returned from the previous call to `ListShippers` method.
-  pageToken?: string;
+  pageToken: string | undefined;
 };
 
 // Response message for FreightService.ListShippers.
 export type ListShippersResponse = {
   // The list of shippers.
-  shippers?: Shipper[];
+  shippers: Shipper[] | undefined;
   // A token to retrieve next page of results.  Pass this value in the
   // [ListShippersRequest.page_token][einride.example.freight.v1.ListShippersRequest.page_token]
   // field in the subsequent call to `ListShippers` method to retrieve the next
   // page of results.
-  nextPageToken?: string;
+  nextPageToken: string | undefined;
 };
 
 // Request message for FreightService.CreateShipper.
 export type CreateShipperRequest = {
   // The shipper to create.
-  shipper?: Shipper;
+  shipper: Shipper | undefined;
 };
 
 // Request message for FreightService.UpdateShipper.
@@ -137,9 +137,9 @@ export type UpdateShipperRequest = {
   // The shipper to update with. The name must match or be empty.
   // The shipper's `name` field is used to identify the shipper to be updated.
   // Format: shippers/{shipper}
-  shipper?: Shipper;
+  shipper: Shipper | undefined;
   // The list of fields to be updated.
-  updateMask?: wellKnownFieldMask;
+  updateMask: wellKnownFieldMask | undefined;
 };
 
 // In JSON, a field mask is encoded as a single string where paths are
@@ -174,49 +174,49 @@ type wellKnownFieldMask = string;
 export type DeleteShipperRequest = {
   // The resource name of the shipper to delete.
   // Format: shippers/{shipper}
-  name?: string;
+  name: string | undefined;
 };
 
 // Request message for FreightService.GetSite.
 export type GetSiteRequest = {
   // The resource name of the site to retrieve.
   // Format: shippers/{shipper}/sites/{site}
-  name?: string;
+  name: string | undefined;
 };
 
 // Request message for FreightService.ListSites.
 export type ListSitesRequest = {
   // The resource name of the parent, which owns this collection of sites.
   // Format: shippers/{shipper}
-  parent?: string;
+  parent: string | undefined;
   // Requested page size. Server may return fewer sites than requested.
   // If unspecified, server will pick an appropriate default.
-  pageSize?: number;
+  pageSize: number | undefined;
   // A token identifying a page of results the server should return.
   // Typically, this is the value of
   // [ListSitesResponse.next_page_token][einride.example.freight.v1.ListSitesResponse.next_page_token]
   // returned from the previous call to `ListSites` method.
-  pageToken?: string;
+  pageToken: string | undefined;
 };
 
 // Response message for FreightService.ListSites.
 export type ListSitesResponse = {
   // The list of sites.
-  sites?: Site[];
+  sites: Site[] | undefined;
   // A token to retrieve next page of results.  Pass this value in the
   // [ListSitesRequest.page_token][einride.example.freight.v1.ListSitesRequest.page_token]
   // field in the subsequent call to `ListSites` method to retrieve the next
   // page of results.
-  nextPageToken?: string;
+  nextPageToken: string | undefined;
 };
 
 // Request message for FreightService.CreateSite.
 export type CreateSiteRequest = {
   // The resource name of the parent shipper for which this site will be created.
   // Format: shippers/{shipper}
-  parent?: string;
+  parent: string | undefined;
   // The site to create.
-  site?: Site;
+  site: Site | undefined;
 };
 
 // Request message for FreightService.UpdateSite.
@@ -224,58 +224,58 @@ export type UpdateSiteRequest = {
   // The site to update with. The name must match or be empty.
   // The site's `name` field is used to identify the site to be updated.
   // Format: shippers/{shipper}/sites/{site}
-  site?: Site;
+  site: Site | undefined;
   // The list of fields to be updated.
-  updateMask?: wellKnownFieldMask;
+  updateMask: wellKnownFieldMask | undefined;
 };
 
 // Request message for FreightService.DeleteSite.
 export type DeleteSiteRequest = {
   // The resource name of the site to delete.
   // Format: shippers/{shipper}/sites/{site}
-  name?: string;
+  name: string | undefined;
 };
 
 // Request message for FreightService.GetShipment.
 export type GetShipmentRequest = {
   // The resource name of the shipment to retrieve.
   // Format: shippers/{shipper}/shipments/{shipment}
-  name?: string;
+  name: string | undefined;
 };
 
 // Request message for FreightService.ListShipments.
 export type ListShipmentsRequest = {
   // The resource name of the parent, which owns this collection of shipments.
   // Format: shippers/{shipper}
-  parent?: string;
+  parent: string | undefined;
   // Requested page size. Server may return fewer shipments than requested.
   // If unspecified, server will pick an appropriate default.
-  pageSize?: number;
+  pageSize: number | undefined;
   // A token identifying a page of results the server should return.
   // Typically, this is the value of
   // [ListShipmentsResponse.next_page_token][einride.example.freight.v1.ListShipmentsResponse.next_page_token]
   // returned from the previous call to `ListShipments` method.
-  pageToken?: string;
+  pageToken: string | undefined;
 };
 
 // Response message for FreightService.ListShipments.
 export type ListShipmentsResponse = {
   // The list of shipments.
-  shipments?: Shipment[];
+  shipments: Shipment[] | undefined;
   // A token to retrieve next page of results.  Pass this value in the
   // [ListShipmentsRequest.page_token][einride.example.freight.v1.ListShipmentsRequest.page_token]
   // field in the subsequent call to `ListShipments` method to retrieve the next
   // page of results.
-  nextPageToken?: string;
+  nextPageToken: string | undefined;
 };
 
 // Request message for FreightService.CreateShipment.
 export type CreateShipmentRequest = {
   // The resource name of the parent shipper for which this shipment will be created.
   // Format: shippers/{shipper}
-  parent?: string;
+  parent: string | undefined;
   // The shipment to create.
-  shipment?: Shipment;
+  shipment: Shipment | undefined;
 };
 
 // Request message for FreightService.UpdateShipment.
@@ -283,16 +283,16 @@ export type UpdateShipmentRequest = {
   // The shipment to update with. The name must match or be empty.
   // The shipment's `name` field is used to identify the shipment to be updated.
   // Format: shippers/{shipper}/shipments/{shipment}
-  shipment?: Shipment;
+  shipment: Shipment | undefined;
   // The list of fields to be updated.
-  updateMask?: wellKnownFieldMask;
+  updateMask: wellKnownFieldMask | undefined;
 };
 
 // Request message for FreightService.DeleteShipment.
 export type DeleteShipmentRequest = {
   // The resource name of the shipment to delete.
   // Format: shippers/{shipper}/shipments/{shipment}
-  name?: string;
+  name: string | undefined;
 };
 
 // This API represents a simple freight service.
