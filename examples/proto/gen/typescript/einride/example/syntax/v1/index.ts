@@ -45,6 +45,40 @@ export type Message = {
   enum: Enum | undefined;
   // message
   message: Message | undefined;
+  // optional double
+  optionalDouble?: number;
+  // optional float
+  optionalFloat?: number;
+  // optional int32
+  optionalInt32?: number;
+  // optional int64
+  optionalInt64?: number;
+  // optional uint32
+  optionalUint32?: number;
+  // optional uint64
+  optionalUint64?: number;
+  // optional sint32
+  optionalSint32?: number;
+  // optional sint64
+  optionalSint64?: number;
+  // optional fixed32
+  optionalFixed32?: number;
+  // optional fixed64
+  optionalFixed64?: number;
+  // optional sfixed32
+  optionalSfixed32?: number;
+  // optional sfixed64
+  optionalSfixed64?: number;
+  // optional bool
+  optionalBool?: boolean;
+  // optional string
+  optionalString?: string;
+  // optional bytes
+  optionalBytes?: string;
+  // optional enum
+  optionalEnum?: Enum;
+  // optional message
+  optionalMessage?: Message;
   // repeated_double
   repeatedDouble: number[] | undefined;
   // repeated_float

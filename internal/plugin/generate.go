@@ -47,5 +47,6 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 			Content: proto.String(string(index.Content())),
 		})
 	}
+	res.SupportedFeatures = proto.Uint64(uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL))
 	return &res, nil
 }
