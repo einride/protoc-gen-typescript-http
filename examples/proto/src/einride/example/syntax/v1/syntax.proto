@@ -62,6 +62,41 @@ message Message {
   // message
   Message message = 17;
 
+  // optional double
+  optional double optional_double = 81;
+  // optional float
+  optional float optional_float = 82;
+  // optional int32
+  optional int32 optional_int32 = 83;
+  // optional int64
+  optional int64 optional_int64 = 84;
+  // optional uint32
+  optional uint32 optional_uint32 = 85;
+  // optional uint64
+  optional uint64 optional_uint64 = 86;
+  // optional sint32
+  optional sint32 optional_sint32 = 87;
+  // optional sint64
+  optional sint64 optional_sint64 = 88;
+  // optional fixed32
+  optional fixed32 optional_fixed32 = 89;
+  // optional fixed64
+  optional fixed64 optional_fixed64 = 90;
+  // optional sfixed32
+  optional sfixed32 optional_sfixed32 = 91;
+  // optional sfixed64
+  optional sfixed64 optional_sfixed64 = 92;
+  // optional bool
+  optional bool optional_bool = 93;
+  // optional string
+  optional string optional_string = 94;
+  // optional bytes
+  optional bytes optional_bytes = 95;
+  // optional enum
+  optional Enum optional_enum = 96;
+  // optional message
+  optional Message optional_message = 97;
+
   // repeated_double
   repeated double repeated_double = 18;
   // repeated_float
