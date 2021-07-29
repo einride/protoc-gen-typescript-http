@@ -10,12 +10,11 @@ import (
 )
 
 func Get(m protoreflect.MethodDescriptor) (*annotations.HttpRule, bool) {
-	if descriptors, ok := proto.GetExtension(
-		m.Options(), annotations.E_Http,
-	).(*annotations.HttpRule); ok {
-		return descriptors, true
+	descriptor, ok := proto.GetExtension(m.Options(), annotations.E_Http).(*annotations.HttpRule)
+	if !ok || descriptor == nil {
+		return nil, false
 	}
-	return nil, false
+	return descriptor, true
 }
 
 type Rule struct {
@@ -57,7 +56,7 @@ func ParseRule(httpRule *annotations.HttpRule) (Rule, error) {
 }
 
 func httpRuleURL(rule *annotations.HttpRule) (string, error) {
-	switch v := rule.Pattern.(type) {
+	switch v := rule.GetPattern().(type) {
 	case *annotations.HttpRule_Get:
 		return v.Get, nil
 	case *annotations.HttpRule_Post:
@@ -76,7 +75,7 @@ func httpRuleURL(rule *annotations.HttpRule) (string, error) {
 }
 
 func httpRuleMethod(rule *annotations.HttpRule) (string, error) {
-	switch v := rule.Pattern.(type) {
+	switch v := rule.GetPattern().(type) {
 	case *annotations.HttpRule_Get:
 		return http.MethodGet, nil
 	case *annotations.HttpRule_Post:
