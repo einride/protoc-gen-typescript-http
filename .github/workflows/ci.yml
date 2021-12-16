@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.5.0
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Make
         run: make
@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.5.0
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Run semantic-release
         run: make semantic-release
