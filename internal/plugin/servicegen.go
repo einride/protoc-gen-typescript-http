@@ -44,13 +44,13 @@ func (s serviceGenerator) generateInterface(f *codegen.File) {
 }
 
 func (s serviceGenerator) generateHandler(f *codegen.File) {
-	f.P("type Request = {")
+	f.P("type RequestType = {")
 	f.P(t(1), "path: string;")
 	f.P(t(1), "method: string;")
 	f.P(t(1), "body: string | null;")
 	f.P("};")
 	f.P()
-	f.P("type RequestHandler = (request: Request) => Promise<unknown>;")
+	f.P("type RequestHandler = (request: RequestType) => Promise<unknown>;")
 	f.P()
 }
 

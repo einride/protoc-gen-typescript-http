@@ -420,13 +420,13 @@ export interface FreightService {
   DeleteShipment(request: DeleteShipmentRequest): Promise<Shipment>;
 }
 
-type Request = {
+type RequestType = {
   path: string;
   method: string;
   body: string | null;
 };
 
-type RequestHandler = (request: Request) => Promise<unknown>;
+type RequestHandler = (request: RequestType) => Promise<unknown>;
 
 export function createFreightServiceClient(
   handler: RequestHandler

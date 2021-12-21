@@ -298,13 +298,13 @@ export interface SyntaxService {
   PathBody(request: Request): Promise<Message>;
 }
 
-type Request = {
+type RequestType = {
   path: string;
   method: string;
   body: string | null;
 };
 
-type RequestHandler = (request: Request) => Promise<unknown>;
+type RequestHandler = (request: RequestType) => Promise<unknown>;
 
 export function createSyntaxServiceClient(
   handler: RequestHandler
