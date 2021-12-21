@@ -432,7 +432,7 @@ export function createFreightServiceClient(
   handler: RequestHandler
 ): FreightService {
   return {
-    GetShipper(request) {
+    GetShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
@@ -449,7 +449,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipper>;
     },
-    ListShippers(request) {
+    ListShippers(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1/shippers`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
@@ -469,7 +469,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<ListShippersResponse>;
     },
-    CreateShipper(request) {
+    CreateShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1/shippers`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.shipper ?? {});
       const queryParams: string[] = [];
@@ -483,7 +483,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipper>;
     },
-    UpdateShipper(request) {
+    UpdateShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.shipper?.name) {
         throw new Error("missing required field request.shipper.name");
       }
@@ -503,7 +503,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipper>;
     },
-    DeleteShipper(request) {
+    DeleteShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
@@ -520,7 +520,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipper>;
     },
-    GetSite(request) {
+    GetSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
@@ -537,7 +537,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Site>;
     },
-    ListSites(request) {
+    ListSites(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.parent) {
         throw new Error("missing required field request.parent");
       }
@@ -560,7 +560,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<ListSitesResponse>;
     },
-    CreateSite(request) {
+    CreateSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.parent) {
         throw new Error("missing required field request.parent");
       }
@@ -577,7 +577,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Site>;
     },
-    UpdateSite(request) {
+    UpdateSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.site?.name) {
         throw new Error("missing required field request.site.name");
       }
@@ -597,7 +597,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Site>;
     },
-    DeleteSite(request) {
+    DeleteSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
@@ -614,7 +614,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Site>;
     },
-    GetShipment(request) {
+    GetShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
@@ -631,7 +631,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipment>;
     },
-    ListShipments(request) {
+    ListShipments(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.parent) {
         throw new Error("missing required field request.parent");
       }
@@ -654,7 +654,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<ListShipmentsResponse>;
     },
-    CreateShipment(request) {
+    CreateShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.parent) {
         throw new Error("missing required field request.parent");
       }
@@ -671,7 +671,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipment>;
     },
-    UpdateShipment(request) {
+    UpdateShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.shipment?.name) {
         throw new Error("missing required field request.shipment.name");
       }
@@ -691,7 +691,7 @@ export function createFreightServiceClient(
         body,
       }) as Promise<Shipment>;
     },
-    DeleteShipment(request) {
+    DeleteShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.name) {
         throw new Error("missing required field request.name");
       }
