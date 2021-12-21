@@ -201,9 +201,9 @@ func (s serviceGenerator) generateMethodQuery(
 		f.P(t(3), "if (request.", nullPath, ") {")
 		switch {
 		case field.IsList():
-			f.P(t(4), "for (const x of request.", jp, ") {")
+			f.P(t(4), "request.", jp, ".forEach((x) => {")
 			f.P(t(5), "queryParams.push(\"", jp, "=\" + encodeURIComponent(x.toString()));")
-			f.P(t(4), "}")
+			f.P(t(4), "})")
 		default:
 			f.P(t(4), "queryParams.push(\"", jp, "=\" + encodeURIComponent(request.", jp, ".toString()));")
 		}
