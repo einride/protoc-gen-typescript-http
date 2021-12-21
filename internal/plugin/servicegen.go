@@ -99,7 +99,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	s.generateMethodQuery(f, method.Input(), rule)
 	f.P(t(3), "let uri = path;")
 	f.P(t(3), "if (queryParams.length > 0) {")
-	f.P(t(4), "uri += \"?\" + queryParams.join(\"&\");")
+	f.P(t(4), "uri += `?${queryParams.join(\"&\")}`")
 	f.P(t(3), "}")
 	f.P(t(3), "return handler({")
 	f.P(t(4), "path: uri,")
@@ -202,10 +202,10 @@ func (s serviceGenerator) generateMethodQuery(
 		switch {
 		case field.IsList():
 			f.P(t(4), "request.", jp, ".forEach((x) => {")
-			f.P(t(5), "queryParams.push(\"", jp, "=\" + encodeURIComponent(x.toString()));")
+			f.P(t(5), "queryParams.push(`", jp, "=${encodeURIComponent(x.toString())}`)")
 			f.P(t(4), "})")
 		default:
-			f.P(t(4), "queryParams.push(\"", jp, "=\" + encodeURIComponent(request.", jp, ".toString()));")
+			f.P(t(4), "queryParams.push(`", jp, "=${encodeURIComponent(request.", jp, ".toString())}`)")
 		}
 		f.P(t(3), "}")
 	})

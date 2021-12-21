@@ -3,6 +3,5 @@ module.exports = {
   rules: {
     "jest/no-deprecated-functions": 0,
     "prettier/prettier": 0,
-    "prefer-template": 0,
   },
 };
