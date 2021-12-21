@@ -92,7 +92,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	if err != nil {
 		return fmt.Errorf("parse http rule: %w", err)
 	}
-	f.P(t(2), method.Name(), "(request) {")
+	f.P(t(2), method.Name(), "(request) { // eslint-disable-line @typescript-eslint/no-unused-vars")
 	s.generateMethodPathValidation(f, method.Input(), rule)
 	s.generateMethodPath(f, method.Input(), rule)
 	s.generateMethodBody(f, method.Input(), rule)

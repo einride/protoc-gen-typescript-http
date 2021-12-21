@@ -310,7 +310,7 @@ export function createSyntaxServiceClient(
   handler: RequestHandler
 ): SyntaxService {
   return {
-    QueryOnly(request) {
+    QueryOnly(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
@@ -335,7 +335,7 @@ export function createSyntaxServiceClient(
         body,
       }) as Promise<Message>;
     },
-    EmptyVerb(request) {
+    EmptyVerb(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1:emptyVerb`; // eslint-disable-line quotes
       const body = null;
       const queryParams: string[] = [];
@@ -349,7 +349,7 @@ export function createSyntaxServiceClient(
         body,
       }) as Promise<wellKnownEmpty>;
     },
-    StarBody(request) {
+    StarBody(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1:starBody`; // eslint-disable-line quotes
       const body = JSON.stringify(request);
       const queryParams: string[] = [];
@@ -363,7 +363,7 @@ export function createSyntaxServiceClient(
         body,
       }) as Promise<Message>;
     },
-    Body(request) {
+    Body(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const path = `v1:body`; // eslint-disable-line quotes
       const body = JSON.stringify(request?.nested ?? {});
       const queryParams: string[] = [];
@@ -385,7 +385,7 @@ export function createSyntaxServiceClient(
         body,
       }) as Promise<Message>;
     },
-    Path(request) {
+    Path(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.string) {
         throw new Error("missing required field request.string");
       }
@@ -410,7 +410,7 @@ export function createSyntaxServiceClient(
         body,
       }) as Promise<Message>;
     },
-    PathBody(request) {
+    PathBody(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
       if (!request.string) {
         throw new Error("missing required field request.string");
       }
