@@ -441,7 +441,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -454,14 +454,14 @@ export function createFreightServiceClient(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
       }
       if (request.pageToken) {
-        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -475,7 +475,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -491,11 +491,11 @@ export function createFreightServiceClient(
       const body = JSON.stringify(request?.shipper ?? {});
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -512,7 +512,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -529,7 +529,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -545,14 +545,14 @@ export function createFreightServiceClient(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
       }
       if (request.pageToken) {
-        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -569,7 +569,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -585,11 +585,11 @@ export function createFreightServiceClient(
       const body = JSON.stringify(request?.site ?? {});
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -606,7 +606,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -623,7 +623,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -639,14 +639,14 @@ export function createFreightServiceClient(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push("pageSize=" + encodeURIComponent(request.pageSize.toString()));
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
       }
       if (request.pageToken) {
-        queryParams.push("pageToken=" + encodeURIComponent(request.pageToken.toString()));
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -663,7 +663,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -679,11 +679,11 @@ export function createFreightServiceClient(
       const body = JSON.stringify(request?.shipment ?? {});
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push("updateMask=" + encodeURIComponent(request.updateMask.toString()));
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -700,7 +700,7 @@ export function createFreightServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,

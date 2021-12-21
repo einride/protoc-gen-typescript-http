@@ -315,19 +315,19 @@ export function createSyntaxServiceClient(
       const body = null;
       const queryParams: string[] = [];
       if (request.string) {
-        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
+        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`)
       }
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
         })
       }
       if (request.nested?.string) {
-        queryParams.push("nested.string=" + encodeURIComponent(request.nested.string.toString()));
+        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -341,7 +341,7 @@ export function createSyntaxServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -355,7 +355,7 @@ export function createSyntaxServiceClient(
       const queryParams: string[] = [];
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -368,16 +368,16 @@ export function createSyntaxServiceClient(
       const body = JSON.stringify(request?.nested ?? {});
       const queryParams: string[] = [];
       if (request.string) {
-        queryParams.push("string=" + encodeURIComponent(request.string.toString()));
+        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`)
       }
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
         })
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -394,15 +394,15 @@ export function createSyntaxServiceClient(
       const queryParams: string[] = [];
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
         })
       }
       if (request.nested?.string) {
-        queryParams.push("nested.string=" + encodeURIComponent(request.nested.string.toString()));
+        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`)
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
@@ -419,12 +419,12 @@ export function createSyntaxServiceClient(
       const queryParams: string[] = [];
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push("repeatedString=" + encodeURIComponent(x.toString()));
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
         })
       }
       let uri = path;
       if (queryParams.length > 0) {
-        uri += "?" + queryParams.join("&");
+        uri += `?${queryParams.join("&")}`
       }
       return handler({
         path: uri,
