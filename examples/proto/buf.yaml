@@ -1,18 +1,13 @@
-version: v1beta1
+version: v1
 
 name: buf.build/einride/protoc-gen-typescript-http
 
 deps:
-  - buf.build/beta/googleapis
-
-build:
-  roots:
-    - examples/proto/src
+  - buf.build/googleapis/googleapis
 
 lint:
   use:
     - DEFAULT
-  service_suffix: Service
   except:
     - RPC_REQUEST_STANDARD_NAME
     - RPC_RESPONSE_STANDARD_NAME

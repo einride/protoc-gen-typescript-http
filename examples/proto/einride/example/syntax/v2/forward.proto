@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package einride.example.syntax.v2;
+
+import "einride/example/syntax/v1/syntax.proto";
+
+// Message
+message Message {
+  einride.example.syntax.v1.Message forwarded_message = 1;
+  einride.example.syntax.v1.Enum forwarded_enum = 2;
+}

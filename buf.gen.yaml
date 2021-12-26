@@ -1,5 +1,0 @@
-version: v1beta1
-
-plugins:
-  - name: typescript-http
-    out: examples/proto/gen/typescript

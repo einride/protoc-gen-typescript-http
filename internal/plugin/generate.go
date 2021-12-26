@@ -5,7 +5,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/einride/protoc-gen-typescript-http/internal/codegen"
+	"go.einride.tech/protoc-gen-typescript-http/internal/codegen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
