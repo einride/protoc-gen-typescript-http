@@ -2,16 +2,10 @@ syntax = "proto3";
 
 package einride.example.syntax.v1;
 
-option go_package = "github.com/einride/protoc-gen-typescript-http/examples/proto/gen/go/einride/example/syntax/v1;syntaxv1";
-option java_multiple_files = true;
-option java_outer_classname = "SyntaxProto";
-option java_package = "tech.einride.example.syntax.v1";
-
 import "google/protobuf/any.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -203,7 +197,7 @@ message Message {
   google.protobuf.DoubleValue double_value = 61;
   // repeated_double_value
   repeated google.protobuf.DoubleValue repeated_double_value = 62;
-  
+
   // float_value
   google.protobuf.FloatValue float_value = 63;
   // repeated_float_value
@@ -213,17 +207,17 @@ message Message {
   google.protobuf.Int32Value int32_value = 65;
   // repeated_int32_value
   repeated google.protobuf.Int32Value repeated_int32_value = 66;
-  
+
   // int64_value
   google.protobuf.Int64Value int64_value = 67;
   // repeated_int64_value
   repeated google.protobuf.Int64Value repeated_int64_value = 68;
-  
+
   // uint32_value
   google.protobuf.UInt32Value uint32_value = 69;
   // repeated_uint32_value
   repeated google.protobuf.UInt32Value repeated_uint32_value = 70;
-  
+
   // uint64_value
   google.protobuf.UInt64Value uint64_value = 71;
   // repeated_uint64_value

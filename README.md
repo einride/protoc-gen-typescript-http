@@ -20,7 +20,7 @@ generated code, look at [examples][examples].
 ### Install the plugin
 
 ```bash
-go get github.com/einride/protoc-gen-typescript-http
+go get go.einride.tech/protoc-gen-typescript-http
 ```
 
 Or download a prebuilt binary from [releases][releases].

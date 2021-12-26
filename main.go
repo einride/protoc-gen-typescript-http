@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/einride/protoc-gen-typescript-http/internal/plugin"
+	"go.einride.tech/protoc-gen-typescript-http/internal/plugin"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
