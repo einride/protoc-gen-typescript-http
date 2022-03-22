@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	google.golang.org/genproto v0.0.0-20201214200347-8c77b98c765d
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.0
 	gotest.tools/v3 v3.1.0
 )
 
