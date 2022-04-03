@@ -4,7 +4,7 @@ import "fmt"
 
 // Template represents a http path template.
 //
-// Example: `/v1/{name=books/*}:publish`
+// Example: `/v1/{name=books/*}:publish`.
 type Template struct {
 	Segments []Segment
 	Verb     string
@@ -62,7 +62,7 @@ type parser struct {
 // Segment  = "*" | "**" | LITERAL | Variable ;
 // Variable = "{" FieldPath [ "=" Segments ] "}" ;
 // FieldPath = IDENT { "." IDENT } ;
-// Verb     = ":" LITERAL ;
+// Verb     = ":" LITERAL ;.
 func (p *parser) parse() (Template, error) {
 	p.next()
 	if err := p.expect('/'); err != nil {
@@ -272,8 +272,7 @@ func (p *parser) peek() rune {
 }
 
 func (p *parser) peekN(n int) rune {
-	offset := p.pos + n - 1
-	if offset < len(p.content) {
+	if offset := p.pos + n - 1; offset < len(p.content) {
 		return rune(p.content[offset])
 	}
 	return -1
@@ -330,7 +329,7 @@ func isHexDigit(r rune) bool {
 // allowed by the grammar, but disallowed in practice.
 //
 // - nested variable segments
-// - '**' for segments other than the last
+// - '**' for segments other than the last.
 func validate(t Template) error {
 	// check for nested variable segments
 	for _, s1 := range t.Segments {

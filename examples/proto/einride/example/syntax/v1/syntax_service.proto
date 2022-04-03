@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package einride.example.syntax.v1;
 
+import "einride/example/syntax/v1/syntax.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "einride/example/syntax/v1/syntax.proto";
 
 service SyntaxService {
   rpc QueryOnly(Request) returns (Message) {

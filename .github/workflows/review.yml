@@ -1,0 +1,15 @@
+name: review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Sage
+        uses: einride/sage/actions/setup@master
+
+      - name: Make
+        run: make
