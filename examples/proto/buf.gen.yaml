@@ -3,4 +3,3 @@ version: v1
 plugins:
   - name: typescript-http
     out: gen/typescript
-    path: ./.build/protoc-gen-typescript-http

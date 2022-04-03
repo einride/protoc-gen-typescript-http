@@ -31,7 +31,8 @@ func (w *jsonWalker) walkMessage(path httprule.FieldPath, message protoreflect.M
 	if w.enter(message.FullName()) {
 		for i := 0; i < message.Fields().Len(); i++ {
 			field := message.Fields().Get(i)
-			p := append(path, string(field.Name()))
+			p := append(httprule.FieldPath{}, path...)
+			p = append(p, string(field.Name()))
 			switch {
 			case !field.IsMap() && field.Kind() == protoreflect.MessageKind:
 				if IsWellKnownType(field.Message()) {
