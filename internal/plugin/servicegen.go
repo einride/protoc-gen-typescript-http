@@ -165,14 +165,14 @@ func (s serviceGenerator) generateMethodBody(
 	case rule.Body == "":
 		f.P(t(3), "const body = null;")
 	case rule.Body == "*":
-		if *s.opts.BodyStringify {
+		if s.opts.BodyStringify {
 			f.P(t(3), "const body = JSON.stringify(request);")
 		} else {
 			f.P(t(3), "const body = request;")
 		}
 	default:
 		nullPath := s.nullPropagationPath(httprule.FieldPath{rule.Body}, input)
-		if *s.opts.BodyStringify {
+		if s.opts.BodyStringify {
 			f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
 		} else {
 			f.P(t(3), "const body = request?.", nullPath, " ?? {};")
@@ -237,7 +237,7 @@ func (s serviceGenerator) jsonPathSegments(path httprule.FieldPath, message prot
 	segs := make([]string, len(path))
 	for i, p := range path {
 		field := message.Fields().ByName(protoreflect.Name(p))
-		if *s.opts.UseProtoNames {
+		if s.opts.UseProtoNames {
 			segs[i] = field.TextName()
 		} else {
 			segs[i] = field.JSONName()

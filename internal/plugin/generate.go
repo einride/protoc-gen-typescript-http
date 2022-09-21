@@ -17,11 +17,11 @@ import (
 type Options struct {
 	// UseProtoNames uses proto field name instead of lowerCamelCase name in JSON
 	// field names.
-	UseProtoNames *bool
+	UseProtoNames bool
 	// UseEnumNumbers emits enum values as numbers.
-	UseEnumNumbers *bool
+	UseEnumNumbers bool
 	// BodyStringify JSON.stringify body.
-	BodyStringify *bool
+	BodyStringify bool
 }
 
 func Generate(request *pluginpb.CodeGeneratorRequest, opts Options) (*pluginpb.CodeGeneratorResponse, error) {

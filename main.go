@@ -1,24 +1,42 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"go.einride.tech/protoc-gen-typescript-http/internal/plugin"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-var flags flag.FlagSet
-
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "%s: %v\n", filepath.Base(os.Args[0]), err)
 		os.Exit(1)
 	}
+}
+
+func parse(parameter string) plugin.Options {
+	opts := plugin.Options{BodyStringify: true}
+	for _, param := range strings.Split(parameter, ",") {
+		var value string
+		if i := strings.Index(param, "="); i >= 0 {
+			value = param[i+1:]
+			param = param[0:i]
+		}
+		switch param {
+		case "use_proto_names":
+			opts.UseProtoNames = value == "true"
+		case "use_enum_numbers":
+			opts.UseEnumNumbers = value == "true"
+		case "body_stringify":
+			opts.BodyStringify = value == "true"
+		}
+	}
+	return opts
 }
 
 func run() error {
@@ -30,12 +48,7 @@ func run() error {
 	if err := proto.Unmarshal(in, req); err != nil {
 		return err
 	}
-	opts := plugin.Options{
-		UseProtoNames:  flags.Bool("use_proto_names", false, "Uses proto field name instead of lowerCamelCase name in JSON field names"),
-		UseEnumNumbers: flags.Bool("use_enum_numbers", false, "Emits enum values as numbers."),
-		BodyStringify:  flags.Bool("body_stringify", true, "Stringify request body"),
-	}
-	resp, err := plugin.Generate(req, opts)
+	resp, err := plugin.Generate(req, parse(req.GetParameter()))
 	if err != nil {
 		return err
 	}

@@ -18,11 +18,11 @@ func (m messageGenerator) Generate(f *codegen.File) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
 		fieldType := typeFromField(m.pkg, field)
 		name := field.JSONName()
-		if *m.opts.UseProtoNames {
+		if m.opts.UseProtoNames {
 			name = field.TextName()
 		}
 		reference := fieldType.Reference()
-		if *m.opts.UseEnumNumbers && field.Kind() == protoreflect.EnumKind {
+		if m.opts.UseEnumNumbers && field.Kind() == protoreflect.EnumKind {
 			reference = "number"
 		}
 		if field.ContainingOneof() == nil && !field.HasOptionalKeyword() {
