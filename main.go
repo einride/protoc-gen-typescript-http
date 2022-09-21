@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -10,6 +11,8 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
+
+var flags flag.FlagSet
 
 func main() {
 	if err := run(); err != nil {
@@ -27,7 +30,12 @@ func run() error {
 	if err := proto.Unmarshal(in, req); err != nil {
 		return err
 	}
-	resp, err := plugin.Generate(req)
+	opts := plugin.Options{
+		UseProtoNames:  flags.Bool("use_proto_names", false, "Uses proto field name instead of lowerCamelCase name in JSON field names"),
+		UseEnumNumbers: flags.Bool("use_enum_numbers", false, "Emits enum values as numbers."),
+		BodyStringify:  flags.Bool("body_stringify", true, "Stringify request body"),
+	}
+	resp, err := plugin.Generate(req, opts)
 	if err != nil {
 		return err
 	}
