@@ -19,7 +19,7 @@ func main() {
 	}
 }
 
-func parse(parameter string) plugin.Options {
+func options(parameter string) plugin.Options {
 	opts := plugin.Options{BodyStringify: true}
 	for _, param := range strings.Split(parameter, ",") {
 		var value string
@@ -48,7 +48,7 @@ func run() error {
 	if err := proto.Unmarshal(in, req); err != nil {
 		return err
 	}
-	resp, err := plugin.Generate(req, parse(req.GetParameter()))
+	resp, err := plugin.Generate(req, options(req.GetParameter()))
 	if err != nil {
 		return err
 	}
