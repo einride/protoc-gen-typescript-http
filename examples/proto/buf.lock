@@ -2,9 +2,10 @@
 version: v1
 deps:
   - remote: buf.build
+    owner: einride
+    repository: grpc-service-config
+    commit: f9bc1b4483044934863ba651a406f5a6
+  - remote: buf.build
     owner: googleapis
     repository: googleapis
-    branch: main
-    commit: 9088184d3ed04821b7e990024ff05656
-    digest: b1---R9Xre3yvH8peoJPQ0dsUYp37KzdlBlx5fjPsYekyI=
-    create_time: 2021-12-23T15:04:49.66847Z
+    commit: 8d7204855ec14631a499bd7393ce1970

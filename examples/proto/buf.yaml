@@ -4,6 +4,7 @@ name: buf.build/einride/protoc-gen-typescript-http
 
 deps:
   - buf.build/googleapis/googleapis
+  - buf.build/einride/grpc-service-config
 
 lint:
   use:

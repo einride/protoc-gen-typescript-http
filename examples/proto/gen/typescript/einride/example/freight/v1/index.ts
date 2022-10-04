@@ -710,5 +710,6 @@ export function createFreightServiceClient(
     },
   };
 }
+export const defaultServiceConfiguration = {"methodConfig":[{"name":[{}],"timeout":"10s","retryPolicy":{"maxAttempts":5,"initialBackoff":"0.200s","maxBackoff":"60s","backoffMultiplier":2,"retryableStatusCodes":["UNAVAILABLE","UNKNOWN"]}}]}
 
 // @@protoc_insertion_point(typescript-http-eof)
