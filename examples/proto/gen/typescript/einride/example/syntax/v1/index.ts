@@ -304,7 +304,7 @@ type RequestType = {
   body: string | null;
 };
 
-type RequestHandler = (request: RequestType) => Promise<unknown>;
+type RequestHandler = (request: RequestType, meta: { service: string, method: string }) => Promise<unknown>;
 
 export function createSyntaxServiceClient(
   handler: RequestHandler
@@ -333,6 +333,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "QueryOnly",
       }) as Promise<Message>;
     },
     EmptyVerb(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -347,6 +350,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "EmptyVerb",
       }) as Promise<wellKnownEmpty>;
     },
     StarBody(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -361,6 +367,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "StarBody",
       }) as Promise<Message>;
     },
     Body(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -383,6 +392,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "Body",
       }) as Promise<Message>;
     },
     Path(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -408,6 +420,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "Path",
       }) as Promise<Message>;
     },
     PathBody(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -430,6 +445,9 @@ export function createSyntaxServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "SyntaxService",
+        method: "PathBody",
       }) as Promise<Message>;
     },
   };

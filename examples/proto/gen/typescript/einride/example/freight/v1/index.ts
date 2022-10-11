@@ -426,7 +426,7 @@ type RequestType = {
   body: string | null;
 };
 
-type RequestHandler = (request: RequestType) => Promise<unknown>;
+type RequestHandler = (request: RequestType, meta: { service: string, method: string }) => Promise<unknown>;
 
 export function createFreightServiceClient(
   handler: RequestHandler
@@ -447,6 +447,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "GetShipper",
       }) as Promise<Shipper>;
     },
     ListShippers(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -467,6 +470,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "ListShippers",
       }) as Promise<ListShippersResponse>;
     },
     CreateShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -481,6 +487,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "FreightService",
+        method: "CreateShipper",
       }) as Promise<Shipper>;
     },
     UpdateShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -501,6 +510,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "PATCH",
         body,
+      }, {
+        service: "FreightService",
+        method: "UpdateShipper",
       }) as Promise<Shipper>;
     },
     DeleteShipper(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -518,6 +530,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "DELETE",
         body,
+      }, {
+        service: "FreightService",
+        method: "DeleteShipper",
       }) as Promise<Shipper>;
     },
     GetSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -535,6 +550,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "GetSite",
       }) as Promise<Site>;
     },
     ListSites(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -558,6 +576,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "ListSites",
       }) as Promise<ListSitesResponse>;
     },
     CreateSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -575,6 +596,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "FreightService",
+        method: "CreateSite",
       }) as Promise<Site>;
     },
     UpdateSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -595,6 +619,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "PATCH",
         body,
+      }, {
+        service: "FreightService",
+        method: "UpdateSite",
       }) as Promise<Site>;
     },
     DeleteSite(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -612,6 +639,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "DELETE",
         body,
+      }, {
+        service: "FreightService",
+        method: "DeleteSite",
       }) as Promise<Site>;
     },
     GetShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -629,6 +659,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "GetShipment",
       }) as Promise<Shipment>;
     },
     ListShipments(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -652,6 +685,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "GET",
         body,
+      }, {
+        service: "FreightService",
+        method: "ListShipments",
       }) as Promise<ListShipmentsResponse>;
     },
     CreateShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -669,6 +705,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "POST",
         body,
+      }, {
+        service: "FreightService",
+        method: "CreateShipment",
       }) as Promise<Shipment>;
     },
     UpdateShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -689,6 +728,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "PATCH",
         body,
+      }, {
+        service: "FreightService",
+        method: "UpdateShipment",
       }) as Promise<Shipment>;
     },
     DeleteShipment(request) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -706,6 +748,9 @@ export function createFreightServiceClient(
         path: uri,
         method: "DELETE",
         body,
+      }, {
+        service: "FreightService",
+        method: "DeleteShipment",
       }) as Promise<Shipment>;
     },
   };
