@@ -13,15 +13,16 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// Options is generate options.
+// Options controls the generated code.
 type Options struct {
-	// UseProtoNames uses proto field name instead of lowerCamelCase name in JSON
-	// field names.
+	// UseProtoNames controls the casing of generated field names.
+	// If set to true, fields will use proto names (typically snake_case).
+	// If omitted or set to false, fields will use JSON names (typically camelCase).
 	UseProtoNames bool
 	// UseEnumNumbers emits enum values as numbers.
 	UseEnumNumbers bool
-	// BodyStringify JSON.stringify body.
-	BodyStringify bool
+	// DisableBodyStringify By default, this should use JSON.stringify to not be a breaking change.
+	DisableBodyStringify bool
 }
 
 func Generate(request *pluginpb.CodeGeneratorRequest, opts Options) (*pluginpb.CodeGeneratorResponse, error) {

@@ -165,17 +165,17 @@ func (s serviceGenerator) generateMethodBody(
 	case rule.Body == "":
 		f.P(t(3), "const body = null;")
 	case rule.Body == "*":
-		if s.opts.BodyStringify {
-			f.P(t(3), "const body = JSON.stringify(request);")
-		} else {
+		if s.opts.DisableBodyStringify {
 			f.P(t(3), "const body = request;")
+		} else {
+			f.P(t(3), "const body = JSON.stringify(request);")
 		}
 	default:
 		nullPath := s.nullPropagationPath(httprule.FieldPath{rule.Body}, input)
-		if s.opts.BodyStringify {
-			f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
-		} else {
+		if s.opts.DisableBodyStringify {
 			f.P(t(3), "const body = request?.", nullPath, " ?? {};")
+		} else {
+			f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
 		}
 	}
 }
