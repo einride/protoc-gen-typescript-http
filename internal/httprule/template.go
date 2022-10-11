@@ -55,15 +55,14 @@ type parser struct {
 	tok rune
 }
 
-// Grammar:
-//
-// Template = "/" Segments [ Verb ] ;
-// Segments = Segment { "/" Segment } ;
-// Segment  = "*" | "**" | LITERAL | Variable ;
-// Variable = "{" FieldPath [ "=" Segments ] "}" ;
-// FieldPath = IDENT { "." IDENT } ;
-// Verb     = ":" LITERAL ;.
 func (p *parser) parse() (Template, error) {
+	// Grammar.
+	// Template = "/" Segments [ Verb ] ;
+	// Segments = Segment { "/" Segment } ;
+	// Segment  = "*" | "**" | LITERAL | Variable ;
+	// Variable = "{" FieldPath [ "=" Segments ] "}" ;
+	// FieldPath = IDENT { "." IDENT } ;
+	// Verb     = ":" LITERAL ;.
 	p.next()
 	if err := p.expect('/'); err != nil {
 		return Template{}, err
@@ -202,11 +201,12 @@ func (p *parser) parseFieldPath() ([]string, error) {
 // Returns an error if not literal is found.
 //
 // https://www.ietf.org/rfc/rfc3986.txt, P.49
-//   pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
-//   unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
-//   sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
-//                 / "*" / "+" / "," / ";" / "="
-//   pct-encoded   = "%" HEXDIG HEXDIG
+//
+//	pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+//	unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+//	sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
+//	              / "*" / "+" / "," / ";" / "="
+//	pct-encoded   = "%" HEXDIG HEXDIG
 func (p *parser) parseLiteral() (string, error) {
 	var literal []rune
 	startPos := p.pos
@@ -287,11 +287,12 @@ func (p *parser) expect(r rune) error {
 }
 
 // https://www.ietf.org/rfc/rfc3986.txt, P.49
-//   pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
-//   unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
-//   sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
-//                 / "*" / "+" / "," / ";" / "="
-//   pct-encoded   = "%" HEXDIG HEXDIG
+//
+//	pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+//	unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+//	sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
+//	              / "*" / "+" / "," / ";" / "="
+//	pct-encoded   = "%" HEXDIG HEXDIG
 func isSingleCharPChar(r rune) bool {
 	if isAlpha(r) || isDigit(r) {
 		return true
