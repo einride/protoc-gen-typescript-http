@@ -50,7 +50,7 @@ func (s serviceGenerator) generateHandler(f *codegen.File) {
 	f.P(t(1), "body: string | null;")
 	f.P("};")
 	f.P()
-	f.P("type RequestHandler = (request: RequestType) => Promise<unknown>;")
+	f.P("type RequestHandler = (request: RequestType, meta: { service: string, method: string }) => Promise<unknown>;")
 	f.P()
 }
 
@@ -105,6 +105,9 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	f.P(t(4), "path: uri,")
 	f.P(t(4), "method: ", strconv.Quote(rule.Method), ",")
 	f.P(t(4), "body,")
+	f.P(t(3), "}, {")
+	f.P(t(4), "service: \"", method.Parent().Name(), "\",")
+	f.P(t(4), "method: \"", method.Name(), "\",")
 	f.P(t(3), "}) as Promise<", outputType.Reference(), ">;")
 	f.P(t(2), "},")
 	return nil
