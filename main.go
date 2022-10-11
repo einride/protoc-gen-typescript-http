@@ -20,7 +20,7 @@ func main() {
 }
 
 func options(parameter string) plugin.Options {
-	opts := plugin.Options{BodyStringify: true}
+	opts := plugin.Options{}
 	for _, param := range strings.Split(parameter, ",") {
 		var value string
 		if i := strings.Index(param, "="); i >= 0 {
@@ -32,8 +32,8 @@ func options(parameter string) plugin.Options {
 			opts.UseProtoNames = value == "true"
 		case "use_enum_numbers":
 			opts.UseEnumNumbers = value == "true"
-		case "body_stringify":
-			opts.BodyStringify = value == "true"
+		case "disable_body_stringify":
+			opts.DisableBodyStringify = value == "true"
 		}
 	}
 	return opts
