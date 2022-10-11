@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 
@@ -19,7 +19,7 @@ func main() {
 }
 
 func run() error {
-	in, err := ioutil.ReadAll(os.Stdin)
+	in, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		return err
 	}
