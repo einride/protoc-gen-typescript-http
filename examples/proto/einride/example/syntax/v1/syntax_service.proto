@@ -8,15 +8,11 @@ import "google/protobuf/empty.proto";
 
 service SyntaxService {
   rpc QueryOnly(Request) returns (Message) {
-    option (google.api.http) = {
-      get: "/v1"
-    };
+    option (google.api.http) = {get: "/v1"};
   }
 
   rpc EmptyVerb(google.protobuf.Empty) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      get: "/v1:emptyVerb"
-    };
+    option (google.api.http) = {get: "/v1:emptyVerb"};
   }
 
   rpc StarBody(Request) returns (Message) {
@@ -34,9 +30,7 @@ service SyntaxService {
   }
 
   rpc Path(Request) returns (Message) {
-    option (google.api.http) = {
-      post: "/v1/{string}:path"
-    };
+    option (google.api.http) = {post: "/v1/{string}:path"};
   }
 
   rpc PathBody(Request) returns (Message) {
