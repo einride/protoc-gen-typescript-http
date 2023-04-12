@@ -29,18 +29,14 @@ service FreightService {
   // Get a shipper.
   // See: https://google.aip.dev/131 (Standard methods: Get).
   rpc GetShipper(GetShipperRequest) returns (Shipper) {
-    option (google.api.http) = {
-      get: "/v1/{name=shippers/*}"
-    };
+    option (google.api.http) = {get: "/v1/{name=shippers/*}"};
     option (google.api.method_signature) = "name";
   }
 
   // List shippers.
   // See: https://google.aip.dev/132 (Standard methods: List).
   rpc ListShippers(ListShippersRequest) returns (ListShippersResponse) {
-    option (google.api.http) = {
-      get: "/v1/shippers"
-    };
+    option (google.api.http) = {get: "/v1/shippers"};
   }
 
   // Create a shipper.
@@ -67,27 +63,21 @@ service FreightService {
   // See: https://google.aip.dev/135 (Standard methods: Delete).
   // See: https://google.aip.dev/164 (Soft delete).
   rpc DeleteShipper(DeleteShipperRequest) returns (Shipper) {
-    option (google.api.http) = {
-      delete: "/v1/{name=shippers/*}"
-    };
+    option (google.api.http) = {delete: "/v1/{name=shippers/*}"};
     option (google.api.method_signature) = "name";
   }
 
   // Get a site.
   // See: https://google.aip.dev/131 (Standard methods: Get).
   rpc GetSite(GetSiteRequest) returns (Site) {
-    option (google.api.http) = {
-      get: "/v1/{name=shippers/*/sites/*}"
-    };
+    option (google.api.http) = {get: "/v1/{name=shippers/*/sites/*}"};
     option (google.api.method_signature) = "name";
   }
 
   // List sites for a shipper.
   // See: https://google.aip.dev/132 (Standard methods: List).
   rpc ListSites(ListSitesRequest) returns (ListSitesResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=shippers/*}/sites"
-    };
+    option (google.api.http) = {get: "/v1/{parent=shippers/*}/sites"};
     option (google.api.method_signature) = "parent";
   }
 
@@ -115,27 +105,21 @@ service FreightService {
   // See: https://google.aip.dev/135 (Standard methods: Delete).
   // See: https://google.aip.dev/164 (Soft delete).
   rpc DeleteSite(DeleteSiteRequest) returns (Site) {
-    option (google.api.http) = {
-      delete: "/v1/{name=shippers/*/sites/*}"
-    };
+    option (google.api.http) = {delete: "/v1/{name=shippers/*/sites/*}"};
     option (google.api.method_signature) = "name";
   }
 
   // Get a shipment.
   // See: https://google.aip.dev/131 (Standard methods: Get).
   rpc GetShipment(GetShipmentRequest) returns (Shipment) {
-    option (google.api.http) = {
-      get: "/v1/{name=shippers/*/shipments/*}"
-    };
+    option (google.api.http) = {get: "/v1/{name=shippers/*/shipments/*}"};
     option (google.api.method_signature) = "name";
   }
 
   // List shipments for a shipper.
   // See: https://google.aip.dev/132 (Standard methods: List).
   rpc ListShipments(ListShipmentsRequest) returns (ListShipmentsResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=shippers/*}/shipments"
-    };
+    option (google.api.http) = {get: "/v1/{parent=shippers/*}/shipments"};
     option (google.api.method_signature) = "parent";
   }
 
@@ -163,9 +147,7 @@ service FreightService {
   // See: https://google.aip.dev/135 (Standard methods: Delete).
   // See: https://google.aip.dev/164 (Soft delete).
   rpc DeleteShipment(DeleteShipmentRequest) returns (Shipment) {
-    option (google.api.http) = {
-      delete: "/v1/{name=shippers/*/shipments/*}"
-    };
+    option (google.api.http) = {delete: "/v1/{name=shippers/*/shipments/*}"};
     option (google.api.method_signature) = "name";
   }
 }
@@ -283,9 +265,7 @@ message CreateSiteRequest {
   // Format: shippers/{shipper}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {
-      child_type: "freight-example.einride.tech/Shipper"
-    }
+    (google.api.resource_reference) = {child_type: "freight-example.einride.tech/Shipper"}
   ];
   // The site to create.
   Site site = 2 [(google.api.field_behavior) = REQUIRED];
@@ -363,9 +343,7 @@ message CreateShipmentRequest {
   // Format: shippers/{shipper}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {
-      child_type: "freight-example.einride.tech/Shipper"
-    }
+    (google.api.resource_reference) = {child_type: "freight-example.einride.tech/Shipper"}
   ];
   // The shipment to create.
   Shipment shipment = 2 [(google.api.field_behavior) = REQUIRED];

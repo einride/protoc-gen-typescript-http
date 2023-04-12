@@ -21,10 +21,7 @@ func (s serviceGenerator) Generate(f *codegen.File) error {
 	if s.genHandler {
 		s.generateHandler(f)
 	}
-	if err := s.generateClient(f); err != nil {
-		return err
-	}
-	return nil
+	return s.generateClient(f)
 }
 
 func (s serviceGenerator) generateInterface(f *codegen.File) {
