@@ -6,6 +6,7 @@ import (
 )
 
 type messageGenerator struct {
+	opts    Options
 	pkg     protoreflect.FullName
 	message protoreflect.MessageDescriptor
 }
@@ -16,10 +17,18 @@ func (m messageGenerator) Generate(f *codegen.File) {
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
 		fieldType := typeFromField(m.pkg, field)
+		name := field.JSONName()
+		if m.opts.UseProtoNames {
+			name = field.TextName()
+		}
+		reference := fieldType.Reference()
+		if m.opts.UseEnumNumbers && field.Kind() == protoreflect.EnumKind {
+			reference = "number"
+		}
 		if field.ContainingOneof() == nil && !field.HasOptionalKeyword() {
-			f.P(t(1), field.JSONName(), ": ", fieldType.Reference(), " | undefined;")
+			f.P(t(1), name, ": ", reference, " | undefined;")
 		} else {
-			f.P(t(1), field.JSONName(), "?: ", fieldType.Reference(), ";")
+			f.P(t(1), name, "?: ", reference, ";")
 		}
 	})
 

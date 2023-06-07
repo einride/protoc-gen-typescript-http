@@ -8,6 +8,7 @@ import (
 )
 
 type enumGenerator struct {
+	opts Options
 	pkg  protoreflect.FullName
 	enum protoreflect.EnumDescriptor
 }

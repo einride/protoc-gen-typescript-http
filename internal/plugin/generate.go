@@ -13,7 +13,19 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
+// Options controls the generated code.
+type Options struct {
+	// UseProtoNames controls the casing of generated field names.
+	// If set to true, fields will use proto names (typically snake_case).
+	// If omitted or set to false, fields will use JSON names (typically camelCase).
+	UseProtoNames bool
+	// UseEnumNumbers emits enum values as numbers.
+	UseEnumNumbers bool
+	// DisableBodyStringify By default, this should use JSON.stringify to not be a breaking change.
+	DisableBodyStringify bool
+}
+
+func Generate(request *pluginpb.CodeGeneratorRequest, opts Options) (*pluginpb.CodeGeneratorResponse, error) {
 	generate := make(map[string]struct{})
 	registry, err := protodesc.NewFiles(&descriptorpb.FileDescriptorSet{
 		File: request.ProtoFile,
@@ -37,7 +49,7 @@ func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRe
 	for pkg, files := range packaged {
 		var index codegen.File
 		indexPathElems := append(strings.Split(string(pkg), "."), "index.ts")
-		if err := (packageGenerator{pkg: pkg, files: files}).Generate(&index); err != nil {
+		if err := (packageGenerator{pkg: pkg, files: files, opts: opts}).Generate(&index); err != nil {
 			return nil, fmt.Errorf("generate package '%s': %w", pkg, err)
 		}
 		index.P()
