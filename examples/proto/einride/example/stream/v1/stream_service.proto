@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package einride.example.stream.v1;
+
+import "einride/example/stream/v1/stream.proto";
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+
+service StreamService {
+  rpc Single(SingleRequest) returns (SingleResponse) {
+    option (google.api.http) = {get: "/v1/{name=single/*}"};
+    option (google.api.method_signature) = "name";
+  }
+  rpc Stream(StreamRequest) returns (stream StreamResponse) {
+    option (google.api.http) = {get: "/v1/{name=stream/*}"};
+    option (google.api.method_signature) = "name";
+  }
+}

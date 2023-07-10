@@ -67,6 +67,9 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	f.P(t(1), "return {")
 	var methodErr error
 	rangeMethods(s.service.Methods(), func(method protoreflect.MethodDescriptor) {
+		if !supportedMethod(method) {
+			return
+		}
 		if err := s.generateMethod(f, method); err != nil {
 			methodErr = fmt.Errorf("generate method %s: %w", method.Name(), err)
 		}

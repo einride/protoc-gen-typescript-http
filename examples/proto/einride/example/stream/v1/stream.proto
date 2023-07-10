@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package einride.example.stream.v1;
+
+message SingleRequest {
+  string name = 1;
+}
+
+message SingleResponse {
+  string name = 1;
+}
+
+message StreamRequest {
+  string name = 1;
+}
+
+message StreamResponse {
+  string name = 1;
+}
