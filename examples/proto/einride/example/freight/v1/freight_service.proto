@@ -327,6 +327,16 @@ message ListShipmentsRequest {
   // [ListShipmentsResponse.next_page_token][einride.example.freight.v1.ListShipmentsResponse.next_page_token]
   // returned from the previous call to `ListShipments` method.
   string page_token = 3;
+
+  // query condition
+  map<string, QueryMessage> query = 4;
+}
+
+message QueryMessage {
+  string key = 1;
+  string value = 2;
+
+  optional QueryMessage nested_query = 3;
 }
 
 // Response message for FreightService.ListShipments.

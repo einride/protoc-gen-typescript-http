@@ -493,6 +493,16 @@ export type ListShipmentsRequest = {
    * returned from the previous call to `ListShipments` method.
    */
   pageToken: string;
+  /**
+   * query condition
+   */
+  query: { [key: string]: QueryMessage };
+};
+
+export type QueryMessage = {
+  key: string;
+  value: string;
+  nestedQuery?: QueryMessage;
 };
 
 /**
@@ -635,7 +645,11 @@ type RequestHandler<T = unknown> = (
 ) => Promise<unknown>;
 
 export function createFreightServiceClient<T = unknown>(
-  handler: RequestHandler<T>
+  handler: RequestHandler<T>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  handlerOptions: {
+    mapStringify?: (map: Record<string, unknown>) => string;
+  } = {},
 ): FreightService<T> {
   return {
     getShipper(request, options) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -664,10 +678,10 @@ export function createFreightServiceClient<T = unknown>(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`);
       }
       if (request.pageToken) {
-        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -709,7 +723,7 @@ export function createFreightServiceClient<T = unknown>(
       const body = request?.shipper ?? {};
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -775,10 +789,10 @@ export function createFreightServiceClient<T = unknown>(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`);
       }
       if (request.pageToken) {
-        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -823,7 +837,7 @@ export function createFreightServiceClient<T = unknown>(
       const body = request?.site ?? {};
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -889,10 +903,18 @@ export function createFreightServiceClient<T = unknown>(
       const body = null;
       const queryParams: string[] = [];
       if (request.pageSize) {
-        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`)
+        queryParams.push(`pageSize=${encodeURIComponent(request.pageSize.toString())}`);
       }
       if (request.pageToken) {
-        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`)
+        queryParams.push(`pageToken=${encodeURIComponent(request.pageToken.toString())}`);
+      }
+      if (request.query) {
+        const query = handlerOptions?.mapStringify
+          ? handlerOptions.mapStringify(request.query)
+          : Object.entries(request.query).map((x) => (
+            `${encodeURIComponent(`query[${x[0]}]`)}=${encodeURIComponent(x[1].toString())}`
+          ));
+        queryParams.push(query);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -937,7 +959,7 @@ export function createFreightServiceClient<T = unknown>(
       const body = request?.shipment ?? {};
       const queryParams: string[] = [];
       if (request.updateMask) {
-        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`)
+        queryParams.push(`updateMask=${encodeURIComponent(request.updateMask.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {

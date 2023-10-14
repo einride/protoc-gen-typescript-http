@@ -65,7 +65,18 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 		"Client<T = unknown>(",
 		"\n",
 		t(1),
-		"handler: RequestHandler<T>",
+		"handler: RequestHandler<T>,",
+		"\n",
+		t(1),
+		"// eslint-disable-next-line @typescript-eslint/no-unused-vars",
+		"\n",
+		t(1),
+		"handlerOptions: {",
+		"\n",
+		t(2), "mapStringify?: (map: Record<string, unknown>) => string;",
+		"\n",
+		t(1),
+		"} = {},",
 		"\n",
 		"): ",
 		descriptorTypeName(s.service),
@@ -217,12 +228,19 @@ func (s serviceGenerator) generateMethodQuery(
 		jp := s.jsonPath(path, input)
 		f.P(t(3), "if (request.", nullPath, ") {")
 		switch {
+		case field.IsMap():
+			f.P(t(4), "const ", jp, " = handlerOptions?.mapStringify")
+			f.P(t(5), "? handlerOptions.mapStringify(request.", jp, ")")
+			f.P(t(5), ": Object.entries(request.", jp, ").map((x) => (")
+			f.P(t(6), "`${encodeURIComponent(`", jp, "[${x[0]}]`)}=${encodeURIComponent(x[1].toString())}`")
+			f.P(t(5), "));")
+			f.P(t(4), "queryParams.push(", jp, ");")
 		case field.IsList():
 			f.P(t(4), "request.", jp, ".forEach((x) => {")
-			f.P(t(5), "queryParams.push(`", jp, "=${encodeURIComponent(x.toString())}`)")
+			f.P(t(5), "queryParams.push(`", jp, "=${encodeURIComponent(x.toString())}`);")
 			f.P(t(4), "})")
 		default:
-			f.P(t(4), "queryParams.push(`", jp, "=${encodeURIComponent(request.", jp, ".toString())}`)")
+			f.P(t(4), "queryParams.push(`", jp, "=${encodeURIComponent(request.", jp, ".toString())}`);")
 		}
 		f.P(t(3), "}")
 	})

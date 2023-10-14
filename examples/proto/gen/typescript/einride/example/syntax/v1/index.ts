@@ -514,7 +514,11 @@ type RequestHandler<T = unknown> = (
 ) => Promise<unknown>;
 
 export function createSyntaxServiceClient<T = unknown>(
-  handler: RequestHandler<T>
+  handler: RequestHandler<T>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  handlerOptions: {
+    mapStringify?: (map: Record<string, unknown>) => string;
+  } = {},
 ): SyntaxService<T> {
   return {
     queryOnly(request, options) { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -522,15 +526,15 @@ export function createSyntaxServiceClient<T = unknown>(
       const body = null;
       const queryParams: string[] = [];
       if (request.string) {
-        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`)
+        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`);
       }
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`);
         })
       }
       if (request.nested?.string) {
-        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`)
+        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -587,11 +591,11 @@ export function createSyntaxServiceClient<T = unknown>(
       const body = request?.nested ?? {};
       const queryParams: string[] = [];
       if (request.string) {
-        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`)
+        queryParams.push(`string=${encodeURIComponent(request.string.toString())}`);
       }
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`);
         })
       }
       let uri = path;
@@ -617,11 +621,11 @@ export function createSyntaxServiceClient<T = unknown>(
       const queryParams: string[] = [];
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`);
         })
       }
       if (request.nested?.string) {
-        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`)
+        queryParams.push(`nested.string=${encodeURIComponent(request.nested.string.toString())}`);
       }
       let uri = path;
       if (queryParams.length > 0) {
@@ -646,7 +650,7 @@ export function createSyntaxServiceClient<T = unknown>(
       const queryParams: string[] = [];
       if (request.repeatedString) {
         request.repeatedString.forEach((x) => {
-          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`)
+          queryParams.push(`repeatedString=${encodeURIComponent(x.toString())}`);
         })
       }
       let uri = path;
