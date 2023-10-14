@@ -155,3 +155,15 @@ func (w *writer) P(ss ...string) {
 func (w *writer) String() string {
 	return w.b.String()
 }
+
+// Check is WellKnownInt64Value or WellKnownUInt64Value type.
+func IsWellKnownTypeLong(wkt WellKnown) bool {
+	switch wkt {
+	case
+		WellKnownInt64Value,
+		WellKnownUInt64Value:
+		return true
+	default:
+		return false
+	}
+}

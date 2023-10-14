@@ -3,6 +3,7 @@ package plugin
 import (
 	"strings"
 
+	"github.com/iancoleman/strcase"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -55,4 +56,15 @@ func rangeEnumValues(enum protoreflect.EnumDescriptor, f func(value protoreflect
 
 func t(n int) string {
 	return strings.Repeat("  ", n)
+}
+
+func TextToCase(text, textcase string) string {
+	switch textcase {
+	case "camelcase":
+		return strcase.ToLowerCamel(text)
+	case "pascalcase":
+		return strcase.ToCamel(text)
+	default:
+		return text
+	}
 }

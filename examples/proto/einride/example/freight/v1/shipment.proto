@@ -5,6 +5,16 @@ package einride.example.freight.v1;
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+enum ShipmentState {
+  // The shipment' state is unknown
+  UNKNOWN_UNSPECIFIED = 0;
+  // The shipment'state is active
+  ACTIVE = 1;
+  // The shipment'state is inactive
+  INACTIVE = 2;
+}
 
 // A shipment represents transportation of goods between an origin
 // [site][einride.example.freight.v1.Site] and a destination
@@ -62,6 +72,16 @@ message Shipment {
 
   // Annotations of the shipment.
   map<string, string> annotations = 12;
+
+  // The state of the shipment
+  ShipmentState state = 14;
+
+  // wrapper string
+  optional google.protobuf.StringValue wrapper_string = 15;
+  // long number
+  int64 long_number = 16;
+  // wrapper long number
+  google.protobuf.Int64Value wrapper_long_number = 17;
 }
 
 // A shipment line item.
@@ -73,5 +93,5 @@ message LineItem {
   // The weight of the line item in kilograms.
   float weight_kg = 3;
   // The volume of the line item in cubic meters.
-  float volume_m3 = 4;
+  optional float volume_m3 = 4;
 }

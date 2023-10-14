@@ -14,8 +14,8 @@ const (
 	name               = "eslint"
 	packageJSONContent = `{
   "dependencies": {
-    "@einride/eslint-plugin": "4.2.0",
-    "eslint": "8.5.0"
+    "@einride/eslint-plugin": "7.4.0",
+    "eslint": "8.51.0"
   }
 }`
 )

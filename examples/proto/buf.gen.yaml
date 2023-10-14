@@ -3,3 +3,4 @@ version: v1
 plugins:
   - name: typescript-http
     out: gen/typescript
+    opt: use_enum_numbers=true,force_message_field_undefined=false,use_body_stringify=false,service_method_naming=camelcase,force_long_as_string=true

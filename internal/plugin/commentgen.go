@@ -10,23 +10,35 @@ import (
 )
 
 type commentGenerator struct {
+	opts       Options
 	descriptor protoreflect.Descriptor
 }
 
 func (c commentGenerator) generateLeading(f *codegen.File, indent int) {
 	loc := c.descriptor.ParentFile().SourceLocations().ByDescriptor(c.descriptor)
 	lines := strings.Split(loc.LeadingComments, "\n")
+
+	commentPrefix := getCommentPrefix(c.opts.UseMultiLineComment)
+
+	if c.opts.UseMultiLineComment && len(loc.LeadingComments) > 0 {
+		f.P(t(indent), "/**")
+	}
+
 	for _, line := range lines {
 		if line == "" {
 			continue
 		}
-		f.P(t(indent), "// ", strings.TrimSpace(line))
+		f.P(t(indent), commentPrefix, " ", strings.TrimSpace(line))
 	}
 	if field, ok := c.descriptor.(protoreflect.FieldDescriptor); ok {
 		if behaviorComment := fieldBehaviorComment(field); len(behaviorComment) > 0 {
-			f.P(t(indent), "//")
-			f.P(t(indent), "// ", behaviorComment)
+			f.P(t(indent), commentPrefix)
+			f.P(t(indent), commentPrefix, " ", behaviorComment)
 		}
+	}
+
+	if c.opts.UseMultiLineComment && len(loc.LeadingComments) > 0 {
+		f.P(t(indent), " */")
 	}
 }
 
@@ -50,4 +62,12 @@ func getFieldBehaviors(field protoreflect.FieldDescriptor) []annotations.FieldBe
 		return behaviors
 	}
 	return nil
+}
+
+func getCommentPrefix(multiline bool) string {
+	if multiline {
+		return " *"
+	}
+
+	return "//"
 }

@@ -1,12 +1,15 @@
 package plugin
 
 import (
+	"strings"
+
 	"go.einride.tech/protoc-gen-typescript-http/internal/codegen"
 	"go.einride.tech/protoc-gen-typescript-http/internal/protowalk"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type packageGenerator struct {
+	opts  Options
 	pkg   protoreflect.FullName
 	files []protoreflect.FileDescriptor
 }
@@ -17,7 +20,11 @@ func (p packageGenerator) Generate(f *codegen.File) error {
 	var walkErr error
 	protowalk.WalkFiles(p.files, func(desc protoreflect.Descriptor) bool {
 		if wkt, ok := WellKnownType(desc); ok {
-			f.P(wkt.TypeDeclaration())
+			d := wkt.TypeDeclaration()
+			if p.opts.ForceLongAsString && IsWellKnownTypeLong(wkt) {
+				d = strings.ReplaceAll(d, "number", "string")
+			}
+			f.P(d)
 			return false
 		}
 		switch v := desc.(type) {
@@ -25,11 +32,16 @@ func (p packageGenerator) Generate(f *codegen.File) error {
 			if v.IsMapEntry() {
 				return false
 			}
-			messageGenerator{pkg: p.pkg, message: v}.Generate(f)
+			messageGenerator{opts: p.opts, pkg: p.pkg, message: v}.Generate(f)
 		case protoreflect.EnumDescriptor:
-			enumGenerator{pkg: p.pkg, enum: v}.Generate(f)
+			enumGenerator{opts: p.opts, pkg: p.pkg, enum: v}.Generate(f)
 		case protoreflect.ServiceDescriptor:
-			if err := (serviceGenerator{pkg: p.pkg, service: v, genHandler: !seenService}).Generate(f); err != nil {
+			if err := (serviceGenerator{
+				opts:       p.opts,
+				pkg:        p.pkg,
+				service:    v,
+				genHandler: !seenService,
+			}).Generate(f); err != nil {
 				walkErr = err
 				return false
 			}
