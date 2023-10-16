@@ -495,8 +495,10 @@ export type ListShipmentsRequest = {
   pageToken: string;
   /**
    * query condition
+   *
+   * Behaviors: OPTIONAL
    */
-  query: { [key: string]: QueryMessage };
+  query?: { [key: string]: QueryMessage };
 };
 
 export type QueryMessage = {

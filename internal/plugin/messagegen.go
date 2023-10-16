@@ -41,7 +41,7 @@ func (m messageGenerator) Generate(f *codegen.File) {
 
 		typesString := strings.Join(types, " | ")
 
-		if field.ContainingOneof() == nil && !field.HasOptionalKeyword() {
+		if field.ContainingOneof() == nil && !field.HasOptionalKeyword() && !isFieldBehaviorOptional(field) {
 			f.P(t(1), name, ": ", typesString, ";")
 		} else {
 			f.P(t(1), name, "?: ", typesString, ";")

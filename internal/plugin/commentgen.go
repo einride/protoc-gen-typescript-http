@@ -71,3 +71,18 @@ func getCommentPrefix(multiline bool) string {
 
 	return "//"
 }
+
+func isFieldBehaviorOptional(field protoreflect.FieldDescriptor) bool {
+	behaviors := getFieldBehaviors(field)
+	if len(behaviors) == 0 {
+		return false
+	}
+
+	for _, b := range behaviors {
+		if b.String() == "OPTIONAL" {
+			return true
+		}
+	}
+
+	return false
+}

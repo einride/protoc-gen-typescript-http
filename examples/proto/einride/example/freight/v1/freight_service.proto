@@ -329,7 +329,7 @@ message ListShipmentsRequest {
   string page_token = 3;
 
   // query condition
-  map<string, QueryMessage> query = 4;
+  map<string, QueryMessage> query = 4 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message QueryMessage {
