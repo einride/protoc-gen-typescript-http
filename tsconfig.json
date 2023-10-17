@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    // type checking
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+
+    // modules
+    "module": "es2020",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+
+    // emit
+    "noEmit": true,
+
+    // javascript support
+    "allowJs": false,
+
+    // interop constraints
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+
+    // landguage and environment
+    "jsx": "react-jsx",
+    "lib": ["es2021", "dom", "dom.iterable"],
+    "target": "es2021",
+
+    // completeness
+    "skipLibCheck": true
+  }
+}

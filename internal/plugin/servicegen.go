@@ -11,6 +11,7 @@ import (
 )
 
 type serviceGenerator struct {
+	opts       Options
 	pkg        protoreflect.FullName
 	genHandler bool
 	service    protoreflect.ServiceDescriptor
@@ -26,7 +27,7 @@ func (s serviceGenerator) Generate(f *codegen.File) error {
 
 func (s serviceGenerator) generateInterface(f *codegen.File) {
 	commentGenerator{descriptor: s.service}.generateLeading(f, 0)
-	f.P("export interface ", descriptorTypeName(s.service), " {")
+	f.P("export interface ", descriptorTypeName(s.service), "<T = unknown> {")
 	rangeMethods(s.service.Methods(), func(method protoreflect.MethodDescriptor) {
 		if !supportedMethod(method) {
 			return
@@ -34,20 +35,26 @@ func (s serviceGenerator) generateInterface(f *codegen.File) {
 		commentGenerator{descriptor: method}.generateLeading(f, 1)
 		input := typeFromMessage(s.pkg, method.Input())
 		output := typeFromMessage(s.pkg, method.Output())
-		f.P(t(1), method.Name(), "(request: ", input.Reference(), "): Promise<", output.Reference(), ">;")
+
+		name := methodName(string(method.Name()), s.opts.ServiceMethodNaming)
+		f.P(t(1), name, "(request: ", input.Reference(), ", options?: T): Promise<", output.Reference(), ">;")
 	})
 	f.P("}")
 	f.P()
 }
 
 func (s serviceGenerator) generateHandler(f *codegen.File) {
-	f.P("type RequestType = {")
+	f.P("// eslint-disable-next-line  @typescript-eslint/no-explicit-any")
+	f.P("type RequestType<T = Record<string, any> | string | null> = {")
 	f.P(t(1), "path: string;")
 	f.P(t(1), "method: string;")
-	f.P(t(1), "body: string | null;")
+	f.P(t(1), "body: T;")
 	f.P("};")
 	f.P()
-	f.P("type RequestHandler = (request: RequestType, meta: { service: string, method: string }) => Promise<unknown>;")
+	f.P("type RequestHandler<T = unknown> = (")
+	f.P(t(1), "request: RequestType & T,")
+	f.P(t(1), "meta: { service: string, method: string },")
+	f.P(") => Promise<unknown>;")
 	f.P()
 }
 
@@ -55,14 +62,25 @@ func (s serviceGenerator) generateClient(f *codegen.File) error {
 	f.P(
 		"export function create",
 		descriptorTypeName(s.service),
-		"Client(",
+		"Client<T = unknown>(",
 		"\n",
 		t(1),
-		"handler: RequestHandler",
+		"handler: RequestHandler<T>,",
+		"\n",
+		t(1),
+		"// eslint-disable-next-line @typescript-eslint/no-unused-vars",
+		"\n",
+		t(1),
+		"handlerOptions: {",
+		"\n",
+		t(2), "mapStringify?: (map: Record<string, unknown>) => string;",
+		"\n",
+		t(1),
+		"} = {},",
 		"\n",
 		"): ",
 		descriptorTypeName(s.service),
-		" {",
+		"<T> {",
 	)
 	f.P(t(1), "return {")
 	var methodErr error
@@ -89,7 +107,8 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	if err != nil {
 		return fmt.Errorf("parse http rule: %w", err)
 	}
-	f.P(t(2), method.Name(), "(request) { // eslint-disable-line @typescript-eslint/no-unused-vars")
+	name := methodName(string(method.Name()), s.opts.ServiceMethodNaming)
+	f.P(t(2), name, "(request, options) { // eslint-disable-line @typescript-eslint/no-unused-vars")
 	s.generateMethodPathValidation(f, method.Input(), rule)
 	s.generateMethodPath(f, method.Input(), rule)
 	s.generateMethodBody(f, method.Input(), rule)
@@ -102,6 +121,7 @@ func (s serviceGenerator) generateMethod(f *codegen.File, method protoreflect.Me
 	f.P(t(4), "path: uri,")
 	f.P(t(4), "method: ", strconv.Quote(rule.Method), ",")
 	f.P(t(4), "body,")
+	f.P(t(4), "...(options as T),")
 	f.P(t(3), "}, {")
 	f.P(t(4), "service: \"", method.Parent().Name(), "\",")
 	f.P(t(4), "method: \"", method.Name(), "\",")
@@ -120,7 +140,7 @@ func (s serviceGenerator) generateMethodPathValidation(
 			continue
 		}
 		fp := seg.Variable.FieldPath
-		nullPath := nullPropagationPath(fp, input)
+		nullPath := s.nullPropagationPath(fp, input)
 		protoPath := strings.Join(fp, ".")
 		errMsg := "missing required field request." + protoPath
 		f.P(t(3), "if (!request.", nullPath, ") {")
@@ -138,7 +158,7 @@ func (s serviceGenerator) generateMethodPath(
 	for _, seg := range rule.Template.Segments {
 		switch seg.Kind {
 		case httprule.SegmentKindVariable:
-			fieldPath := jsonPath(seg.Variable.FieldPath, input)
+			fieldPath := s.jsonPath(seg.Variable.FieldPath, input)
 			pathParts = append(pathParts, "${request."+fieldPath+"}")
 		case httprule.SegmentKindLiteral:
 			pathParts = append(pathParts, seg.Literal)
@@ -164,10 +184,18 @@ func (s serviceGenerator) generateMethodBody(
 	case rule.Body == "":
 		f.P(t(3), "const body = null;")
 	case rule.Body == "*":
-		f.P(t(3), "const body = JSON.stringify(request);")
+		if s.opts.UseBodyStringify {
+			f.P(t(3), "const body = JSON.stringify(request);")
+		} else {
+			f.P(t(3), "const body = request;")
+		}
 	default:
-		nullPath := nullPropagationPath(httprule.FieldPath{rule.Body}, input)
-		f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
+		nullPath := s.nullPropagationPath(httprule.FieldPath{rule.Body}, input)
+		if s.opts.UseBodyStringify {
+			f.P(t(3), "const body = JSON.stringify(request?.", nullPath, " ?? {});")
+		} else {
+			f.P(t(3), "const body = request?.", nullPath, " ?? {};")
+		}
 	}
 }
 
@@ -196,16 +224,23 @@ func (s serviceGenerator) generateMethodQuery(
 		if rule.Body != "" && path[0] == rule.Body {
 			return
 		}
-		nullPath := nullPropagationPath(path, input)
-		jp := jsonPath(path, input)
+		nullPath := s.nullPropagationPath(path, input)
+		jp := s.jsonPath(path, input)
 		f.P(t(3), "if (request.", nullPath, ") {")
 		switch {
+		case field.IsMap():
+			f.P(t(4), "const ", jp, " = handlerOptions?.mapStringify")
+			f.P(t(5), "? handlerOptions.mapStringify(request.", jp, ")")
+			f.P(t(5), ": Object.entries(request.", jp, ").map((x) => (")
+			f.P(t(6), "`${encodeURIComponent(`", jp, "[${x[0]}]`)}=${encodeURIComponent(x[1].toString())}`")
+			f.P(t(5), "));")
+			f.P(t(4), "queryParams.push(", jp, ");")
 		case field.IsList():
 			f.P(t(4), "request.", jp, ".forEach((x) => {")
-			f.P(t(5), "queryParams.push(`", jp, "=${encodeURIComponent(x.toString())}`)")
+			f.P(t(5), "queryParams.push(`", jp, "=${encodeURIComponent(x.toString())}`);")
 			f.P(t(4), "})")
 		default:
-			f.P(t(4), "queryParams.push(`", jp, "=${encodeURIComponent(request.", jp, ".toString())}`)")
+			f.P(t(4), "queryParams.push(`", jp, "=${encodeURIComponent(request.", jp, ".toString())}`);")
 		}
 		f.P(t(3), "}")
 	})
@@ -216,22 +251,30 @@ func supportedMethod(method protoreflect.MethodDescriptor) bool {
 	return ok && !method.IsStreamingClient() && !method.IsStreamingServer()
 }
 
-func jsonPath(path httprule.FieldPath, message protoreflect.MessageDescriptor) string {
-	return strings.Join(jsonPathSegments(path, message), ".")
+func (s serviceGenerator) jsonPath(path httprule.FieldPath, message protoreflect.MessageDescriptor) string {
+	return strings.Join(s.jsonPathSegments(path, message), ".")
 }
 
-func nullPropagationPath(path httprule.FieldPath, message protoreflect.MessageDescriptor) string {
-	return strings.Join(jsonPathSegments(path, message), "?.")
+func (s serviceGenerator) nullPropagationPath(path httprule.FieldPath, message protoreflect.MessageDescriptor) string {
+	return strings.Join(s.jsonPathSegments(path, message), "?.")
 }
 
-func jsonPathSegments(path httprule.FieldPath, message protoreflect.MessageDescriptor) []string {
+func (s serviceGenerator) jsonPathSegments(path httprule.FieldPath, message protoreflect.MessageDescriptor) []string {
 	segs := make([]string, len(path))
 	for i, p := range path {
 		field := message.Fields().ByName(protoreflect.Name(p))
-		segs[i] = field.JSONName()
+		if s.opts.UseProtoNames {
+			segs[i] = field.TextName()
+		} else {
+			segs[i] = field.JSONName()
+		}
 		if i < len(path) {
 			message = field.Message()
 		}
 	}
 	return segs
+}
+
+func methodName(name, textcase string) string {
+	return TextToCase(name, textcase)
 }

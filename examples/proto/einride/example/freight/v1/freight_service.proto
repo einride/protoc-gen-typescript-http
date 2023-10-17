@@ -21,7 +21,8 @@ import "google/protobuf/field_mask.proto";
 // - Each Shipper has a collection of [Site][einride.example.freight.v1.Site]
 //   resources, named `shippers/*/sites/*`
 //
-// - Each Shipper has a collection of [Shipment][einride.example.freight.v1.Shipment]
+// - Each Shipper has a collection of
+// [Shipment][einride.example.freight.v1.Shipment]
 //   resources, named `shippers/*/shipments/*`
 service FreightService {
   option (google.api.default_host) = "freight-example.einride.tech";
@@ -29,7 +30,10 @@ service FreightService {
   // Get a shipper.
   // See: https://google.aip.dev/131 (Standard methods: Get).
   rpc GetShipper(GetShipperRequest) returns (Shipper) {
-    option (google.api.http) = {get: "/v1/{name=shippers/*}"};
+    option (google.api.http) = {
+      get: "/v1/{name=shippers/*}",
+      additional_bindings {get: "/v1/{name=shippers-alias/*}"}
+    };
     option (google.api.method_signature) = "name";
   }
 
@@ -261,8 +265,8 @@ message ListSitesResponse {
 
 // Request message for FreightService.CreateSite.
 message CreateSiteRequest {
-  // The resource name of the parent shipper for which this site will be created.
-  // Format: shippers/{shipper}
+  // The resource name of the parent shipper for which this site will be
+  // created. Format: shippers/{shipper}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {child_type: "freight-example.einride.tech/Shipper"}
@@ -323,6 +327,16 @@ message ListShipmentsRequest {
   // [ListShipmentsResponse.next_page_token][einride.example.freight.v1.ListShipmentsResponse.next_page_token]
   // returned from the previous call to `ListShipments` method.
   string page_token = 3;
+
+  // query condition
+  map<string, QueryMessage> query = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message QueryMessage {
+  string key = 1;
+  string value = 2;
+
+  optional QueryMessage nested_query = 3;
 }
 
 // Response message for FreightService.ListShipments.
@@ -339,8 +353,8 @@ message ListShipmentsResponse {
 
 // Request message for FreightService.CreateShipment.
 message CreateShipmentRequest {
-  // The resource name of the parent shipper for which this shipment will be created.
-  // Format: shippers/{shipper}
+  // The resource name of the parent shipper for which this shipment will be
+  // created. Format: shippers/{shipper}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {child_type: "freight-example.einride.tech/Shipper"}

@@ -1,6 +1,8 @@
 package plugin
 
-import "google.golang.org/protobuf/reflect/protoreflect"
+import (
+	"google.golang.org/protobuf/reflect/protoreflect"
+)
 
 type Type struct {
 	IsNamed bool
@@ -79,4 +81,18 @@ func typeFromMessage(pkg protoreflect.FullName, message protoreflect.MessageDesc
 		return Type{IsNamed: true, Name: wkt.Name()}
 	}
 	return Type{IsNamed: true, Name: scopedDescriptorTypeName(pkg, message)}
+}
+
+func IsTypeLong(field protoreflect.FieldDescriptor) bool {
+	switch field.Kind() {
+	case
+		protoreflect.Int64Kind,
+		protoreflect.Uint64Kind,
+		protoreflect.Fixed64Kind,
+		protoreflect.Sfixed64Kind,
+		protoreflect.Sint64Kind:
+		return true
+	default:
+		return false
+	}
 }
