@@ -1,7 +1,9 @@
 package plugin
 
 import (
+	"go.einride.tech/aip/fieldbehavior"
 	"go.einride.tech/protoc-gen-typescript-http/internal/codegen"
+	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -15,8 +17,9 @@ func (m messageGenerator) Generate(f *codegen.File) {
 	f.P("export type ", scopedDescriptorTypeName(m.pkg, m.message), " = {")
 	rangeFields(m.message, func(field protoreflect.FieldDescriptor) {
 		commentGenerator{descriptor: field}.generateLeading(f, 1)
+		optional := hasOptionalAnnotation(field) || field.HasOptionalKeyword()
 		fieldType := typeFromField(m.pkg, field)
-		if field.ContainingOneof() == nil && !field.HasOptionalKeyword() {
+		if field.ContainingOneof() == nil && !optional {
 			f.P(t(1), field.JSONName(), ": ", fieldType.Reference(), " | undefined;")
 		} else {
 			f.P(t(1), field.JSONName(), "?: ", fieldType.Reference(), ";")
@@ -25,4 +28,8 @@ func (m messageGenerator) Generate(f *codegen.File) {
 
 	f.P("};")
 	f.P()
+}
+
+func hasOptionalAnnotation(field protoreflect.FieldDescriptor) bool {
+	return fieldbehavior.Has(field, annotations.FieldBehavior_OPTIONAL)
 }

@@ -3,12 +3,13 @@ module go.einride.tech/protoc-gen-typescript-http
 go 1.17
 
 require (
-	google.golang.org/genproto v0.0.0-20201214200347-8c77b98c765d
-	google.golang.org/protobuf v1.28.1
-	gotest.tools/v3 v3.4.0
+	go.einride.tech/aip v0.67.1
+	google.golang.org/genproto/googleapis/api v0.0.0-20240123012728-ef4313101c80
+	google.golang.org/protobuf v1.33.0
+	gotest.tools/v3 v3.5.1
 )
 
 require (
-	github.com/golang/protobuf v1.5.0 // indirect
-	github.com/google/go-cmp v0.5.5 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	google.golang.org/genproto v0.0.0-20240123012728-ef4313101c80 // indirect
 )
