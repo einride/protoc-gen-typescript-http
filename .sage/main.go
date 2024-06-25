@@ -53,6 +53,11 @@ func GoLint(ctx context.Context) error {
 	return sggolangcilint.Run(ctx)
 }
 
+func GoLintFix(ctx context.Context) error {
+	sg.Logger(ctx).Println("fixing Go files...")
+	return sggolangcilint.Fix(ctx)
+}
+
 func FormatMarkdown(ctx context.Context) error {
 	sg.Logger(ctx).Println("formatting Markdown files...")
 	return sgmarkdownfmt.Command(ctx, "-w", ".").Run()
