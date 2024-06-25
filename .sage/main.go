@@ -8,7 +8,7 @@ import (
 	"go.einride.tech/sage/tools/sggit"
 	"go.einride.tech/sage/tools/sggo"
 	"go.einride.tech/sage/tools/sggolangcilint"
-	"go.einride.tech/sage/tools/sgmarkdownfmt"
+	"go.einride.tech/sage/tools/sgmdformat"
 	"go.einride.tech/sage/tools/sgyamlfmt"
 )
 
@@ -60,7 +60,7 @@ func GoLintFix(ctx context.Context) error {
 
 func FormatMarkdown(ctx context.Context) error {
 	sg.Logger(ctx).Println("formatting Markdown files...")
-	return sgmarkdownfmt.Command(ctx, "-w", ".").Run()
+	return sgmdformat.Command(ctx).Run()
 }
 
 func ConvcoCheck(ctx context.Context) error {
