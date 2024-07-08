@@ -16,16 +16,16 @@ import (
 func Generate(request *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
 	generate := make(map[string]struct{})
 	registry, err := protodesc.NewFiles(&descriptorpb.FileDescriptorSet{
-		File: request.ProtoFile,
+		File: request.GetProtoFile(),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("create proto registry: %w", err)
 	}
-	for _, f := range request.FileToGenerate {
+	for _, f := range request.GetFileToGenerate() {
 		generate[f] = struct{}{}
 	}
 	packaged := make(map[protoreflect.FullName][]protoreflect.FileDescriptor)
-	for _, f := range request.FileToGenerate {
+	for _, f := range request.GetFileToGenerate() {
 		file, err := registry.FindFileByPath(f)
 		if err != nil {
 			return nil, fmt.Errorf("find file %s: %w", f, err)

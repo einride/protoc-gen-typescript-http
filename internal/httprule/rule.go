@@ -39,8 +39,8 @@ func ParseRule(httpRule *annotations.HttpRule) (Rule, error) {
 	if err != nil {
 		return Rule{}, err
 	}
-	additional := make([]Rule, len(httpRule.AdditionalBindings))
-	for i, r := range httpRule.AdditionalBindings {
+	additional := make([]Rule, len(httpRule.GetAdditionalBindings()))
+	for i, r := range httpRule.GetAdditionalBindings() {
 		a, err := ParseRule(r)
 		if err != nil {
 			return Rule{}, fmt.Errorf("parse additional binding %d: %w", i, err)
@@ -50,7 +50,7 @@ func ParseRule(httpRule *annotations.HttpRule) (Rule, error) {
 	return Rule{
 		Method:          method,
 		Template:        template,
-		Body:            httpRule.Body,
+		Body:            httpRule.GetBody(),
 		AdditionalRules: additional,
 	}, nil
 }
@@ -68,7 +68,7 @@ func httpRuleURL(rule *annotations.HttpRule) (string, error) {
 	case *annotations.HttpRule_Put:
 		return v.Put, nil
 	case *annotations.HttpRule_Custom:
-		return v.Custom.Path, nil
+		return v.Custom.GetPath(), nil
 	default:
 		return "", fmt.Errorf("http rule does not have an URL defined")
 	}
@@ -87,7 +87,7 @@ func httpRuleMethod(rule *annotations.HttpRule) (string, error) {
 	case *annotations.HttpRule_Put:
 		return http.MethodPut, nil
 	case *annotations.HttpRule_Custom:
-		return v.Custom.Kind, nil
+		return v.Custom.GetKind(), nil
 	default:
 		return "", fmt.Errorf("http rule does not have an URL defined")
 	}
