@@ -75,9 +75,26 @@ go-lint-fix: $(sagefile)
 go-mod-tidy: $(sagefile)
 	@$(sagefile) GoModTidy
 
+.PHONY: go-releaser
+go-releaser: $(sagefile)
+ifndef snapshot
+	 $(error missing argument snapshot="...")
+endif
+	@$(sagefile) GoReleaser "$(snapshot)"
+
 .PHONY: go-test
 go-test: $(sagefile)
 	@$(sagefile) GoTest
+
+.PHONY: semantic-release
+semantic-release: $(sagefile)
+ifndef repo
+	 $(error missing argument repo="...")
+endif
+ifndef dry
+	 $(error missing argument dry="...")
+endif
+	@$(sagefile) SemanticRelease "$(repo)" "$(dry)"
 
 .PHONY: typescript-lint
 typescript-lint: $(sagefile)

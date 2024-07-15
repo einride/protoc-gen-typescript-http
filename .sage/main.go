@@ -8,6 +8,8 @@ import (
 	"go.einride.tech/sage/tools/sggit"
 	"go.einride.tech/sage/tools/sggo"
 	"go.einride.tech/sage/tools/sggolangcilint"
+	"go.einride.tech/sage/tools/sggoreleaser"
+	"go.einride.tech/sage/tools/sggosemanticrelease"
 	"go.einride.tech/sage/tools/sgmdformat"
 	"go.einride.tech/sage/tools/sgyamlfmt"
 )
@@ -82,4 +84,38 @@ func TypescriptLint(ctx context.Context) error {
 		"--quiet",
 		"examples/proto/gen/typescript/**/*.ts",
 	).Run()
+}
+
+func SemanticRelease(ctx context.Context, repo string, dry bool) error {
+	sg.Logger(ctx).Println("triggering release...")
+	args := []string{
+		"--allow-initial-development-versions",
+		"--allow-no-changes",
+		"--ci-condition=default",
+		"--provider=github",
+		"--provider-opt=slug=" + repo,
+	}
+	if dry {
+		args = append(args, "--dry")
+	}
+	return sggosemanticrelease.Command(ctx, args...).Run()
+}
+
+func GoReleaser(ctx context.Context, snapshot bool) error {
+	sg.Logger(ctx).Println("building Go binary releases...")
+	if err := sggit.Command(ctx, "fetch", "--force", "--tags").Run(); err != nil {
+		return err
+	}
+	args := []string{
+		"release",
+		"--clean",
+	}
+	if len(sggit.Tags(ctx)) == 0 && !snapshot {
+		sg.Logger(ctx).Printf("no git tag found for %s, forcing snapshot mode", sggit.ShortSHA(ctx))
+		snapshot = true
+	}
+	if snapshot {
+		args = append(args, "--snapshot")
+	}
+	return sggoreleaser.Command(ctx, args...).Run()
 }
