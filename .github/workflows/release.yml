@@ -16,19 +16,12 @@ jobs:
       - name: Make
         run: make
 
-      - name: Release
-        uses: go-semantic-release/action@v1.23
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          allow-initial-development-versions: true
+      - name: Run semantic-release
+        run: make semantic-release repo=${{ github.repository }} dry=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fetch tags
-        run: git fetch --force --tags
-
-      - name: Run goreleaser
-        uses: goreleaser/goreleaser-action@v6.0.0
-        with:
-          version: latest
-          args: release --rm-dist
+      - name: Run GoReleaser
+        run: make go-releaser snapshot=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

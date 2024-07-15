@@ -1,5 +1,4 @@
 .idea
-tools/*/*/
-bin
+.vscode
 .semrel
 .generated-go-semantic-release-changelog.md
