@@ -144,7 +144,6 @@ func Test_ParseTemplate(t *testing.T) {
 			},
 		},
 	} {
-		tt := tt
 		t.Run(tt.input, func(t *testing.T) {
 			t.Parallel()
 			got, err := ParseTemplate(tt.input)
@@ -169,7 +168,6 @@ func Test_ParseTemplate_Invalid(t *testing.T) {
 		{template: "/v1/messages/*", expected: "'*' must only be used in variables"},
 		{template: "/v1/{id}/{id}", expected: "variable 'id' bound multiple times"},
 	} {
-		tt := tt
 		t.Run(tt.template, func(t *testing.T) {
 			t.Parallel()
 			_, err := ParseTemplate(tt.template)
