@@ -15,7 +15,8 @@ const (
 	packageJSONContent = `{
   "dependencies": {
     "@einride/eslint-plugin": "4.2.0",
-    "eslint": "8.5.0"
+    "eslint": "8.5.0",
+    "typescript": "5.9.3"
   }
 }`
 )
