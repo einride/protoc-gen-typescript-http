@@ -1,6 +1,6 @@
 module go.einride.tech/protoc-gen-typescript-http
 
-go 1.24
+go 1.26.11
 
 require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20240624140628-dc46fd24d27d
