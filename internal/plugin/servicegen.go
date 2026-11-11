@@ -160,10 +160,10 @@ func (s serviceGenerator) generateMethodBody(
 	input protoreflect.MessageDescriptor,
 	rule httprule.Rule,
 ) {
-	switch {
-	case rule.Body == "":
+	switch rule.Body {
+	case "":
 		f.P(t(3), "const body = null;")
-	case rule.Body == "*":
+	case "*":
 		f.P(t(3), "const body = JSON.stringify(request);")
 	default:
 		nullPath := nullPropagationPath(httprule.FieldPath{rule.Body}, input)
