@@ -24,11 +24,10 @@ const (
 func eslintCommand(ctx context.Context, args ...string) *exec.Cmd {
 	sg.Deps(ctx, prepareEslintCommand)
 	// eslint plugins should be resolved from the tool dir
-	defaultArgs := []string{
-		"--resolve-plugins-relative-to",
-		sg.FromToolsDir(name),
-	}
-	cmd := sg.Command(ctx, sg.FromBinDir(name), append(defaultArgs, args...)...)
+	cmdArgs := make([]string, 0, 2+len(args))
+	cmdArgs = append(cmdArgs, "--resolve-plugins-relative-to", sg.FromToolsDir(name))
+	cmdArgs = append(cmdArgs, args...)
+	cmd := sg.Command(ctx, sg.FromBinDir(name), cmdArgs...)
 	return cmd
 }
 
