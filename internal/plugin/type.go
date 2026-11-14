@@ -41,24 +41,27 @@ func typeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescriptor
 	}
 }
 
+// JSON Mapping: https://developers.google.com/protocol-buffers/docs/proto3#json
 func namedTypeFromField(pkg protoreflect.FullName, field protoreflect.FieldDescriptor) Type {
 	switch field.Kind() {
-	case protoreflect.StringKind, protoreflect.BytesKind:
+	case
+		protoreflect.StringKind,
+		protoreflect.BytesKind,
+		protoreflect.Int64Kind,
+		protoreflect.Uint64Kind,
+		protoreflect.Fixed64Kind,
+		protoreflect.Sfixed64Kind,
+		protoreflect.Sint64Kind:
 		return Type{IsNamed: true, Name: "string"}
 	case protoreflect.BoolKind:
 		return Type{IsNamed: true, Name: "boolean"}
 	case
 		protoreflect.Int32Kind,
-		protoreflect.Int64Kind,
 		protoreflect.Uint32Kind,
-		protoreflect.Uint64Kind,
 		protoreflect.DoubleKind,
 		protoreflect.Fixed32Kind,
-		protoreflect.Fixed64Kind,
 		protoreflect.Sfixed32Kind,
-		protoreflect.Sfixed64Kind,
 		protoreflect.Sint32Kind,
-		protoreflect.Sint64Kind,
 		protoreflect.FloatKind:
 		return Type{IsNamed: true, Name: "number"}
 	case protoreflect.MessageKind:
